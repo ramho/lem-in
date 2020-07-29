@@ -32,7 +32,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_memchr.c \
 		ft_printf/width_n_final_flag.c ft_printf/precision_flag.c \
 		ft_printf/ft_printf.c ft_printf/parse_flags.c ft_printf/parse_flags_bis.c \
 		ft_printf/start_conversion.c ft_printf/length_modifiers_flag.c \
-		ft_printf/free.c  ft_strchri.c ft_pos_i.c\
+		ft_printf/free.c  ft_strchri.c ft_pos_i.c ft_numlen.c\
 
 
 FLAGS = -Wall -Werror -Wextra
