@@ -3,13 +3,15 @@
 void parse_file(t_lemin *lemin)
 {
 	int i;
+	t_node *root;
 
+	root = NULL;
 	lemin->nb_ants = ft_atoi(lemin->file[0]);
 	i = 1;
 	while (lemin->file[i] != NULL)
 	{
 		if (lemin->file[i][0] == '#' && lemin->file[i][1] == '#')
-			get_start_or_end_piece(&i, lemin);
+			get_start_or_end_piece(&i, lemin, root);
 		// else if (ft_isalnum(lemin->file[i][0]))
 		// 	 get_room(lemin->file[i], lemin);
 		// else if (ft_strchr(lemin->file[i], '-'))
@@ -45,6 +47,6 @@ int main()
 
 	get_file_content(&lemin);
 	parse_file(&lemin);
-	printf("name %s x %d y %d\n", lemin.node->name, lemin.node->x, lemin.node->y);
+	// printf("name %s x %d y %d\n", lemin.node->name, lemin.node->x, lemin.node->y);
 	return(0);
 }
