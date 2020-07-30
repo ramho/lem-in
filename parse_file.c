@@ -1,20 +1,19 @@
 #include "lemin.h"
 
-void get_room(char *line, t_lemin *lemin, t_node *root)
+void get_room(char *line, t_lemin *lemin, t_node **root)
 {
   int i;
   int j;
-  t_node temp;
+  t_node *temp;
   t_node *ptr;
 
   i = 0;
+  temp = malloc(sizeof(t_node));
   while (i < ft_strlen(line))
   {
     while (line[i] != ' ')
       i++;
-    printf("test 111\n");
-    temp.name = ft_strsub(line, 0, i);
-    //check if digit else error
+    temp->name = ft_strsub(line, 0, i);
     j = i + 1;
     while ( line[j] != ' ')
     {
@@ -22,58 +21,54 @@ void get_room(char *line, t_lemin *lemin, t_node *root)
       j++;
       else
       {
-        ft_printf("ERROR\n");
+        ft_printf("ERROR x\n");
         exit(0); // error non digit
       }
     }
-    printf("test 222\n");
-    temp.x = ft_atoi(&line[i + 1]);
-    printf("test 333\n");
-    i = i + (ft_numlen(temp.x) + 1);
-    j = i;
+    temp->x = ft_atoi(&line[i + 1]);
+    i = i + (ft_numlen(temp->x) + 1);
+    j = i + 1;
     while (line[j] != '\0')
     {
-      if (ft_isdigit(line[j]))
-      j++;
+      if (j <= ft_strlen(line) && ft_isdigit(line[j]))
+        j++;
       else
+      {
+        ft_printf("ERROR y\n");
         exit(0); // error non digit
+      }
     }
-    printf("test 444\n");
-    temp.y = ft_atoi(&line[i]);
-    printf("test 555\n");
-    i = i + (ft_numlen(temp.y) + 1);
+    temp->y = ft_atoi(&line[i]);
+    i = i + (ft_numlen(temp->y) + 1);
   }
-  temp.next = NULL;
-  if (root == NULL)
-    root = &temp;
+  temp->next = NULL;
+  if (*root == NULL)
+    *root = temp;
   else
   {
-    ptr = root;
+    ptr = *root;
     while (ptr->next != NULL)
       ptr = ptr->next;
-    ptr->next = &temp;
+    ptr->next = temp;
   }
+  printf("root name %s %d %d\n", (*root)->name, (*root)->x, (*root)->y);
 }
 
-void get_start_or_end_piece(int *i, t_lemin *lemin, t_node *root)
+void get_start_or_end_piece(int *i, t_lemin *lemin, t_node **root)
 {
   int j;
 
   j = 0;
   if (ft_strstr(lemin->file[*i], "start"))
   {
-    printf("%s\n", lemin->file[*i + 1]);
+    ft_printf("%s\n", lemin->file[*i + 1]);
     get_room(lemin->file[*i + 1], lemin, root);
-    // while ( j < ft_strlen(lemin->line[*i + 1]))
-    // {
-    //   while()
-    //   j++;
-    // }
+    printf("out of get_room name %s\n", (*root)->name);
   }
   // if (ft_strstr(lemin->file[*i], "end"))
   // {
-  //     printf("%s\n", lemin->file[*i + 1]);
-  //     get_room(lemin->file[*i + 1], lemin);
+  //     ft_printf("%s\n", lemin->file[*i + 1]);
+  //     get_room(lemin->file[*i + 1], lemin, root);
   // }
   *i = *i + 1;
 }
