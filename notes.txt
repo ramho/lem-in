@@ -1,0 +1,59 @@
+┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+      NOTES
+└╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+* parsing
+  -check if start
+  -check if end
+  -check if connexion between start/end ?
+
+*first rooms then links
+  -if rooms after links, invalid
+
+*no file passed to binary
+
+*get rooms
+  -linked list
+  -hash map
+
+*how to get links ?
+  -linked list
+
+*node
+  -if start/end/*
+    +if start/end, check number of in/output
+      to have number of times to go through bhandari
+  -name
+  -coord x/y
+  -links
+  -cost/weight (1)
+
+*adjacency matrix or  adjacency list
+
+┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+      SOURCES
+└╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+- hashmap --> http://www.kaushikbaruah.com/posts/data-structure-in-c-hashmap/
+
+┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+        CODE
+└╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+int main() // basic test for hash
+{
+  t_lemin lemin;
+  t_node node;
+
+  node.name = 'A';
+  node.x = 2;
+  node.y = 3;
+
+  create_table(1, &lemin);
+  insert_node_in_table(&lemin, node.name, &node);
+  printf("Name is %d\n", lookup(&lemin, node.name));
+  return(0);
+}
+
+
+...(╯°□°）╯︵ ┻┻

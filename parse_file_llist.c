@@ -42,16 +42,16 @@ void get_room(char *line, t_lemin *lemin, t_node **root)
     i = i + (ft_numlen(temp->y) + 1);
   }
   temp->next = NULL;
-  if (*root == NULL)
-    *root = temp;
+  if ((*root) == NULL)
+    (*root) = temp;
   else
   {
-    ptr = *root;
+    printf("root is already taken\n");
+    ptr = (*root);
     while (ptr->next != NULL)
       ptr = ptr->next;
     ptr->next = temp;
   }
-  printf("root name %s %d %d\n", (*root)->name, (*root)->x, (*root)->y);
 }
 
 void get_start_or_end_piece(int *i, t_lemin *lemin, t_node **root)
@@ -63,13 +63,12 @@ void get_start_or_end_piece(int *i, t_lemin *lemin, t_node **root)
   {
     ft_printf("%s\n", lemin->file[*i + 1]);
     get_room(lemin->file[*i + 1], lemin, root);
-    printf("out of get_room name %s\n", (*root)->name);
   }
-  // if (ft_strstr(lemin->file[*i], "end"))
-  // {
-  //     ft_printf("%s\n", lemin->file[*i + 1]);
-  //     get_room(lemin->file[*i + 1], lemin, root);
-  // }
+  if (ft_strstr(lemin->file[*i], "end"))
+  {
+      ft_printf("%s\n", lemin->file[*i + 1]);
+      get_room(lemin->file[*i + 1], lemin, root);
+  }
   *i = *i + 1;
 }
 
