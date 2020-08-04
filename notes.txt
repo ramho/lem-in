@@ -35,7 +35,7 @@
 └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
 
 - hashmap --> http://www.kaushikbaruah.com/posts/data-structure-in-c-hashmap/
-
+- shitty hash function for *char https://stackoverflow.com/questions/7666509/hash-function-for-string
 ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
         CODE
 └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘

@@ -19,9 +19,7 @@ int hash_code(t_lemin *lemin, char *key) // ameliorer!!
   hash_value = 0;
   while ((c = *key++))
     hash_value += c + 19;
-  return (hash_value);
-
-  // return (key % lemin->table_size);
+  return (hash_value % lemin->table_size);
 }
 
 void insert_node_in_table(t_lemin *lemin, t_node *node)
@@ -50,6 +48,25 @@ new_node->next = list;
 lemin->list[position] = new_node;
 }
 
+void print_list(t_lemin *lemin, char *key)
+{
+  int position = 0;
+  t_node *list;
+
+  list = lemin->list[0];
+  while (position < lemin->table_size)
+  {
+    if (lemin->list[position] == NULL)
+      printf("list is NULL\n");
+    else
+    {
+      list = lemin->list[position];
+      printf("Pos [%d] - Name: %s - Coord: %d-%d\n", hash_code(lemin, list->name), list->name, list->x, list->y);
+    }
+    list = lemin->list[position++];
+  }
+}
+
 char lookup(t_lemin *lemin, char* key)
 {
   int position;
@@ -59,7 +76,6 @@ char lookup(t_lemin *lemin, char* key)
   position = hash_code(lemin, key);
   list = lemin->list[position];
   temp = list;
-
   while (temp)
   {
     if (temp->name == key)

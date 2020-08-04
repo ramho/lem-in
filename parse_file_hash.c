@@ -41,6 +41,7 @@ printf("in get room, line --> %s\n", line);
     temp->y = ft_atoi(&line[i]);
     i = i + (ft_numlen(temp->y) + 1);
   }
+ insert_node_in_table(lemin, temp);
 }
 
 void get_start_or_end_piece(int *i, t_lemin *lemin)
@@ -49,16 +50,9 @@ void get_start_or_end_piece(int *i, t_lemin *lemin)
 
   j = 0;
   if (ft_strstr(lemin->file[*i], "start"))
-  {
-    ft_printf("%s\n", lemin->file[*i + 1]);
     get_room(lemin->file[*i + 1], lemin);
-    printf("out of get_room\n");
-  }
   if (ft_strstr(lemin->file[*i], "end"))
-  {
-      ft_printf("%s\n", lemin->file[*i + 1]);
       get_room(lemin->file[*i + 1], lemin);
-  }
   *i = *i + 1;
 }
 

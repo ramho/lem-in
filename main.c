@@ -15,11 +15,9 @@ void parse_file(t_lemin *lemin)
 				get_links(0);
 		else if (ft_isalnum(lemin->file[i][0]))
 			 get_room(lemin->file[i], lemin);
-
-		// else if ( lemin->file[i][0] == '#' && lemin->file[i][1] != '#')
-		// 	continue;
+		else if ( lemin->file[i][0] == '#' && lemin->file[i][1] != '#')
+			continue;
 		i++;
-		// printf("in parse file while line %s\n", lemin->file[i]);
 	}
 }
 
@@ -32,15 +30,18 @@ void	get_file_content(t_lemin *lemin)
 	ret = 0;
 	i = 0;
 	lemin->file=malloc(sizeof(char *) * 1000);
-	while ((ret = get_next_line(0, &line)))
+	while ((ret = get_next_line(0, &line)) > 0)
 	{
 		lemin->file[i]=ft_strdup(line);
 		i++;
 	}
 	lemin->file[i] = NULL;
 	lemin->table_size = i;// get number of lines and more for table
-	if (ret == -1)
+	if (ret <= 0)
+	{
+		printf("FILE ERROR\n");
 		exit(0);
+	}
 }
 
 int main()
@@ -49,8 +50,8 @@ int main()
 
 	get_file_content(&lemin);
 	parse_file(&lemin);
-	printf("out of parse file\n");
-
-	// printf("name %s x %d y %d\n", lemin.node->name, lemin.node->x, lemin.node->y);
+	// printf("out of parse file\n");
+	print_list(&lemin, "A");
+	// printf("lookup is %d\n",lookup(&lemin, "E"));
 	return(0);
 }

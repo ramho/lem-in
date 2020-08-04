@@ -13,7 +13,7 @@ typedef struct s_node
   char *type;
   int x;
   int y;
-  int link;
+  struct s_node *link; // linked list for links
   struct s_node *next;
 }               t_node;
 
@@ -33,12 +33,10 @@ void get_file_content(t_lemin *lemin);
 void parse_file(t_lemin *lemin);
 
 /*
-**  parse_file_hash.c // parse_file_llist.c
+**  parse_file_hash.c
 */
-// void get_start_or_end_piece(int *i, t_lemin *lemin, t_node **root);
 void get_start_or_end_piece(int *i, t_lemin *lemin);
 void get_links(t_lemin *lemin);
-// void get_room(char *line, t_lemin *lemin, t_node **room);
 void get_room(char *line, t_lemin *lemin);
 
 /*
@@ -47,7 +45,12 @@ void get_room(char *line, t_lemin *lemin);
 void create_table(int size, t_lemin *lemin);
 int hash_code(t_lemin *lemin, char* key);
 void insert_node_in_table(t_lemin *lemin, t_node *node);
+
+/*
+**  extra_func.c
+*/
 char lookup(t_lemin *lemin, char* key);
+void print_list(t_lemin *lemin, char *key);
 
 
 
