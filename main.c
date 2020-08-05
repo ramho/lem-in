@@ -12,9 +12,11 @@ void parse_file(t_lemin *lemin)
 		if (lemin->file[i][0] == '#' && lemin->file[i][1] == '#')
 			get_start_or_end_piece(&i, lemin);
 		else if (ft_strchr(lemin->file[i], '-'))
-				get_links(0);
+				get_links(lemin->file[i], lemin);
 		else if (ft_isalnum(lemin->file[i][0]))
+		{
 			 get_room(lemin->file[i], lemin);
+		 }
 		else if ( lemin->file[i][0] == '#' && lemin->file[i][1] != '#')
 			continue;
 		i++;
@@ -37,9 +39,9 @@ void	get_file_content(t_lemin *lemin)
 	}
 	lemin->file[i] = NULL;
 	lemin->table_size = i;// get number of lines and more for table
-	if (ret <= 0)
+	if (ret < 0)
 	{
-		printf("FILE ERROR\n");
+		printf("ret = %d FILE ERROR\n", ret);
 		exit(0);
 	}
 }
@@ -51,7 +53,7 @@ int main()
 	get_file_content(&lemin);
 	parse_file(&lemin);
 	// printf("out of parse file\n");
-	print_list(&lemin, "A");
+	print_tab(&lemin);
 	// printf("lookup is %d\n",lookup(&lemin, "E"));
 	return(0);
 }
