@@ -81,9 +81,11 @@ void get_links(char *line, t_lemin *lemin)
     edge2 = ft_strsub(line,j, i);
   }
 
-  // lemin->tab[hash_code(lemin, edge1)]->
+  // if(lemin->tab[hash_code(lemin, edge1)]->
+  lemin->tab[hash_code(lemin, edge1)]->link = malloc(sizeof(char *));
+  lemin->tab[hash_code(lemin, edge1)]->link[0] = edge2;
 
-  printf("edge1 [%s] edge2 [%s]\n", edge1, edge2);
-  printf("edge 1 coord x [%d] de %s\n", lemin->tab[hash_code(lemin,edge1)]->x, lemin->tab[hash_code(lemin,edge1)]->name);
+  // printf("edge1 [%s] edge2 [%s] -- link de edge1[%s] to [%s]\n", edge1, edge2, edge1, hash_code(lemin,lemin->tab[hash_code(lemin,edge1)]->link[0]);
+  // printf("edge 1 coord x [%d] de %s\n", lemin->tab[hash_code(lemin,edge1)]->x, lemin->tab[hash_code(lemin,edge1)]->name);
 
 }

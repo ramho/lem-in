@@ -14,7 +14,7 @@ typedef struct s_node
   int x;
   int y;
   int weight;
-  struct s_node *link; // linked list for links
+  char **link; // linked list for links
 }               t_node;
 
 typedef struct  s_lemin
@@ -35,9 +35,9 @@ void parse_file(t_lemin *lemin);
 /*
 **  parse_file_hash.c
 */
-void get_start_or_end_piece(int *i, t_lemin *lemin);//, t_node *temp);
+void get_start_or_end_piece(int *i, t_lemin *lemin);
 void get_links(char *line, t_lemin *lemin);
-void get_room(char *line, t_lemin *lemin);//, t_node *temp);
+void get_room(char *line, t_lemin *lemin);
 
 /*
 **  hash_map.c
