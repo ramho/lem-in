@@ -26,10 +26,18 @@ void insert_node_in_table(t_lemin *lemin, t_node *node)
 {
   int position;
   t_node *new_node;
+  int i;
 
+  // printf("name of node sent %s\n", node->name);
+  i = -1;
   position = hash_code(lemin, node->name);
   new_node = malloc(sizeof(t_node));
   new_node = node;
   new_node->key = position;
+
+  new_node->link = malloc(sizeof(char *) * 1000);
+  i = -1;
+  while (i++ < 5) // number can be count
+    new_node->link[i] = NULL;
   lemin->tab[position] = new_node;
 }

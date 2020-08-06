@@ -30,6 +30,8 @@
 
 *adjacency matrix or  adjacency list
 
+* ERREUR when two links the same
+
 ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
       SOURCES
 └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘

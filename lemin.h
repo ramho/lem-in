@@ -21,8 +21,11 @@ typedef struct  s_lemin
 {
     int nb_ants;
     char **file;
+    char **file_links;
     int table_size;
     t_node **tab;
+
+    int count; // check number of times you enter in get room/ nb of rooms
 }               t_lemin;
 
 /*
@@ -36,7 +39,6 @@ void parse_file(t_lemin *lemin);
 **  parse_file_hash.c
 */
 void get_start_or_end_piece(int *i, t_lemin *lemin);
-void get_links(char *line, t_lemin *lemin);
 void get_room(char *line, t_lemin *lemin);
 
 /*
@@ -51,6 +53,12 @@ void insert_node_in_table(t_lemin *lemin, t_node *node);
 */
 char lookup(t_lemin *lemin, char* key);
 void print_tab(t_lemin *lemin);
+
+/*
+**  parse_links.c
+*/
+void get_links(t_lemin *lemin);
+void save_links(char *edge1, char *edge2, t_lemin *lemin);
 
 
 

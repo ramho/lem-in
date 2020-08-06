@@ -13,7 +13,7 @@ void print_tab(t_lemin *lemin)
     else
     {
       list = lemin->tab[position];
-      printf("Name: %s coord: %d-%d\n", list->name, list->x, list->y);
+      printf("[%d] Name: %s coord: %d-%d\n", position, list->name, list->x, list->y);
     }
     list = lemin->tab[position++];
   }
@@ -23,7 +23,6 @@ char lookup(t_lemin *lemin, char* key)
 {
   int position;
   t_node *list;
-  int i = 0;
 
   position = hash_code(lemin, key);
   list = lemin->tab[position];
