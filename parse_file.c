@@ -6,8 +6,6 @@ void get_room(char *line, t_lemin *lemin)
   int j;
   t_node *temp;
 
-printf("in get room, line -->s %s\n", line);
- lemin->count++;
   i = 0;
   temp = malloc(sizeof(t_node));
   while (i < ft_strlen(line))
@@ -42,11 +40,24 @@ printf("in get room, line -->s %s\n", line);
     temp->y = ft_atoi(&line[i]);
     i = i + (ft_numlen(temp->y) + 1);
   }
-  temp->weight = 1;
- insert_node_in_table(lemin, temp);
- // print_tab(lemin);
- // printf("\n");
- printf("eind van get room\n");
+  if (lemin->start_end == 1)
+  {
+    lemin->node_name[0] = malloc(sizeof(char *));
+    ft_strcpy(lemin->node_name[0],temp->name);
+    temp->reach_cost = 0;
+    temp->infinity = 0;
+    insert_node_in_table(lemin, temp);
+  }
+  else
+    {
+
+      // printf("temp name %s\n", temp->name);
+      lemin->node_name[lemin->number_of_nodes] = malloc(sizeof(char *));
+      ft_strcpy(lemin->node_name[lemin->number_of_nodes] ,temp->name);
+      temp->infinity = 1;
+      insert_node_in_table(lemin, temp);
+      lemin->number_of_nodes++;
+    }
 }
 
 void get_start_or_end_piece(int *i, t_lemin *lemin)
@@ -56,10 +67,12 @@ void get_start_or_end_piece(int *i, t_lemin *lemin)
   j = 0;
   if (ft_strstr(lemin->file[*i], "start"))
     {
+      lemin->start_end = 1;
       get_room(lemin->file[*i + 1], lemin);
     }
   if (ft_strstr(lemin->file[*i], "end"))
       {
+        lemin->start_end = 2;
         get_room(lemin->file[*i + 1], lemin);
       }
   *i = *i + 1;

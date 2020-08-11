@@ -1,14 +1,13 @@
 #include "lemin.h"
 
-void create_table(int size, t_lemin *lemin)
+void create_table(t_lemin *lemin)
 {
   int i;
 
-  lemin->table_size = size;
-  lemin->tab = malloc(sizeof(t_node *) * size);
+  lemin->node_tab = malloc(sizeof(t_node *) * lemin->table_size);
   i = -1;
-  while (i++ < size)
-    lemin->tab[i] = NULL;
+  while (i++ < lemin->table_size)
+    lemin->node_tab[i] = NULL;
 }
 
 int hash_code(t_lemin *lemin, char *key) // ameliorer!!
@@ -29,15 +28,12 @@ void insert_node_in_table(t_lemin *lemin, t_node *node)
   int i;
 
   // printf("name of node sent %s\n", node->name);
+  printf("ENTER INSERT NODE------------------ name %s hash code %d\n", node->name, hash_code(lemin, node->name));
   i = -1;
   position = hash_code(lemin, node->name);
   new_node = malloc(sizeof(t_node));
   new_node = node;
   new_node->key = position;
-
-  new_node->link = malloc(sizeof(char *) * 1000);
-  i = -1;
-  while (i++ < 5) // number can be count
-    new_node->link[i] = NULL;
-  lemin->tab[position] = new_node;
+  lemin->node_tab[position] = new_node;
+  // printf("name %s\n", lemin->node_tab[position]->name);
 }
