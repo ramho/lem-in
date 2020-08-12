@@ -62,18 +62,14 @@ void get_room(char *line, t_lemin *lemin)
 
 void get_start_or_end_piece(int *i, t_lemin *lemin)
 {
-  int j;
 
-  j = 0;
   if (ft_strstr(lemin->file[*i], "start"))
     {
-      lemin->start_end = 1;
-      get_room(lemin->file[*i + 1], lemin);
+      lemin->file_nodes[0] = ft_strdup(lemin->file[*i + 1]);
     }
   if (ft_strstr(lemin->file[*i], "end"))
       {
-        lemin->start_end = 2;
-        get_room(lemin->file[*i + 1], lemin);
+     lemin->file_nodes[1] = ft_strdup(lemin->file[*i + 1]);
       }
   *i = *i + 1;
 }

@@ -30,7 +30,9 @@ typedef struct  s_lemin
     int nb_ants;
     char **file;
     int table_size;
-    char **file_links; //save only links lines
+
+    char **file_edges; //save only links
+    char **file_nodes; // save only nodes
 
     int start_end;
 
@@ -80,6 +82,11 @@ void save_links(char *edge1, char *edge2, t_lemin *lemin);
 **  algo.c
 */
 void start_algo(t_lemin *lemin);
+
+/*
+** seperate_nodes_links.c
+*/
+int  seperate_nodes_links(t_lemin *lemin);
 
 
 

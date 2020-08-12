@@ -2,6 +2,7 @@
 
 void create_table(t_lemin *lemin)
 {
+  printf("in create_table\n\n");
   int i;
 
   lemin->node_tab = malloc(sizeof(t_node *) * lemin->table_size);
