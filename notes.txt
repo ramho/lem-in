@@ -32,6 +32,8 @@
 
 * ERREUR when two links the same
 
+
+
 ┌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
       SOURCES
 └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
@@ -56,6 +58,35 @@ int main() // basic test for hash
   printf("Name is %d\n", lookup(&lemin, node.name));
   return(0);
 }
+
+
+int i;
+for ( i = 0; i < lemin.table_size; i++)
+    printf("line is [%s]\n", lemin.file[i]);
+
+
+int i;
+
+for (i = 0; i < lemin.number_of_nodes; i++)
+  printf("name [%s] type [%d] x[%d] y[%d] infinity[%d]\n", lemin.node_tab[i]->name, lemin.node_tab[i]->type, lemin.node_tab[i]->x, lemin.node_tab[i]->y,lemin.node_tab[i]->infinity);
+for (i = 0; i < lemin.number_of_edges; i++)
+  printf("predecessor [%s] successor [%s] weight [%d]\n", lemin.edge_tab[i]->predecessor,lemin.edge_tab[i]->successor, lemin.edge_tab[i]->weight);
+
+
+  void shortest_path(t_lemin *lemin)
+  {
+  	int i;
+
+  	i = 0;
+  	while (i < lemin->number_of_nodes)
+  	{
+  		if (lemin->node_tab[i]->infinity == 1)
+  			ft_printf("%5s | %11s | infinity\n", lemin->node_tab[i]->name, lemin->node_tab[i]->predecessor);
+  		else
+  			ft_printf("%5s | %11s | %5d\n", lemin->node_tab[i]->name, lemin->node_tab[i]->predecessor, lemin->node_tab[i]->reach_cost);
+  		i++;
+  	}
+  }
 
 
 ...(╯°□°）╯︵ ┻┻

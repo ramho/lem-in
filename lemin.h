@@ -10,11 +10,12 @@ typedef struct s_node
 {
   int key; // for hash map but name can also be the key
   char *name;
-  char *type;
+  int type; // 1 is start and 2 is end
   int x;
   int y;
   int reach_cost;
   int infinity;
+  char *predecessor;
   // char **link; // linked list for links
 }               t_node;
 
@@ -23,13 +24,16 @@ typedef struct edges
     char *predecessor;
     char *successor;
     int weight;
-}              t_edges;
+}              t_edge;
 
 typedef struct  s_lemin
 {
     int nb_ants;
     char **file;
     int table_size;
+
+    char * start_node;
+    char *end_node;
 
     char **file_edges; //save only links
     char **file_nodes; // save only nodes
@@ -40,7 +44,7 @@ typedef struct  s_lemin
     int number_of_edges;
 
     t_node **node_tab;
-    t_edges **edges_tab;
+    t_edge **edge_tab;
     char **node_name;
 }               t_lemin;
 
@@ -49,13 +53,22 @@ typedef struct  s_lemin
 */
 int main();
 void get_file_content(t_lemin *lemin);
-void parse_file(t_lemin *lemin);
+
 
 /*
 **  parse_file.c
 */
+void parse_file(t_lemin *lemin);
+int  seperate_nodes_edges(t_lemin *lemin);
 void get_start_or_end_piece(int *i, t_lemin *lemin);
-void get_room(char *line, t_lemin *lemin);
+void get_edges( t_lemin *lemin);
+
+/*
+** parse_file2.c
+*/
+void get_nodes(char **tab, t_lemin *lemin);
+void fill_node_tab(int i, t_lemin *lemin, t_node *temp);
+
 
 /*
 **  hash_map.c
@@ -65,29 +78,19 @@ int hash_code(t_lemin *lemin, char* key);
 void insert_node_in_table(t_lemin *lemin, t_node *node);
 
 /*
+**  algo.c
+*/
+void start_algo(t_lemin *lemin);
+void reduce(t_lemin *lemin);
+void try_reduce(char* pre, char* sec, int w, t_lemin *lemin);
+
+
+/*
 **  extra_func.c
 */
 char lookup(t_lemin *lemin, char* key);
 void print_tab(t_lemin *lemin);
 void shortest_path();
-void printf_current_reach_cost(int iteration);
-
-/*
-**  parse_links.c
-*/
-void get_links(t_lemin *lemin);
-void save_links(char *edge1, char *edge2, t_lemin *lemin);
-
-/*
-**  algo.c
-*/
-void start_algo(t_lemin *lemin);
-
-/*
-** seperate_nodes_links.c
-*/
-int  seperate_nodes_links(t_lemin *lemin);
-
-
+void printf_current_reach_cost(t_lemin *lemin, int iteration);
 
 #endif

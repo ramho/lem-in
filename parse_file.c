@@ -1,63 +1,49 @@
 #include "lemin.h"
 
-void get_room(char *line, t_lemin *lemin)
+void parse_file(t_lemin *lemin)
+{
+	// printf("in parse file \n\n");
+	lemin->nb_ants = ft_atoi(lemin->file[0]);
+	seperate_nodes_edges(lemin);
+  get_nodes(lemin->file_nodes, lemin);
+  get_edges(lemin);
+}
+
+int  seperate_nodes_edges(t_lemin *lemin)
 {
   int i;
-  int j;
-  t_node *temp;
+  // printf("in seperate nodes n links\n");
 
-  i = 0;
-  temp = malloc(sizeof(t_node));
-  while (i < ft_strlen(line))
+  i = 1;
+  lemin->file_edges = malloc(sizeof(char *) * lemin->table_size);
+  lemin->file_nodes = malloc(sizeof(char *) * lemin->table_size);
+  lemin->number_of_edges = 0;
+  lemin->number_of_nodes = 2;
+  while (lemin->file[i] != NULL)
   {
-    while (line[i] != ' ')
-      i++;
-    temp->name = ft_strsub(line, 0, i);
-    j = i + 1;
-    while ( line[j] != ' ')
+    if (lemin->file[i][0] == '#' && lemin->file[i][1] == '#')
+      get_start_or_end_piece(&i, lemin);
+    else if (ft_strchr(lemin->file[i], '-'))
     {
-      if (ft_isdigit(line[j]))
-      j++;
-      else
-      {
-        ft_printf("ERROR x\n");
-        exit(0);
-      }
+      lemin->file_edges[lemin->number_of_edges] = ft_strdup(lemin->file[i]);
+      lemin->number_of_edges++;
     }
-    temp->x = ft_atoi(&line[i + 1]);
-    i = i + (ft_numlen(temp->x) + 1);
-    j = i + 1;
-    while (line[j] != '\0')
+    else if (ft_isalnum(lemin->file[i][0]))
     {
-      if (j <= ft_strlen(line) && ft_isdigit(line[j]))
-        j++;
-      else
-      {
-        ft_printf("ERROR y\n");
-        exit(0);
-      }
-    }
-    temp->y = ft_atoi(&line[i]);
-    i = i + (ft_numlen(temp->y) + 1);
+       lemin->file_nodes[lemin->number_of_nodes] = ft_strdup(lemin->file[i]);
+       lemin->number_of_nodes++;
+     }
+    else if (lemin->file[i][0] == '#' && lemin->file[i][1] != '#')
+      continue;
+    i++;
   }
-  if (lemin->start_end == 1)
-  {
-    lemin->node_name[0] = malloc(sizeof(char *));
-    ft_strcpy(lemin->node_name[0],temp->name);
-    temp->reach_cost = 0;
-    temp->infinity = 0;
-    insert_node_in_table(lemin, temp);
-  }
-  else
-    {
-
-      // printf("temp name %s\n", temp->name);
-      lemin->node_name[lemin->number_of_nodes] = malloc(sizeof(char *));
-      ft_strcpy(lemin->node_name[lemin->number_of_nodes] ,temp->name);
-      temp->infinity = 1;
-      insert_node_in_table(lemin, temp);
-      lemin->number_of_nodes++;
-    }
+  // notpart of code, just to check the content is correct in nodes and edges
+  // for ( i = 0; i < lemin->number_of_edges; i++)
+  //   printf("edges are %s\n", lemin->file_edges[i]);
+  // printf("\n");
+  // for ( i = 0; i < lemin->number_of_nodes; i++)
+  //     printf("nodes are %s\n", lemin->file_nodes[i]);
+  return(1);
 }
 
 void get_start_or_end_piece(int *i, t_lemin *lemin)
@@ -72,4 +58,32 @@ void get_start_or_end_piece(int *i, t_lemin *lemin)
      lemin->file_nodes[1] = ft_strdup(lemin->file[*i + 1]);
       }
   *i = *i + 1;
+}
+
+void get_edges( t_lemin *lemin)
+{
+  int i;
+  int j;
+  int k;
+
+  // printf("in get edges\n");
+  i = 0;
+  lemin->edge_tab =malloc(sizeof(t_edge *) * lemin->number_of_edges);
+  while(lemin->file_edges[i])
+  {
+    lemin->edge_tab[i] =malloc(sizeof(t_edge));
+    j = 0;
+    while(j < ft_strlen(lemin->file_edges[i]))
+    {
+      while (lemin->file_edges[i][j] != '-')
+        j++;
+      lemin->edge_tab[i]->predecessor = ft_strsub(lemin->file_edges[i], 0, j);
+      k = j + 1;
+      while (lemin->file_edges[i][j])
+        j++;
+      lemin->edge_tab[i]->successor = ft_strsub(lemin->file_edges[i],k, j);
+      lemin->edge_tab[i]->weight = 1;
+    }
+  i++;
+  }
 }
