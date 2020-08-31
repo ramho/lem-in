@@ -27,7 +27,7 @@ void get_nodes(char **tab, t_lemin *lemin)
 					k++;
 				else
 				{
-					ft_printf("ERROR x\n");
+					ft_printf("%s ERROR x\n", tab[i]);
 					exit(0);
 				}
 			}

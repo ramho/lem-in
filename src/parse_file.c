@@ -2,39 +2,39 @@
 
 void parse_file(t_lemin *lemin)
 {
-	printf("in parse file \n\n");
+	// printf("in parse file \n\n");
 	lemin->nb_ants = ft_atoi(lemin->file[0]);
 	seperate_nodes_edges(lemin);
-  printf("11\n");
+  // printf("11\n");
   get_nodes(lemin->file_nodes, lemin);
-  printf("22\n");
+  // printf("22\n");
   get_edges(lemin);
 }
 
 int  seperate_nodes_edges(t_lemin *lemin)
 {
   int i;
-  printf("in seperate nodes n links\n");
+  // printf("in seperate nodes n links\n");
 
   i = 1;
   lemin->file_edges = malloc(sizeof(char *) * lemin->table_size);
   lemin->file_nodes = malloc(sizeof(char *) * lemin->table_size);
   lemin->number_of_edges = 0;
   lemin->number_of_nodes = 2;
-  printf("hallo %d\n", lemin->table_size);
+  // printf("hallo %d\n", lemin->table_size);
   while (lemin->file[i] != NULL)
   {
     if (lemin->file[i][0] == '#' && lemin->file[i][1] == '#')
       get_start_or_end_piece(&i, lemin);
     else if (ft_strchr(lemin->file[i], '-'))
     {
-      printf("hallo 22\n");
+      // printf("hallo 22\n");
       lemin->file_edges[lemin->number_of_edges] = ft_strdup(lemin->file[i]);
       lemin->number_of_edges++;
     }
     else if (ft_isalnum(lemin->file[i][0]))
     {
-      printf("hallo 33 line %s\n", lemin->file[i]);
+      // printf("hallo 33 line %s\n", lemin->file[i]);
        lemin->file_nodes[lemin->number_of_nodes] = ft_strdup(lemin->file[i]);
        lemin->number_of_nodes++;
      }
@@ -42,7 +42,7 @@ int  seperate_nodes_edges(t_lemin *lemin)
       continue;
     i++;
   }
-  // notpart of code, just to check the content is correct in nodes and edges
+  // not part of code, just to check the content is correct in nodes and edges
   // for ( i = 0; i < lemin->number_of_edges; i++)
   //   printf("edges are %s\n", lemin->file_edges[i]);
   // printf("\n");
@@ -73,7 +73,7 @@ void get_edges( t_lemin *lemin)
   int k;
   int z;
 
-  printf("in get edges %d\n", lemin->number_of_edges);
+  // printf("in get edges %d\n", lemin->number_of_edges);
   i = 0;
   z = 0;
   lemin->edge_tab =malloc(sizeof(t_edge *) * lemin->number_of_edges * 2);

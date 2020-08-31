@@ -6,6 +6,12 @@
 
 # define PLUS_GRAND INT_MAX
 
+typedef struct s_path
+{
+  char *name;
+  struct s_path *next;
+}               t_path;
+
 typedef struct s_node
 {
   int key; // for hash map but name can also be the key
@@ -83,6 +89,11 @@ void insert_node_in_table(t_lemin *lemin, t_node *node);
 void start_algo(t_lemin *lemin);
 void reduce(t_lemin *lemin);
 void try_reduce(char* pre, char* sec, int w, t_lemin *lemin);
+
+/*
+**  algo2.c
+*/
+void write_path(t_lemin *lemin);
 
 
 /*
