@@ -1,4 +1,4 @@
-#include "lemin.h"
+#include "../includes/lemin.h"
 
 void create_table(t_lemin *lemin)
 {

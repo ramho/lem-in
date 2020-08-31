@@ -1,4 +1,4 @@
-#include "lemin.h"
+#include "../includes/lemin.h"
 
 void reduce(t_lemin *lemin)
 {
@@ -21,7 +21,6 @@ void reduce(t_lemin *lemin)
 
 void try_reduce(char *pre, char *sec, int w, t_lemin *lemin)
 {
-
 	int i;
 	int pre_index;
 	int sec_index;
@@ -34,6 +33,7 @@ void try_reduce(char *pre, char *sec, int w, t_lemin *lemin)
 	i = 0;
 	pre_current_cost = 0;
 	sec_current_cost = 0;
+	//but in a hashtable instead of looping through the table
 	while (i < lemin->number_of_nodes)
 	{
 		if (ft_strcmp(pre,lemin->node_tab[i]->name) == 0)
@@ -89,5 +89,4 @@ void start_algo(t_lemin *lemin)
 		printf_current_reach_cost(lemin, i);
 		i++;
 	}
-	shortest_path(lemin);
 }

@@ -1,4 +1,4 @@
-#include "lemin.h"
+#include "../includes/lemin.h"
 
 void get_nodes(char **tab, t_lemin *lemin)
 {

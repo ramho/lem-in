@@ -148,7 +148,7 @@ int try_reduce(char pre[], char sec[], int w)
     graph_reducing[sec_index].infinity = 0;
     ft_strcpy(graph_reducing[sec_index].predecessor, pre);
     changed = 1;
-    // printf("1 - Name of precedessor is %s/(%s)\n", graph_reducing[sec_index].predecessor, pre);
+    // printf("1 - Name of predecessor is %s/(%s)\n", graph_reducing[sec_index].predecessor, pre);
   }
   if (pre_cost_is_infinity == 0 && sec_cost_is_infinity == 0)
   {
@@ -156,7 +156,7 @@ int try_reduce(char pre[], char sec[], int w)
     {
       graph_reducing[sec_index].reach_cost = pre_current_cost + w;
       ft_strcpy(graph_reducing[sec_index].predecessor, pre);
-      // printf("2 - Name of precedessor is %s/(%s)\n", graph_reducing[sec_index].predecessor, pre);
+      // printf("2 - Name of predecessor is %s/(%s)\n", graph_reducing[sec_index].predecessor, pre);
       changed = 1;
     }
   }

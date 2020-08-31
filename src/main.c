@@ -1,4 +1,4 @@
-#include "lemin.h"
+#include "../includes/lemin.h"
 
 void	get_file_content(t_lemin *lemin)
 {
@@ -8,7 +8,7 @@ void	get_file_content(t_lemin *lemin)
 	// printf("in get file content\n\n");
 	ret = 0;
 	i = 0;
-	lemin->file=malloc(sizeof(char *) * 100);
+	lemin->file=malloc(sizeof(char *) * 10000);
 	while ((ret = get_next_line(0, &line)) > 0)
 	{
 		lemin->file[i]=ft_strdup(line);
@@ -28,7 +28,9 @@ int main()
 	t_lemin lemin;
 
 	get_file_content(&lemin);
+	printf("11\n");
 	parse_file(&lemin);
+	printf("22\n");
 	start_algo(&lemin);
 
 	return(0);

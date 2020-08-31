@@ -1,4 +1,4 @@
-#include "lemin.h"
+#include "../includes/lemin.h"
 
 void print_tab(t_lemin *lemin)
 {

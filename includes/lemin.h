@@ -1,8 +1,8 @@
 #ifndef LEMIN_H
 # define LEMIN_H
 
-# include "libft/libft.h"
-# include <stdio.h>
+# include "../libft/libft.h"
+# include <stdio.h> //
 
 # define PLUS_GRAND INT_MAX
 
@@ -86,11 +86,11 @@ void try_reduce(char* pre, char* sec, int w, t_lemin *lemin);
 
 
 /*
-**  extra_func.c
+**  extra_func.cs
 */
 char lookup(t_lemin *lemin, char* key);
 void print_tab(t_lemin *lemin);
-void shortest_path();
+void shortest_path(t_lemin *lemin);
 void printf_current_reach_cost(t_lemin *lemin, int iteration);
 
 #endif
