@@ -90,4 +90,19 @@ void start_algo(t_lemin *lemin)
 		i++;
 	}
 	write_path(lemin);
+	modify_graph_for_bhandari(lemin);
+	i = 1;
+	while ( i < lemin->number_of_nodes)
+	{
+		lemin->node_tab[i]->infinity = 1;
+		i++;
+	}
+	i = 0;
+	while(i < lemin->number_of_nodes)
+	{
+		reduce(lemin);
+		// printf_current_reach_cost(lemin, i);
+		i++;
+	}
+	write_path(lemin);
 }

@@ -52,6 +52,8 @@ typedef struct  s_lemin
     t_node **node_tab;
     t_edge **edge_tab;
     char **node_name;
+
+    t_path *head;
 }               t_lemin;
 
 /*
@@ -94,7 +96,7 @@ void try_reduce(char* pre, char* sec, int w, t_lemin *lemin);
 **  algo2.c
 */
 void write_path(t_lemin *lemin);
-
+void modify_graph_for_bhandari(t_lemin *lemin);
 
 /*
 **  extra_func.cs
