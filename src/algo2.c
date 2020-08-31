@@ -10,26 +10,31 @@ void write_path(t_lemin *lemin)
 
 	i = 0;
 
-	while ( i < lemin->number_of_nodes)
+	while (i < lemin->number_of_nodes)
 	{
-		printf(" if 1 start if 2 end ==> %d\n",lemin->node_tab[i]->type);
+		// printf("if 1 start if 2 end ==> %d\n",lemin->node_tab[i]->type);
 		if(lemin->node_tab[i]->type == 2)
 		{
 			tmp = malloc(sizeof(t_node *));
 			tmp = lemin->node_tab[i];
-      printf("end node is %s\n", tmp->name);
+      // printf("end node is %s\n", tmp->name);
       break;
 		}
 		i++;
 	}
   head = malloc(sizeof(t_path));
   head->name = ft_strdup(tmp->name);
-  head->next = NULL;
-  i = 0;
-  while ( i < lemin->number_of_nodes)
+  new->name = lemin->node_tab[i]->predecessor;
+  new->next = NULL;
+  head->next = new;
+  while (i < lemin->number_of_nodes && lemin->node_tab[i]->type != 1)
   {
-    tmp = NULL;
-    tmp =  lemin->
-
+    if (ft_strcmp(new->name, lemin->node_tab[i]->name))
+    {
+    new->name = lemin->node_tab[i]->predecessor;
+    new->next = NULL;
+    head->next = new;
   }
+    i++;
+   }
 }
