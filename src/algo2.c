@@ -1,10 +1,10 @@
 #include "../includes/lemin.h"
 
-void write_path(t_lemin *lemin)
+void save_path(t_lemin *lemin, int index_path)
 {
-  printf_current_reach_cost(lemin, 0);
   t_node *tmp;
   t_path *new;
+  t_path *head;
   t_path *index;
   int i;
 
@@ -22,12 +22,13 @@ void write_path(t_lemin *lemin)
     }
     i++;
   }
-  lemin->head = malloc(sizeof(t_path));
-  lemin->head->name = ft_strdup(tmp->name);
+  head = malloc(sizeof(t_path));
+  lemin->path_tab[index_path] = head;
+  head->name = ft_strdup(tmp->name);
   new = malloc(sizeof(t_path));
   new->name = ft_strdup(lemin->node_tab[i]->predecessor);
   new->next = NULL;
-  lemin->head->next = new;
+  head->next = new;
   i = 1;
   while (i < lemin->number_of_nodes)
   {
@@ -38,15 +39,15 @@ void write_path(t_lemin *lemin)
       new->name = ft_strdup(lemin->node_tab[i]->predecessor);
       new->next = NULL;
       i = 0;
-      index = lemin->head;
+      index = head;
       while (index->next!= NULL)
         index = index->next;
       index->next = new;
     }
     i++;
   }
-  //not part of code, just to print shortest path
-  index = lemin->head;
+  //!\\not part of code, just to print shortest path
+  index = head;
   printf("shortest path is: ");
   while (index != NULL)
   {
@@ -56,14 +57,14 @@ void write_path(t_lemin *lemin)
   printf("\n");
 }
 
-void modify_graph_for_bhandari(t_lemin *lemin)
+void modify_graph_for_bhandari(t_lemin *lemin, int path_index)
 {
   int i;
   t_path *index;
   char *pre;
   char *suc;
 
-  index = lemin->head;
+  index = lemin->path_tab[path_index];
   while(index->next != NULL)
   {
     pre = index->name;
@@ -82,8 +83,8 @@ void modify_graph_for_bhandari(t_lemin *lemin)
       if ((ft_strcmp(suc, lemin->edge_tab[i]->predecessor) == 0)
         && (ft_strcmp(pre,lemin->edge_tab[i]->successor) == 0))
       {
-        printf("suc %s VS PRE-tab[%s] // pre %s VS SUC-tab[%s]\n", suc, lemin->edge_tab[i]->predecessor, pre, lemin->edge_tab[i]->successor);
-        lemin->edge_tab[i]->weight = 10;
+        // printf("suc %s VS PRE-tab[%s] // pre %s VS SUC-tab[%s]\n", suc, lemin->edge_tab[i]->predecessor, pre, lemin->edge_tab[i]->successor);
+        lemin->edge_tab[i]->weight = lemin->number_of_edges * 10;
       }
       i++;
     }
@@ -92,7 +93,7 @@ void modify_graph_for_bhandari(t_lemin *lemin)
   i = 0;
   while(i < lemin->number_of_edges)
   {
-    printf("[%s][%s] w[%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight);
+    // printf("[%s][%s] w[%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight);
     i++;
   }
 }

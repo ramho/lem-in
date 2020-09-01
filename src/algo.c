@@ -11,8 +11,10 @@ void reduce(t_lemin *lemin)
 		j = 0;
 		while (j < lemin->number_of_edges)
 		{
-			if (ft_strcmp(lemin->node_tab[i]->name, lemin->edge_tab[j]->predecessor) == 0)
-				try_reduce(lemin->node_tab[i]->name, lemin->edge_tab[j]->successor, lemin->edge_tab[j]->weight, lemin);
+			if (ft_strcmp(lemin->node_tab[i]->name,
+				lemin->edge_tab[j]->predecessor) == 0)
+				try_reduce(lemin->node_tab[i]->name, lemin->edge_tab[j]->successor,
+					lemin->edge_tab[j]->weight, lemin);
 			j++;
 		}
 		i++;
@@ -78,31 +80,52 @@ void try_reduce(char *pre, char *sec, int w, t_lemin *lemin)
 	}
 }
 
-void start_algo(t_lemin *lemin)
+void init_infinity(t_lemin *lemin)
 {
 	int i;
 
-	i = 0;
-	while(i < lemin->number_of_nodes)
-	{
-		reduce(lemin);
-		// printf_current_reach_cost(lemin, i);
-		i++;
-	}
-	write_path(lemin);
-	modify_graph_for_bhandari(lemin);
 	i = 1;
 	while ( i < lemin->number_of_nodes)
 	{
 		lemin->node_tab[i]->infinity = 1;
 		i++;
 	}
-	i = 0;
-	while(i < lemin->number_of_nodes)
+}
+
+void start_algo(t_lemin *lemin)
+{
+	int i;
+	int number_of_path;
+	int x;
+
+	number_of_path = 2; // sera sauvegardé dans struct lemin, nb_path
+	lemin->path_tab = malloc(sizeof(t_path *) * number_of_path);
+	x = 0;
+	while (x < number_of_path)
 	{
-		reduce(lemin);
-		// printf_current_reach_cost(lemin, i);
-		i++;
+		i = 0;
+		while(i < lemin->number_of_nodes)
+		{
+			reduce(lemin);
+			//!\\ printf_current_reach_cost(lemin, i);
+			i++;
+		}
+		save_path(lemin, x);
+		modify_graph_for_bhandari(lemin, x);
+		init_infinity(lemin);
+		x++;
 	}
-	write_path(lemin);
+	//!\\ not part of code, print different path
+	t_path *index;
+	i = -1;
+	while( i++ < number_of_path)
+	{
+		index = lemin->path_tab[i];
+		while (index != NULL)
+		{
+			printf("%s ", index->name);
+			index = index->next;
+		}
+		printf("\n");
+	}
 }
