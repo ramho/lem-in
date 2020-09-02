@@ -17,16 +17,16 @@ void save_path(t_lemin *lemin, int index_path)
     {
       tmp = malloc(sizeof(t_node *));
       tmp = lemin->node_tab[i];
-      // printf("end node is %s\n", tmp->name);
+      printf("end node is %s\n", tmp->name);
       break;
-    }
-    else
-    {
-      //free all;
-      ft_printf("ERROR - Couldn't find a path until the end room\n");
     }
     i++;
   }
+  if (!tmp)
+  {
+  ft_printf("ERROR - Couldn't find a path until the end room\n");
+  exit(0);
+}
   head = malloc(sizeof(t_path));
   lemin->path_tab[index_path] = head;
   head->name = ft_strdup(tmp->name);

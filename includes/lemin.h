@@ -108,6 +108,7 @@ void modify_graph_for_bhandari(t_lemin *lemin, int path_index);
 **  get_path.c
 */
 void get_path(t_lemin *lemin);
+char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
 
 
 /*
