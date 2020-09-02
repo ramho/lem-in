@@ -9,7 +9,7 @@ void save_path(t_lemin *lemin, int index_path)
   int i;
 
   i = 0;
-
+  tmp = NULL;
   while (i < lemin->number_of_nodes)
   {
     // printf("if 1 start if 2 end ==> %d\n",lemin->node_tab[i]->type);
@@ -19,6 +19,11 @@ void save_path(t_lemin *lemin, int index_path)
       tmp = lemin->node_tab[i];
       // printf("end node is %s\n", tmp->name);
       break;
+    }
+    else
+    {
+      //free all;
+      ft_printf("ERROR - Couldn't find a path until the end room\n");
     }
     i++;
   }
@@ -79,21 +84,24 @@ void modify_graph_for_bhandari(t_lemin *lemin, int path_index)
       {
         // printf("pre %s VS [%s] // suc %s VS [%s]\n", pre, lemin->edge_tab[i]->predecessor, suc, lemin->edge_tab[i]->successor);
         lemin->edge_tab[i]->weight = -1;
+        lemin->edge_tab[i]->visited += 1;
       }
       if ((ft_strcmp(suc, lemin->edge_tab[i]->predecessor) == 0)
         && (ft_strcmp(pre,lemin->edge_tab[i]->successor) == 0))
       {
         // printf("suc %s VS PRE-tab[%s] // pre %s VS SUC-tab[%s]\n", suc, lemin->edge_tab[i]->predecessor, pre, lemin->edge_tab[i]->successor);
         lemin->edge_tab[i]->weight = lemin->number_of_edges * 10;
+        lemin->edge_tab[i]->visited += 1;
       }
       i++;
     }
     index = index->next;
   }
-  i = 0;
-  while(i < lemin->number_of_edges)
-  {
-    // printf("[%s][%s] w[%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight);
-    i++;
-  }
+  //!\\ not part of code, check the cnotent of the edges
+  // i = 0;
+  // while(i < lemin->number_of_edges)
+  // {
+    // printf("[%s][%s] w[%d] visité [%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight, lemin->edge_tab[i]->visited);
+    // i++;
+  // }
 }

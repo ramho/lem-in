@@ -30,6 +30,6 @@ int main()
 	get_file_content(&lemin);
 	parse_file(&lemin);
 	start_algo(&lemin);
-
+	get_path(&lemin);
 	return(0);
 }

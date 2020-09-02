@@ -30,6 +30,7 @@ typedef struct edges
     char *predecessor;
     char *successor;
     int weight;
+    int visited;
 }              t_edge;
 
 typedef struct  s_lemin
@@ -56,6 +57,8 @@ typedef struct  s_lemin
     // t_path *head;
     t_path **path_tab;
     int nb_path;// not is use yet
+
+    t_path **final_path_tabs;
 }               t_lemin;
 
 /*
@@ -100,6 +103,12 @@ void init_infinity(t_lemin *lemin);
 */
 void save_path(t_lemin *lemin, int index_path);
 void modify_graph_for_bhandari(t_lemin *lemin, int path_index);
+
+/*
+**  get_path.c
+*/
+void get_path(t_lemin *lemin);
+
 
 /*
 **  extra_func.cs

@@ -91,6 +91,7 @@ void get_edges( t_lemin *lemin)
         j++;
       lemin->edge_tab[z]->successor = ft_strsub(lemin->file_edges[i],k, j);
       lemin->edge_tab[z]->weight = 1;
+			lemin->edge_tab[z]->visited = 0;
       lemin->edge_tab[z + 1]=malloc(sizeof(t_edge));
       lemin->edge_tab[z + 1]->predecessor = ft_strdup(lemin->edge_tab[z]->successor);
       lemin->edge_tab[z + 1]->successor = ft_strdup(lemin->edge_tab[z]->predecessor);

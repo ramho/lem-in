@@ -117,8 +117,8 @@ void start_algo(t_lemin *lemin)
 	}
 	//!\\ not part of code, print different path
 	t_path *index;
-	i = -1;
-	while( i++ < number_of_path)
+	i = 0;
+	while (i < number_of_path)
 	{
 		index = lemin->path_tab[i];
 		while (index != NULL)
@@ -126,6 +126,7 @@ void start_algo(t_lemin *lemin)
 			printf("%s ", index->name);
 			index = index->next;
 		}
+		i++;
 		printf("\n");
 	}
 }
