@@ -146,31 +146,46 @@ void get_edges( t_lemin *lemin)
   	int z;
 
 // ----GET start/out & end/in ------------------------
-	// char **rooms;
-	//
-	// i = -1;
-	// lemin->node_tab[0]->links = NULL;
-	// while(lemin->file_edges[++i])
-	// {
-	// 	printf("coucou\n");
-	// 	rooms = ft_strsplit(lemin->file_edges[i], '-');
-	// 	printf("room A : %s\n", rooms[0]);
-	// 	printf("room B : %s\n", rooms[1]);
-	// 	printf("room start : %s\n", lemin->node_tab[0]->name);
-	// 	printf("room end   : %s\n", lemin->node_tab[1]->name);
-	//
-	// 	if (!(ft_strcmp(rooms[0], lemin->node_tab[0]->name)))
-	// 	{
-	// 		printf("coucou2\n");
-	// 		ft_push_link_front(lemin->node_tab[0]->links, rooms[1]);
-	// 	}
-	// 	if (!(ft_strcmp(rooms[1], lemin->node_tab[0]->name)))
-	// 		ft_push_link_front(lemin->node_tab[0]->links, rooms[0]);
-	// 	if (!(ft_strcmp(rooms[0], lemin->node_tab[1]->name)))
-	// 		ft_push_link_front(lemin->node_tab[1]->links, rooms[1]);
-	// 	if (!(ft_strcmp(rooms[1], lemin->node_tab[1]->name)))
-	// 		ft_push_link_front(lemin->node_tab[1]->links, rooms[0]);
-	// }
+	char **rooms;
+
+	i = -1;
+
+	if (!(lemin->node_tab[0]->links = (t_link *)malloc(sizeof(t_link))))
+		return ;
+	lemin->node_tab[0]->links = NULL;
+	lemin->node_tab[0]->links = NULL;
+
+	while(lemin->file_edges[++i])
+	{
+		printf("coucou\n");
+		rooms = ft_strsplit(lemin->file_edges[i], '-');
+		printf("room A : %s\n", rooms[0]);
+		printf("room B : %s\n", rooms[1]);
+		printf("room start : %s\n", lemin->node_tab[0]->name);
+		printf("room end   : %s\n", lemin->node_tab[1]->name);
+
+		if (!(ft_strcmp(rooms[0], lemin->node_tab[0]->name)))
+		{
+			printf("coucou2\n");
+			ft_push_link_front(&lemin->node_tab[0]->links, rooms[1]);
+		}
+		if (!(ft_strcmp(rooms[1], lemin->node_tab[0]->name)))
+			ft_push_link_front(&lemin->node_tab[0]->links, rooms[0]);
+		if (!(ft_strcmp(rooms[0], lemin->node_tab[1]->name)))
+			ft_push_link_front(&lemin->node_tab[1]->links, rooms[1]);
+		if (!(ft_strcmp(rooms[1], lemin->node_tab[1]->name)))
+			ft_push_link_front(&lemin->node_tab[1]->links, rooms[0]);
+	}
+
+	t_link *tmp;
+
+	tmp = lemin->node_tab[0]->links;
+	while (tmp->next)
+	{
+		
+	}
+
+
 // ----ENT GET ---------------------------------------
 
 

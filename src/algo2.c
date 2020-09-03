@@ -29,7 +29,5 @@ void write_path(t_lemin *lemin)
   while ( i < lemin->number_of_nodes)
   {
     tmp = NULL;
-    tmp =  lemin->
-
   }
 }
