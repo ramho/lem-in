@@ -118,7 +118,7 @@ void start_algo(t_lemin *lemin)
 	//!\\ not part of code, print different path
 	t_path *index;
 	i = 0;
-	while (i < number_of_path)
+	while(i < lemin->number_of_nodes - 1)
 	{
 		index = lemin->path_tab[i];
 		while (index != NULL)
@@ -129,4 +129,5 @@ void start_algo(t_lemin *lemin)
 		i++;
 		printf("\n");
 	}
+	// write_path(lemin);
 }

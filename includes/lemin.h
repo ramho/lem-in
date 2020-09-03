@@ -4,7 +4,13 @@
 # include "../libft/libft.h"
 # include <stdio.h> //
 
-# define PLUS_GRAND INT_MAX
+//# define PLUS_GRAND INT_MAX
+
+typedef struct s_path
+{
+  char *name;
+  struct s_path * next;
+}             t_path;
 
 typedef struct s_path
 {
@@ -109,6 +115,11 @@ void modify_graph_for_bhandari(t_lemin *lemin, int path_index);
 */
 void get_path(t_lemin *lemin);
 char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
+
+/*
+**  algo2.c
+*/
+void write_path(t_lemin *lemin);
 
 
 /*
