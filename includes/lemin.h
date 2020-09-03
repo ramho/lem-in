@@ -18,6 +18,8 @@ typedef struct s_link
     struct s_link *next;
 }              t_link;
 
+// coucou
+
 typedef struct s_node
 {
   int key; // for hash map but name can also be the key
@@ -28,7 +30,7 @@ typedef struct s_node
   int reach_cost;
   int infinity;
   char *predecessor;
-  t_link **links; // linked list for links
+  t_link *links; // linked list for links
 }               t_node;
 
 typedef struct edges
