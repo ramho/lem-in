@@ -18,16 +18,12 @@ void	ft_push_link_front(t_link **begin_list, char *room)
 
 	if (*begin_list)
 	{
-		printf("coucou3\n");
 		link = ft_create_link(room);
 		link->next = *begin_list;
 		*begin_list = link;
 	}
 	else
-	{
-		printf("coucou4\n");
 		*begin_list = ft_create_link(room);
-	}
 }
 
 int parse_file(t_lemin *lemin)
@@ -147,7 +143,7 @@ void get_edges( t_lemin *lemin)
   	int k;
   	int z;
 
-// ----GET start/out & end/in ------------------------
+// ---GET start/out & end/in links-------------------------
 	char **rooms;
 
 	i = -1;
@@ -159,18 +155,10 @@ void get_edges( t_lemin *lemin)
 
 	while(lemin->file_edges[++i])
 	{
-		printf("coucou\n");
 		rooms = ft_strsplit(lemin->file_edges[i], '-');
-		printf("room A : %s\n", rooms[0]);
-		printf("room B : %s\n", rooms[1]);
-		printf("room start : %s\n", lemin->node_tab[0]->name);
-		printf("room end   : %s\n", lemin->node_tab[1]->name);
 
 		if (!(ft_strcmp(rooms[0], lemin->node_tab[0]->name)))
-		{
-			printf("coucou2\n");
 			ft_push_link_front(&lemin->node_tab[0]->links, rooms[1]);
-		}
 		if (!(ft_strcmp(rooms[1], lemin->node_tab[0]->name)))
 			ft_push_link_front(&lemin->node_tab[0]->links, rooms[0]);
 		if (!(ft_strcmp(rooms[0], lemin->node_tab[1]->name)))
@@ -178,18 +166,40 @@ void get_edges( t_lemin *lemin)
 		if (!(ft_strcmp(rooms[1], lemin->node_tab[1]->name)))
 			ft_push_link_front(&lemin->node_tab[1]->links, rooms[0]);
 	}
+	// ---end GET---------------------------------------------
 
+	// ---PRINT links-----------------------------------------
 	t_link *tmp;
 
+	printf("---------print start links\n");
 	tmp = lemin->node_tab[0]->links;
 	while (tmp->next)
 	{
-		
+		printf("%s\n", tmp->room);
+		tmp = tmp->next;
 	}
+	printf("%s\n", tmp->room); // one more print to get last iteration data
 
+	printf("---------print end links\n");
+	tmp = lemin->node_tab[1]->links;
+	while (tmp->next)
+	{
+		printf("%s\n", tmp->room);
+		tmp = tmp->next;
+	}
+	printf("%s\n", tmp->room);
 
-// ----ENT GET ---------------------------------------
+	printf("---------reprint start links\n"); //to see if can re-use (t_link *links) in t_node node_tab without modifying original adress---> OK
+	tmp = lemin->node_tab[0]->links;
+	while (tmp->next)
+	{
+		printf("%s\n", tmp->room);
+		tmp = tmp->next;
+	}
+	printf("%s\n", tmp->room);
 
+	printf("--------------------");
+	// end PRINT----------------------------------------------
 
 // printf("in get edges %d\n", lemin->number_of_edges);
 	i = 0;
