@@ -12,6 +12,12 @@ typedef struct s_path
   struct s_path * next;
 }             t_path;
 
+typedef struct s_link
+{
+    char *room;
+    struct s_link *next;
+}              t_link;
+
 typedef struct s_node
 {
   int key; // for hash map but name can also be the key
@@ -22,7 +28,7 @@ typedef struct s_node
   int reach_cost;
   int infinity;
   char *predecessor;
-  // char **link; // linked list for links
+  t_link **links; // linked list for links
 }               t_node;
 
 typedef struct edges
@@ -34,6 +40,7 @@ typedef struct edges
 
 typedef struct  s_lemin
 {
+
     int nb_ants;
     char **file;
     int table_size;
@@ -64,7 +71,7 @@ void get_file_content(t_lemin *lemin);
 /*
 **  parse_file.c
 */
-void parse_file(t_lemin *lemin);
+int parse_file(t_lemin *lemin);
 int  seperate_nodes_edges(t_lemin *lemin);
 void get_start_or_end_piece(int *i, t_lemin *lemin);
 void get_edges( t_lemin *lemin);
@@ -74,6 +81,8 @@ void get_edges( t_lemin *lemin);
 */
 void get_nodes(char **tab, t_lemin *lemin);
 void fill_node_tab(int i, t_lemin *lemin, t_node *temp);
+t_link	*ft_create_link(char *room);
+void	ft_push_link_front(t_link **begin_list, char *room);
 
 
 /*
