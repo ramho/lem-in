@@ -12,6 +12,12 @@ typedef struct s_path
   struct s_path * next;
 }             t_path;
 
+typedef struct s_path
+{
+  char *name;
+  struct s_path *next;
+}               t_path;
+
 typedef struct s_node
 {
   int key; // for hash map but name can also be the key
@@ -30,6 +36,7 @@ typedef struct edges
     char *predecessor;
     char *successor;
     int weight;
+    int visited;
 }              t_edge;
 
 typedef struct  s_lemin
@@ -52,6 +59,12 @@ typedef struct  s_lemin
     t_node **node_tab;
     t_edge **edge_tab;
     char **node_name;
+
+    // t_path *head;
+    t_path **path_tab;
+    int nb_path;// not is use yet
+
+    t_path **final_path_tabs;
 }               t_lemin;
 
 /*
@@ -89,6 +102,19 @@ void insert_node_in_table(t_lemin *lemin, t_node *node);
 void start_algo(t_lemin *lemin);
 void reduce(t_lemin *lemin);
 void try_reduce(char* pre, char* sec, int w, t_lemin *lemin);
+void init_infinity(t_lemin *lemin);
+
+/*
+**  algo2.c
+*/
+void save_path(t_lemin *lemin, int index_path);
+void modify_graph_for_bhandari(t_lemin *lemin, int path_index);
+
+/*
+**  get_path.c
+*/
+void get_path(t_lemin *lemin);
+char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
 
 /*
 **  algo2.c
