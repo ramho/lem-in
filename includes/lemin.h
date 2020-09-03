@@ -111,12 +111,6 @@ void get_path(t_lemin *lemin);
 char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
 
 /*
-**  algo2.c
-*/
-void write_path(t_lemin *lemin);
-
-
-/*
 **  extra_func.cs
 */
 char lookup(t_lemin *lemin, char* key);
