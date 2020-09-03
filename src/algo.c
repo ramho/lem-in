@@ -129,5 +129,6 @@ void start_algo(t_lemin *lemin)
 		i++;
 		printf("\n");
 	}
+	printf("out of start algo\n");
 	// write_path(lemin);
 }

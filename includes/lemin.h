@@ -12,12 +12,6 @@ typedef struct s_path
   struct s_path * next;
 }             t_path;
 
-typedef struct s_path
-{
-  char *name;
-  struct s_path *next;
-}               t_path;
-
 typedef struct s_node
 {
   int key; // for hash map but name can also be the key
@@ -77,7 +71,7 @@ void get_file_content(t_lemin *lemin);
 /*
 **  parse_file.c
 */
-void parse_file(t_lemin *lemin);
+int parse_file(t_lemin *lemin);
 int  seperate_nodes_edges(t_lemin *lemin);
 void get_start_or_end_piece(int *i, t_lemin *lemin);
 void get_edges( t_lemin *lemin);

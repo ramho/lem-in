@@ -20,16 +20,16 @@ int parse_file(t_lemin *lemin)
 	//----------- end check-----------------------------
 
 	//-----------get number node & edge + check order---
-	int node_flag;
-
-	i = 0;
-	node_flag = 1; // flag to end get_node & start get_edges
-	while (lemin->file[++i])) //TO DO ---> (get this from) chained list
-	{
-		if (ft_strchr(lemin->file[++i], ' '))
-		//TO DO?: si node_flag + ft_node_format -> ft_stock_node
-		//		  si !node_flag + ft_edge_format -> ft_stock_edge
-	}
+	// int node_flag;
+	//
+	// i = 0;
+	// node_flag = 1; // flag to end get_node & start get_edges
+	// while (lemin->file[++i]) //TO DO ---> (get this from) chained list
+	// {
+	// 	if (ft_strchr(lemin->file[++i], ' '))
+	// 	//TO DO?: si node_flag + ft_node_format -> ft_stock_node
+	// 	//		  si !node_flag + ft_edge_format -> ft_stock_edge
+	// }
 	//-----------end get + check------------------------
 
 	//----------get number node & edge--------
@@ -42,7 +42,7 @@ int parse_file(t_lemin *lemin)
   	// printf("11\n");
  	get_nodes(lemin->file_nodes, lemin);
   	// printf("22\n");
-  	get_edges(lemin);
+  get_edges(lemin);
 	return (1);
 }
 
