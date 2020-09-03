@@ -43,6 +43,6 @@ int main()
 	}
 	// printf("22\n");
 	start_algo(&lemin);
-
+	get_path(&lemin);
 	return(0);
 }
