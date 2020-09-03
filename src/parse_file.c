@@ -1,40 +1,75 @@
 #include "../includes/lemin.h"
 
-void parse_file(t_lemin *lemin)
+int parse_file(t_lemin *lemin)
 {
-	printf("in parse file \n\n");
-	lemin->nb_ants = ft_atoi(lemin->file[0]);
+	int i;
+	// printf("in parse file \n\n");
+
+	//---------check if ants_nb = only digit-----------
+	i = -1;
+	while (lemin->file[0][++i])
+	{
+		if (!(ft_isdigit(lemin->file[0][i])))
+			return (0);
+	}
+	//----------end check-------------------------------
+
+	// ---------check ants format-----------------------
+	if ((lemin->nb_ants = ft_atoi(lemin->file[0])) < 1)
+		return (0);
+	//----------- end check-----------------------------
+
+	//-----------get number node & edge + check order---
+	int node_flag;
+
+	i = 0;
+	node_flag = 1; // flag to end get_node & start get_edges
+	while (lemin->file[++i])) //TO DO ---> (get this from) chained list
+	{
+		if (ft_strchr(lemin->file[++i], ' '))
+		//TO DO?: si node_flag + ft_node_format -> ft_stock_node
+		//		  si !node_flag + ft_edge_format -> ft_stock_edge
+	}
+	//-----------end get + check------------------------
+
+	//----------get number node & edge--------
+	// i = 0;
+	// while (lemin->file[++i]))
+	// {
+	//
+	// }
 	seperate_nodes_edges(lemin);
-  printf("11\n");
-  get_nodes(lemin->file_nodes, lemin);
-  printf("22\n");
-  get_edges(lemin);
+  	// printf("11\n");
+ 	get_nodes(lemin->file_nodes, lemin);
+  	// printf("22\n");
+  	get_edges(lemin);
+	return (1);
 }
 
 int  seperate_nodes_edges(t_lemin *lemin)
 {
   int i;
-  printf("in seperate nodes n links\n");
+  // printf("in seperate nodes n links\n");
 
   i = 1;
   lemin->file_edges = malloc(sizeof(char *) * lemin->table_size);
   lemin->file_nodes = malloc(sizeof(char *) * lemin->table_size);
   lemin->number_of_edges = 0;
   lemin->number_of_nodes = 2;
-  printf("hallo %d\n", lemin->table_size);
+  // printf("hallo %d\n", lemin->table_size);
   while (lemin->file[i] != NULL)
   {
     if (lemin->file[i][0] == '#' && lemin->file[i][1] == '#')
       get_start_or_end_piece(&i, lemin);
     else if (ft_strchr(lemin->file[i], '-'))
     {
-      printf("hallo 22\n");
+      // printf("hallo 22\n");
       lemin->file_edges[lemin->number_of_edges] = ft_strdup(lemin->file[i]);
       lemin->number_of_edges++;
     }
     else if (ft_isalnum(lemin->file[i][0]))
     {
-      printf("hallo 33 line %s\n", lemin->file[i]);
+      // printf("hallo 33 line %s\n", lemin->file[i]);
        lemin->file_nodes[lemin->number_of_nodes] = ft_strdup(lemin->file[i]);
        lemin->number_of_nodes++;
      }
@@ -73,7 +108,7 @@ void get_edges( t_lemin *lemin)
   int k;
   int z;
 
-  printf("in get edges %d\n", lemin->number_of_edges);
+  // printf("in get edges %d\n", lemin->number_of_edges);
   i = 0;
   z = 0;
   lemin->edge_tab =malloc(sizeof(t_edge *) * lemin->number_of_edges * 2);

@@ -28,9 +28,9 @@ int main()
 	t_lemin lemin;
 
 	get_file_content(&lemin);
-	printf("11\n");
+	// printf("11\n");
 	parse_file(&lemin);
-	printf("22\n");
+	// printf("22\n");
 	start_algo(&lemin);
 
 	return(0);

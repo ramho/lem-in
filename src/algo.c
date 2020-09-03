@@ -83,10 +83,11 @@ void start_algo(t_lemin *lemin)
 	int i;
 
 	i = 0;
-	while(i < lemin->number_of_nodes)
+	while(i < lemin->number_of_nodes - 1)
 	{
 		reduce(lemin);
 		printf_current_reach_cost(lemin, i);
 		i++;
 	}
+	// write_path(lemin);
 }
