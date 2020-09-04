@@ -1,0 +1,33 @@
+5
+##start
+A 1 1
+B 1 1
+C 1 1
+D 1 1
+E 1 1
+##end
+F 1 1
+G 0 0
+H 0 0
+grosfdp 0 0
+icilol 0 0
+I 0 0
+A-B
+B-A
+B-C
+icilol-F
+C-D
+C-G
+F-A
+F-grosfdp
+F-B
+G-H
+H-I
+B-F
+I-E
+A-B
+F-grosfdp
+icilol-F
+B-A
+D-E
+D-F

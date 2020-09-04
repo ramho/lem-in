@@ -97,7 +97,7 @@ void modify_graph_for_bhandari(t_lemin *lemin, int path_index)
     }
     index = index->next;
   }
-  //!\\ not part of code, check the cnotent of the edges
+  //!\\ not part of code, check the content of the edges
   // i = 0;
   // while(i < lemin->number_of_edges)
   // {
