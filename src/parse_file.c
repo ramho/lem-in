@@ -198,14 +198,14 @@ void get_edges( t_lemin *lemin)
 	}
 	printf("%s\n", tmp->room);
 
-	printf("--------------------");
+	printf("--------------------\n");
 	// end PRINT----------------------------------------------
 
 // printf("in get edges %d\n", lemin->number_of_edges);
 	i = 0;
 	z = 0;
 
-	lemin->edge_tab =malloc(sizeof(t_edge *) * lemin->number_of_edges * 2);
+	lemin->edge_tab =malloc(sizeof(t_edge *) * lemin->number_of_edges * 3); // 3 pour le dedoublement des nodes
   	while(lemin->file_edges[i])
   	{
     	lemin->edge_tab[z] =malloc(sizeof(t_edge));

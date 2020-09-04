@@ -65,9 +65,11 @@ void fill_node_tab(int i, t_lemin *lemin, t_node *temp)
     lemin->node_tab[i]->type = 1; //start node
     lemin->node_tab[i]->reach_cost = 0;
     lemin->node_tab[i]->infinity = 0;
+		lemin->start_node = lemin->node_tab[i]->name;
   }
   if (i == 1)
   {
-    lemin->node_tab[i]->type = 2; // end node
+    lemin->node_tab[i]->type = 2;// end node
+		lemin->end_node = lemin->node_tab[i]->name; 
   }
 }

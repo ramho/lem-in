@@ -4,11 +4,9 @@
 # include "../libft/libft.h"
 # include <stdio.h> //
 
-//# define PLUS_GRAND INT_MAX
-
 typedef struct s_path
 {
-  char *name;
+  char *node;
   struct s_path * next;
 }             t_path;
 
@@ -48,7 +46,7 @@ typedef struct  s_lemin
     char **file;
     int table_size;
 
-    char * start_node;
+    char *start_node;
     char *end_node;
 
     char **file_edges; //save only links
@@ -105,15 +103,13 @@ void insert_node_in_table(t_lemin *lemin, t_node *node);
 **  algo.c
 */
 void start_algo(t_lemin *lemin);
-void reduce(t_lemin *lemin);
-void try_reduce(char* pre, char* sec, int w, t_lemin *lemin);
 void init_infinity(t_lemin *lemin);
+void save_path(t_lemin *lemin, int index_path);
 
 /*
-**  algo2.c
+**  suurballe.c
 */
-void save_path(t_lemin *lemin, int index_path);
-void modify_graph_for_bhandari(t_lemin *lemin, int path_index);
+void suurballe(t_lemin *lemin, int path_index);
 
 /*
 **  get_path.c
@@ -122,11 +118,17 @@ void get_path(t_lemin *lemin);
 char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
 
 /*
-**  extra_func.cs
+**  extra_func.c
 */
 char lookup(t_lemin *lemin, char* key);
 void print_tab(t_lemin *lemin);
 void shortest_path(t_lemin *lemin);
 void printf_current_reach_cost(t_lemin *lemin, int iteration);
+
+/*
+**  bellman_ford.c
+*/
+void bellman_ford(t_lemin *lemin);
+void try_reduce(char *pre, char *sec, int w, t_lemin *lemin);
 
 #endif
