@@ -73,23 +73,24 @@ void start_algo(t_lemin *lemin)
 			bellman_ford(lemin);
 			i++;
 		}
+    printf("reach cost end to start [%d]\n", lemin->node_tab[1]->reach_cost);
 		save_path(lemin, x);
 		suurballe(lemin, x);
 		init_infinity(lemin);
 		x++;
 	}
 	//!\\ not part of code, print different path
-	// t_path *index;
-	// i = 0;
-	// while(i < number_of_path)
-	// {
-	// 	index = lemin->path_tab[i];
-	// 	while (index != NULL)
-	// 	{
-	// 		printf("%s ", index->node);
-	// 		index = index->next;
-	// 	}
-	// 	i++;
-	// 	printf("\n");
-	// }
+	t_path *index;
+	i = 0;
+	while(i < number_of_path)
+	{
+		index = lemin->path_tab[i];
+		while (index != NULL)
+		{
+			printf("%s ", index->node);
+			index = index->next;
+		}
+		i++;
+		printf("\n");
+	}
 }

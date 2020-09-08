@@ -169,36 +169,36 @@ void get_edges( t_lemin *lemin)
 	// ---end GET---------------------------------------------
 
 	// ---PRINT links-----------------------------------------
-	t_link *tmp;
-
-	printf("---------print start links\n");
-	tmp = lemin->node_tab[0]->links;
-	while (tmp->next)
-	{
-		printf("%s\n", tmp->room);
-		tmp = tmp->next;
-	}
-	printf("%s\n", tmp->room); // one more print to get last iteration data
-
-	printf("---------print end links\n");
-	tmp = lemin->node_tab[1]->links;
-	while (tmp->next)
-	{
-		printf("%s\n", tmp->room);
-		tmp = tmp->next;
-	}
-	printf("%s\n", tmp->room);
-
-	printf("---------reprint start links\n"); //to see if can re-use (t_link *links) in t_node node_tab without modifying original adress---> OK
-	tmp = lemin->node_tab[0]->links;
-	while (tmp->next)
-	{
-		printf("%s\n", tmp->room);
-		tmp = tmp->next;
-	}
-	printf("%s\n", tmp->room);
-
-	printf("--------------------\n");
+	// t_link *tmp;
+	//
+	// printf("---------print start links\n");
+	// tmp = lemin->node_tab[0]->links;
+	// while (tmp->next)
+	// {
+	// 	printf("%s\n", tmp->room);
+	// 	tmp = tmp->next;
+	// }
+	// printf("%s\n", tmp->room); // one more print to get last iteration data
+	//
+	// printf("---------print end links\n");
+	// tmp = lemin->node_tab[1]->links;
+	// while (tmp->next)
+	// {
+	// 	printf("%s\n", tmp->room);
+	// 	tmp = tmp->next;
+	// }
+	// printf("%s\n", tmp->room);
+	//
+	// printf("---------reprint start links\n"); //to see if can re-use (t_link *links) in t_node node_tab without modifying original adress---> OK
+	// tmp = lemin->node_tab[0]->links;
+	// while (tmp->next)
+	// {
+	// 	printf("%s\n", tmp->room);
+	// 	tmp = tmp->next;
+	// }
+	// printf("%s\n", tmp->room);
+	//
+	// printf("--------------------\n");
 	// end PRINT----------------------------------------------
 
 // printf("in get edges %d\n", lemin->number_of_edges);

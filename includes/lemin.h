@@ -3,10 +3,11 @@
 
 # include "../libft/libft.h"
 # include <stdio.h> //
+# include <time.h> //
 
 typedef struct s_path
 {
-  char *node;
+  struct s_node *node;
   struct s_path * next;
 }             t_path;
 
@@ -28,6 +29,10 @@ typedef struct s_node
   int reach_cost;
   int infinity;
   char *predecessor;
+
+  int collision;
+  int duplicated;
+  struct s_node *dup_out;
   t_link *links; // linked list for links
 }               t_node;
 
@@ -66,6 +71,11 @@ typedef struct  s_lemin
     int nb_path;// not is use yet
 
     t_path **final_path_tabs;
+
+    //
+    float temps1, temps2;
+    clock_t t1, t2, t3;
+    //
 }               t_lemin;
 
 /*
@@ -129,6 +139,12 @@ void printf_current_reach_cost(t_lemin *lemin, int iteration);
 **  bellman_ford.c
 */
 void bellman_ford(t_lemin *lemin);
-void try_reduce(char *pre, char *sec, int w, t_lemin *lemin);
+void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin);
+
+/*
+**  get_path.c
+*/
+void get_path(t_lemin *lemin);
+t_node *recursive_get_path(t_lemin *lemin, t_node *pre_node, t_path * head);
 
 #endif

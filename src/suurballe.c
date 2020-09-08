@@ -1,8 +1,23 @@
 #include "../includes/lemin.h"
 
-void create_dup_room(t_lemin *lemin, char *node_name)
+void create_dup_room(t_lemin *lemin, t_node **tab, char *node)
 {
+  int i;
+  int index;
 
+  i = 0;
+  index = 0;
+  while (i < lemin->number_of_nodes && index == 0)
+  {
+    if (ft_strcmp(node,tab[i]->name) == 0)
+      index = i;
+    i++;
+  }
+  tab[index]->duplicated = 1;
+  tab[index]->dup_out = malloc(sizeof(t_node));
+  tab[index]->dup_out->name = ft_strdup(tab[index]->name);
+  tab[index]->dup_out->reach_cost = 0;
+  tab[index]->dup_out-> infinity = 1;
 }
 
 void suurballe(t_lemin *lemin, int path_index)
@@ -29,7 +44,7 @@ void suurballe(t_lemin *lemin, int path_index)
         lemin->edge_tab[i]->weight = -1;
         lemin->edge_tab[i]->visited += 1;
         if (ft_strcmp(suc, lemin->start_node))
-          create_dup_room(t_lemin, suc);
+          create_dup_room(lemin, lemin->node_tab, suc);
       }
       if ((ft_strcmp(suc, lemin->edge_tab[i]->predecessor) == 0)
         && (ft_strcmp(pre,lemin->edge_tab[i]->successor) == 0))

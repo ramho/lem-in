@@ -70,6 +70,6 @@ void fill_node_tab(int i, t_lemin *lemin, t_node *temp)
   if (i == 1)
   {
     lemin->node_tab[i]->type = 2;// end node
-		lemin->end_node = lemin->node_tab[i]->name; 
+		lemin->end_node = lemin->node_tab[i]->name;
   }
 }

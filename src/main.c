@@ -34,15 +34,21 @@ int main()
 {
 	t_lemin lemin;
 
+
+	lemin.t1 = clock();
+
 	get_file_content(&lemin);
-	// printf("11\n");
 	if (!(parse_file(&lemin)))
 	{
 		printf("FILE ERROR\n");
 		exit(0);
 	}
-	// printf("22\n");
+	lemin.t2 = clock();
+	lemin.temps1 = (float)(lemin.t2-lemin.t1)/CLOCKS_PER_SEC;
 	start_algo(&lemin);
 	get_path(&lemin);
+	lemin.t3 = clock();
+	lemin.temps2 = (float)(lemin.t3-lemin.t1)/CLOCKS_PER_SEC;
+	printf("temps1 = %f temps2 = %f\n", lemin.temps1, lemin.temps2);
 	return(0);
 }
