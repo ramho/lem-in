@@ -1,4 +1,6 @@
 #include "../includes/lemin.h"
+
+// sauvegarde le chemin trouver par bellmanford dans un tableau
 void save_path(t_lemin *lemin, int index_path)
 {
   t_node *tmp;
@@ -19,7 +21,7 @@ void save_path(t_lemin *lemin, int index_path)
   i = 1;
   while (i < lemin->number_of_nodes)
   {
-    if (ft_strcmp(new->node, lemin->node_tab[i]->name) == 0)
+    if (ft_strcmp(new->node, lemin->node_tab[i]->name) == 0) // compare pointers ?
     {
       // free(new); // bug
       new = malloc(sizeof(t_path));
@@ -59,13 +61,11 @@ void init_infinity(t_lemin *lemin)
 void start_algo(t_lemin *lemin)
 {
 	int i;
-	int number_of_path;
 	int x;
 
-	number_of_path = 2; // sera sauvegardé dans struct lemin, nb_path
-	lemin->path_tab = malloc(sizeof(t_path *) * number_of_path);
+	lemin->path_tab = malloc(sizeof(t_path *) * lemin->nb_path);
 	x = 0;
-	while (x < number_of_path)
+	while (x < lemin->nb_path)
 	{
 		i = 0;
 		while(i < lemin->number_of_nodes)
@@ -73,7 +73,7 @@ void start_algo(t_lemin *lemin)
 			bellman_ford(lemin);
 			i++;
 		}
-    printf("reach cost end to start [%d]\n", lemin->node_tab[1]->reach_cost);
+    // printf("reach cost end to start [%d]\n", lemin->node_tab[1]->reach_cost);
 		save_path(lemin, x);
 		suurballe(lemin, x);
 		init_infinity(lemin);
@@ -82,7 +82,7 @@ void start_algo(t_lemin *lemin)
 	//!\\ not part of code, print different path
 	t_path *index;
 	i = 0;
-	while(i < number_of_path)
+	while(i < lemin->nb_path)
 	{
 		index = lemin->path_tab[i];
 		while (index != NULL)

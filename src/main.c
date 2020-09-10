@@ -33,9 +33,10 @@ void	get_file_content(t_lemin *lemin)
 int main()
 {
 	t_lemin lemin;
+	float temps1,temps2;
+	clock_t t1, t2, t3;
 
-
-	lemin.t1 = clock();
+	t1 = clock();
 
 	get_file_content(&lemin);
 	if (!(parse_file(&lemin)))
@@ -43,12 +44,13 @@ int main()
 		printf("FILE ERROR\n");
 		exit(0);
 	}
-	lemin.t2 = clock();
-	lemin.temps1 = (float)(lemin.t2-lemin.t1)/CLOCKS_PER_SEC;
+	t2 = clock();
+	temps1 = (float)(t2-t1)/CLOCKS_PER_SEC;
+	printf("-----------------------------------\n");
 	start_algo(&lemin);
-	get_path(&lemin);
-	lemin.t3 = clock();
-	lemin.temps2 = (float)(lemin.t3-lemin.t1)/CLOCKS_PER_SEC;
-	printf("temps1 = %f temps2 = %f\n", lemin.temps1, lemin.temps2);
+	// get_path(&lemin);
+	t3 = clock();
+	temps2 = (float)(t3-t1)/CLOCKS_PER_SEC;
+	printf("temps1 = %f temps2 = %f\n", temps1, temps2);
 	return(0);
 }

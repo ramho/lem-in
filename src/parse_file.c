@@ -139,33 +139,59 @@ void get_edges( t_lemin *lemin)
 {
 
 	int i;
-  	int j;
-  	int k;
-  	int z;
+	int j;
+	int k;
+	int z;
 
-// ---GET start/out & end/in links-------------------------
+	// ---GET start/out & end/in links-------------------------
 	char **rooms;
 
+lemin->nb_start_out = 0;
+lemin->nb_end_in = 0;
 	i = -1;
 
 	if (!(lemin->node_tab[0]->links = (t_link *)malloc(sizeof(t_link))))
-		return ;
+	return ;
 	lemin->node_tab[0]->links = NULL;
 	lemin->node_tab[0]->links = NULL;
+
 
 	while(lemin->file_edges[++i])
 	{
 		rooms = ft_strsplit(lemin->file_edges[i], '-');
 
 		if (!(ft_strcmp(rooms[0], lemin->node_tab[0]->name)))
+		{
 			ft_push_link_front(&lemin->node_tab[0]->links, rooms[1]);
+			lemin->nb_start_out++;
+		}
 		if (!(ft_strcmp(rooms[1], lemin->node_tab[0]->name)))
+		{
 			ft_push_link_front(&lemin->node_tab[0]->links, rooms[0]);
+			lemin->nb_start_out++;
+		}
 		if (!(ft_strcmp(rooms[0], lemin->node_tab[1]->name)))
+		{
 			ft_push_link_front(&lemin->node_tab[1]->links, rooms[1]);
+			lemin->nb_end_in++;
+		}
 		if (!(ft_strcmp(rooms[1], lemin->node_tab[1]->name)))
+		{
 			ft_push_link_front(&lemin->node_tab[1]->links, rooms[0]);
+			lemin->nb_end_in++;
+		}
 	}
+	printf("nb start out %i\n", lemin->nb_start_out);
+	printf("nb end in %i\n", lemin->nb_end_in);
+	if (lemin->nb_start_out == lemin->nb_end_in)
+		lemin->nb_path = lemin->nb_start_out;
+	else if (lemin->nb_start_out > lemin->nb_end_in)
+		lemin->nb_path = lemin->nb_end_in;
+	else if (lemin->nb_start_out < lemin->nb_end_in)
+		lemin->nb_path = lemin->nb_start_out;
+
+
+
 	// ---end GET---------------------------------------------
 
 	// ---PRINT links-----------------------------------------

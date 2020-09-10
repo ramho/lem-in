@@ -6,6 +6,7 @@ void bellman_ford(t_lemin *lemin)
 	int j;
 
 	i = 0;
+	// printf("in bellamn\n");
 	while (i < lemin->number_of_nodes)
 	{
 		j = 0;
@@ -27,11 +28,13 @@ void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin)
 	int sec_index;
 	t_node *pre_node;
 
+// printf("in try reduce\n");
 	i = 0;
 	if (pre->duplicated == 1)
 			pre_node = pre->dup_out;
 	else
 		pre_node = pre;
+	// printf("111\n");
 	//but in a hashtable instead of looping through the table
 	while (i < lemin->number_of_nodes)
 	{
@@ -41,16 +44,21 @@ void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin)
 			sec_index = i; // keeping index of successor
 		i++;
 	}
+		// printf("222\n");
 	//changes values in reducing graph
 	if (pre_node->infinity == 0 && lemin->node_tab[sec_index]->infinity == 1) // if not yet passed to the second node
 	{
+		// printf("enter if infinity\n");
 		lemin->node_tab[sec_index]->reach_cost = pre_node->reach_cost + w;
 		lemin->node_tab[sec_index]->infinity = 0;
 		lemin->node_tab[sec_index]->predecessor = ft_strdup(pre_node->name);
 
 	}
+		// printf("333\n");
+		// printf("%s [%d] - %s [%d]\n", pre_node->name, pre_node->infinity, lemin->node_tab[sec_index]->name, lemin->node_tab[sec_index]->infinity);
 	if (pre_node->infinity  == 0 && lemin->node_tab[sec_index]->infinity == 0) // if both nodes have already been connected to a previous one
 	{
+		// printf("enter if not infinity\n");
 		if (lemin->node_tab[sec_index]->reach_cost > (pre_node->reach_cost + w))
 		{
 			lemin->node_tab[sec_index]->reach_cost = pre_node->reach_cost + w;

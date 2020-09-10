@@ -5,15 +5,17 @@
 # include <stdio.h> //
 # include <time.h> //
 
+//# define PLUS_GRAND INT_MAX
+
 typedef struct s_path
 {
-  struct s_node *node;
+  char *node; // t_node *
   struct s_path * next;
 }             t_path;
 
 typedef struct s_link
 {
-    char *room;
+    char *room; // t_node *
     struct s_link *next;
 }              t_link;
 
@@ -21,25 +23,23 @@ typedef struct s_link
 
 typedef struct s_node
 {
-  int key; // for hash map but name can also be the key
+  int key;
   char *name;
-  int type; // 1 is start and 2 is end
+  int type;
   int x;
   int y;
   int reach_cost;
   int infinity;
-  char *predecessor;
-
-  int collision;
   int duplicated;
   struct s_node *dup_out;
-  t_link *links; // linked list for links
+  char *predecessor; // predeccsor dans bellmanford, remplacer par t_node *
+  t_link *links;
 }               t_node;
 
 typedef struct edges
 {
-    char *predecessor;
-    char *successor;
+    char *predecessor;// remplacer par t_node *
+    char *successor;// remplacer par t_node *
     int weight;
     int visited;
 }              t_edge;
@@ -72,10 +72,8 @@ typedef struct  s_lemin
 
     t_path **final_path_tabs;
 
-    //
-    float temps1, temps2;
-    clock_t t1, t2, t3;
-    //
+    int    nb_start_out;
+    int    nb_end_in;
 }               t_lemin;
 
 /*
@@ -112,13 +110,20 @@ void insert_node_in_table(t_lemin *lemin, t_node *node);
 /*
 **  algo.c
 */
-void start_algo(t_lemin *lemin);
-void init_infinity(t_lemin *lemin);
 void save_path(t_lemin *lemin, int index_path);
+void init_infinity(t_lemin *lemin);
+void start_algo(t_lemin *lemin);
+
+/*
+**  bellman_ford.c
+*/
+void bellman_ford(t_lemin *lemin);
+void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin);
 
 /*
 **  suurballe.c
 */
+void create_dup_room(t_lemin *lemin, t_node **tab, char *node);
 void suurballe(t_lemin *lemin, int path_index);
 
 /*
@@ -128,23 +133,11 @@ void get_path(t_lemin *lemin);
 char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
 
 /*
-**  extra_func.c
+**  extra_func.cs
 */
 char lookup(t_lemin *lemin, char* key);
 void print_tab(t_lemin *lemin);
 void shortest_path(t_lemin *lemin);
 void printf_current_reach_cost(t_lemin *lemin, int iteration);
-
-/*
-**  bellman_ford.c
-*/
-void bellman_ford(t_lemin *lemin);
-void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin);
-
-/*
-**  get_path.c
-*/
-void get_path(t_lemin *lemin);
-t_node *recursive_get_path(t_lemin *lemin, t_node *pre_node, t_path * head);
 
 #endif
