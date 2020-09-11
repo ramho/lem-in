@@ -67,11 +67,11 @@ void start_algo(t_lemin *lemin)
 	x = 0;
 	while (x < lemin->nb_path)
 	{
-		i = 0;
-		while(i < lemin->number_of_nodes)
+		i = lemin->number_of_nodes;
+		while(--i)
 		{
-			bellman_ford(lemin);
-			i++;
+			if(bellman_ford(lemin) == 0)
+				break;
 		}
     // printf("reach cost end to start [%d]\n", lemin->node_tab[1]->reach_cost);
 		save_path(lemin, x);

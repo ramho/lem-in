@@ -1,6 +1,6 @@
 #include "../includes/lemin.h"
 
-void bellman_ford(t_lemin *lemin)
+int bellman_ford(t_lemin *lemin)
 {
 	int i;
 	int j;
@@ -21,7 +21,7 @@ void bellman_ford(t_lemin *lemin)
 	}
 }
 
-void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin)
+int try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin)
 {
 	int i;
 	int pre_index;
