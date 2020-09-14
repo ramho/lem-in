@@ -35,15 +35,15 @@ void save_path(t_lemin *lemin, int index_path)
     }
     i++;
   }
-  //!\\not part of code, just to print shortest path
-  // index = head;
-  // printf("shortest path is: ");
-  // while (index != NULL)
-  // {
-  //   printf("%s ", index->node);
-  //   index = index->next;
-  // }
-  // printf("\n");
+  // !\\not part of code, just to print shortest path
+  index = head;
+  printf("shortest path is: ");
+  while (index != NULL)
+  {
+    printf("%s ", index->node);
+    index = index->next;
+  }
+  printf("\n");
 }
 
 void init_infinity(t_lemin *lemin)
@@ -63,18 +63,22 @@ void start_algo(t_lemin *lemin)
 	int i;
 	int x;
 
+  printf("nb of edges %d\n", lemin->number_of_edges);
+
 	lemin->path_tab = malloc(sizeof(t_path *) * lemin->nb_path);
 	x = 0;
-	while (x < lemin->nb_path)
+	while (x < 10)//lemin->nb_path)
 	{
 		i = lemin->number_of_nodes;
 		while(--i)
 		{
-			if(bellman_ford(lemin) == 0)
-				break;
+      bellman_ford(lemin);
+			// if(bellman_ford(lemin) == 0)
+			// 	break;
 		}
     // printf("reach cost end to start [%d]\n", lemin->node_tab[1]->reach_cost);
-		save_path(lemin, x);
+    // bellman_ford(lemin);
+    save_path(lemin, x);
 		suurballe(lemin, x);
 		init_infinity(lemin);
 		x++;
