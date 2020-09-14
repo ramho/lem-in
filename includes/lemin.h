@@ -3,6 +3,10 @@
 
 # include "../libft/libft.h"
 # include <stdio.h> //
+# include <time.h> //
+# define LEMIN_READ_BUFF 65536
+# define LINE_SIZE 100
+# define HASH_SIZE 1000000
 
 //# define PLUS_GRAND INT_MAX
 
@@ -43,13 +47,32 @@ typedef struct edges
 
 typedef struct  s_lemin
 {
+	int ret;
+	char buff[LEMIN_READ_BUFF + 1];
+	int i; // index in buff
+	char line[LINE_SIZE];
+	int i_line; // index in line
+	char parse_flag;
+	char end_buff;
+	int rest;
+	int slash;
+	int	hash_tag;
+	int	space;
+	// int first_space;
+	int	tiret;
+	char start_room;
+	char end_room;
+	// int count_buff;
+	int hash_map[HASH_SIZE];
 
     int nb_ants;
     char **file;
     int table_size;
 
-    char * start_node;
+    char *start_node;
     char *end_node;
+	int	nb_start_out;
+	int	nb_end_in;
 
     char **file_edges; //save only links
     char **file_nodes; // save only nodes
