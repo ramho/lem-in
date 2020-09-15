@@ -34,6 +34,9 @@ typedef struct s_node
   struct s_node *dup_out;
   char *predecessor; // predeccsor dans bellmanford, remplacer par t_node *
   t_link *links;
+
+  int visited;
+  int selected;
 }               t_node;
 
 typedef struct edges

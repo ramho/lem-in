@@ -61,10 +61,10 @@ void suurballe(t_lemin *lemin, int path_index)
     index = index->next;
   }
   //!\\ not part of code, check the content of the edges
-  // i = 0;
-  // while(i < lemin->number_of_edges)
-  // {
-  //   printf("[%s][%s] w[%d] visité [%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight, lemin->edge_tab[i]->visited);
-  //   i++;
-  // }
+  i = 0;
+  while(i < lemin->number_of_edges)
+  {
+    printf("[%s][%s] w[%d] visité [%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight, lemin->edge_tab[i]->visited);
+    i++;
+  }
 }

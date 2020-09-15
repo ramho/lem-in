@@ -15,10 +15,12 @@ void bellman_ford(t_lemin *lemin)
 			if (ft_strcmp(lemin->node_tab[i]->name, lemin->edge_tab[j]->predecessor) == 0)
 				try_reduce(lemin->node_tab[i], lemin->edge_tab[j]->successor,
 					lemin->edge_tab[j]->weight, lemin);
+
 			j++;
 		}
 		i++;
 	}
+	printf_current_reach_cost(lemin, 0);
 }
 
 void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin)
@@ -45,6 +47,7 @@ void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin)
 		i++;
 	}
 		// printf("222\n");
+	printf("node %s [%d] - node %s [%d]\n", pre_node->name, pre_node->reach_cost,lemin->node_tab[sec_index]->name, lemin->node_tab[sec_index]->reach_cost );
 	//changes values in reducing graph
 	if (pre_node->infinity == 0 && lemin->node_tab[sec_index]->infinity == 1) // if not yet passed to the second node
 	{

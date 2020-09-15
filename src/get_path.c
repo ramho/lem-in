@@ -1,33 +1,46 @@
 #include "../includes/lemin.h"
 
-// void get_path(t_lemin *lemin)
-// {
-//   int i;
-//   int j;
-//   int nb_path = 2; // will be a value that is calculated and stored in lemin after
-//   t_path *head;
-//   t_path *new;
-//   t_path *index;
-//   printf("in get path\n");
-//
-//   lemin->final_path_tabs = malloc(sizeof(t_path *) * nb_path);
-//   head = malloc(sizeof(t_path));
-//   head->node = lemin->node_tab[0];
-//   lemin->final_path_tabs[0] = head;
-//   i = 1;
-//   j = 0;
-//   while (i < nb_path)
-//   {
-//     new->node = recursive_get_path(lemin, lemin->final_path_tabs[j]->node,head);
-//     new->next = NULL;
-//     index = head;
-//     while (index->next!= NULL)
-//       index = index->next;
-//     index->next = new;
-//
-//
-//   }
-// }
+void get_path(t_lemin *lemin)
+{
+  int i;
+  int j;
+  t_path *head;
+  t_path *new;
+  t_path *index;
+  // printf("in get path\n");
+  //
+  // i = 0;
+  // while (i < lemin->number_of_nodes)
+  // {
+  //   printf(" Node %s has been visited %d times\n", lemin->node_tab[i]->name, lemin->node_tab[i]->visited);
+  //   i++;
+  // }
+  // i = 0;
+  // while (i < lemin->number_of_edges)
+  // {
+  //   printf(" edge %s to %s has been visited %d times\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
+  //   i++;
+  // }
+
+  // lemin->final_path_tabs = malloc(sizeof(t_path *) * lemin->nb_path);
+  // head = malloc(sizeof(t_path));
+  // head->node = lemin->node_tab[0];
+  // lemin->final_path_tabs[0] = head;
+  // i = 1;
+  // j = 0;
+  // while (i < nb_path)
+  // {
+  //
+  //   // new->node = recursive_get_path(lemin, lemin->final_path_tabs[j]->node,head);
+  //   new->next = NULL;
+  //   index = head;
+  //   while (index->next!= NULL)
+  //     index = index->next;
+  //   index->next = new;
+  //
+  //
+  // }
+}
 //
 //
 // t_node *recursive_get_path(t_lemin *lemin, t_node *pre_node, t_path * head )

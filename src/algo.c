@@ -24,6 +24,7 @@ void save_path(t_lemin *lemin, int index_path)
     if (ft_strcmp(new->node, lemin->node_tab[i]->name) == 0) // compare pointers ?
     {
       // free(new); // bug
+      lemin->node_tab[i]->visited += 1;
       new = malloc(sizeof(t_path));
       new->node = ft_strdup(lemin->node_tab[i]->predecessor);
       new->next = NULL;
@@ -46,7 +47,7 @@ void save_path(t_lemin *lemin, int index_path)
   // printf("\n");
 }
 
-void init_infinity(t_lemin *lemin)
+void init_infinity_and_reach_cost(t_lemin *lemin)
 {
 	int i;
 
@@ -54,6 +55,8 @@ void init_infinity(t_lemin *lemin)
 	while ( i < lemin->number_of_nodes)
 	{
 		lemin->node_tab[i]->infinity = 1;
+    lemin->node_tab[i]->reach_cost = 0;
+
 		i++;
 	}
 }
@@ -81,8 +84,16 @@ void start_algo(t_lemin *lemin)
     // bellman_ford(lemin);
     save_path(lemin, x);
 		suurballe(lemin, x);
-		init_infinity(lemin);
+    printf("apre suurballe\n");
+    i = 0;
+    while(i < lemin->number_of_edges)
+    {
+      printf("[%s][%s] w[%d] visité [%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight, lemin->edge_tab[i]->visited);
+      i++;
+    }
+		init_infinity_and_reach_cost(lemin);
 		x++;
+    printf("----------------------------------------------------------------------\n");
 	}
 	//!\\ not part of code, print different path
 	t_path *index;

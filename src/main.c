@@ -50,7 +50,7 @@ int main()
 	printf("-----------------------------------\n");
 	// printf("33--------------------\n");
 	start_algo(&lemin);
-	// get_path(&lemin);
+	get_path(&lemin);
 	t3 = clock();
 	temps2 = (float)(t3-t1)/CLOCKS_PER_SEC;
 	printf("temps1 = %f temps2 = %f\n", temps1, temps2);
