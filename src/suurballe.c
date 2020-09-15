@@ -4,6 +4,7 @@ void create_dup_room(t_lemin *lemin, t_node **tab, char *node)
 {
   int i;
   int index;
+  printf("in create dup room\n");
 
   i = 0;
   index = 0;
@@ -26,6 +27,8 @@ void suurballe(t_lemin *lemin, int path_index)
   t_path *index;
   char *pre;
   char *suc;
+
+  printf("in suurballe\n");
 
   index = lemin->path_tab[path_index];
   while(index->next != NULL)
@@ -58,10 +61,10 @@ void suurballe(t_lemin *lemin, int path_index)
     index = index->next;
   }
   //!\\ not part of code, check the content of the edges
-  i = 0;
-  while(i < lemin->number_of_edges)
-  {
-    printf("[%s][%s] w[%d] visité [%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight, lemin->edge_tab[i]->visited);
-    i++;
-  }
+  // i = 0;
+  // while(i < lemin->number_of_edges)
+  // {
+  //   printf("[%s][%s] w[%d] visité [%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight, lemin->edge_tab[i]->visited);
+  //   i++;
+  // }
 }

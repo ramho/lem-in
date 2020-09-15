@@ -36,14 +36,14 @@ void save_path(t_lemin *lemin, int index_path)
     i++;
   }
   // !\\not part of code, just to print shortest path
-  index = head;
-  printf("shortest path is: ");
-  while (index != NULL)
-  {
-    printf("%s ", index->node);
-    index = index->next;
-  }
-  printf("\n");
+  // index = head;
+  // printf("shortest path is: ");
+  // while (index != NULL)
+  // {
+  //   printf("%s ", index->node);
+  //   index = index->next;
+  // }
+  // printf("\n");
 }
 
 void init_infinity(t_lemin *lemin)
@@ -63,11 +63,12 @@ void start_algo(t_lemin *lemin)
 	int i;
 	int x;
 
-  printf("nb of edges %d\n", lemin->number_of_edges);
+  // printf("nb of edges %d\n", lemin->number_of_edges);
+  printf("nb of path %d\n", lemin->nb_path);
 
 	lemin->path_tab = malloc(sizeof(t_path *) * lemin->nb_path);
 	x = 0;
-	while (x < 10)//lemin->nb_path)
+	while (x < lemin->nb_path)
 	{
 		i = lemin->number_of_nodes;
 		while(--i)

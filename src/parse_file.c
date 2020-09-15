@@ -145,10 +145,11 @@ void get_edges( t_lemin *lemin)
 
 	// ---GET start/out & end/in links-------------------------
 	char **rooms;
+	// printf("in get edges nb of edge [%d]\n", lemin->number_of_edges);
 
 lemin->nb_start_out = 0;
 lemin->nb_end_in = 0;
-	i = -1;
+	i = 1;
 
 	if (!(lemin->node_tab[0]->links = (t_link *)malloc(sizeof(t_link))))
 	return ;
@@ -156,30 +157,36 @@ lemin->nb_end_in = 0;
 	lemin->node_tab[0]->links = NULL;
 
 
-	while(lemin->file_edges[++i])
+	while(i < lemin->number_of_edges/2)
 	{
-		rooms = ft_strsplit(lemin->file_edges[i], '-');
 
+		rooms = ft_strsplit(lemin->file_edges[i], '-');
+		// printf("hallo1-----[%s]\n", lemin->file_edges[i]);
 		if (!(ft_strcmp(rooms[0], lemin->node_tab[0]->name)))
 		{
+			// printf("hallo2-----\n");
 			ft_push_link_front(&lemin->node_tab[0]->links, rooms[1]);
 			lemin->nb_start_out++;
 		}
 		if (!(ft_strcmp(rooms[1], lemin->node_tab[0]->name)))
 		{
+			// printf("hallo3-----\n");
 			ft_push_link_front(&lemin->node_tab[0]->links, rooms[0]);
 			lemin->nb_start_out++;
 		}
 		if (!(ft_strcmp(rooms[0], lemin->node_tab[1]->name)))
 		{
+			// printf("hallo4-----\n");
 			ft_push_link_front(&lemin->node_tab[1]->links, rooms[1]);
 			lemin->nb_end_in++;
 		}
 		if (!(ft_strcmp(rooms[1], lemin->node_tab[1]->name)))
 		{
+			// printf("hallo5-----\n");
 			ft_push_link_front(&lemin->node_tab[1]->links, rooms[0]);
 			lemin->nb_end_in++;
 		}
+		i++;
 	}
 	printf("nb start out %i\n", lemin->nb_start_out);
 	printf("nb end in %i\n", lemin->nb_end_in);
@@ -227,13 +234,14 @@ lemin->nb_end_in = 0;
 	// printf("--------------------\n");
 	// end PRINT----------------------------------------------
 
-// printf("in get edges %d\n", lemin->number_of_edges);
+
 	i = 0;
 	z = 0;
 
 	lemin->edge_tab =malloc(sizeof(t_edge *) * lemin->number_of_edges * 3); // 3 pour le dedoublement des nodes
-  	while(lemin->file_edges[i])
+  	while(i < lemin->number_of_edges/2)
   	{
+		// printf("line is [%s]\n", lemin->file_edges[i]);
     	lemin->edge_tab[z] =malloc(sizeof(t_edge));
     	j = 0;
     	while(j < ft_strlen(lemin->file_edges[i]))

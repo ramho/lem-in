@@ -35,10 +35,11 @@ int main()
 	t_lemin lemin;
 	float temps1,temps2;
 	clock_t t1, t2, t3;
-
+	// printf("00\n");
 	t1 = clock();
-
+	// printf("11\n");
 	get_file_content(&lemin);
+	// printf("22 ---------------\n");
 	if (!(parse_file(&lemin)))
 	{
 		printf("FILE ERROR\n");
@@ -47,6 +48,7 @@ int main()
 	t2 = clock();
 	temps1 = (float)(t2-t1)/CLOCKS_PER_SEC;
 	printf("-----------------------------------\n");
+	// printf("33--------------------\n");
 	start_algo(&lemin);
 	// get_path(&lemin);
 	t3 = clock();

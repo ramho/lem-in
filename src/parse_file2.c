@@ -7,6 +7,7 @@ void get_nodes(char **tab, t_lemin *lemin)
 	int k;
 	t_node *temp;
 
+// printf("in get nodes\n");
   lemin->node_name=malloc(sizeof(char *) * lemin->number_of_nodes);
   lemin->node_tab=malloc(sizeof(t_node *) * lemin->number_of_nodes);
 	temp = malloc(sizeof(t_node));
