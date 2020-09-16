@@ -55,7 +55,10 @@ void init_infinity_and_reach_cost(t_lemin *lemin)
 	while ( i < lemin->number_of_nodes)
 	{
 		lemin->node_tab[i]->infinity = 1;
-    lemin->node_tab[i]->reach_cost = 0;
+    	lemin->node_tab[i]->reach_cost = 0;
+		printf("predecessor is %s\n", lemin->node_tab[i]->predecessor);
+		if(lemin->node_tab[i]->predecessor)
+			free(lemin->node_tab[i]->predecessor);
 
 		i++;
 	}
