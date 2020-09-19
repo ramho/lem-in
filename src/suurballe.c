@@ -4,7 +4,7 @@ void create_dup_room(t_lemin *lemin, t_node **tab, char *node)
 {
   int i;
   int index;
-  printf("in create dup room\n");
+  // printf("in create dup room\n");
 
   i = 0;
   index = 0;
@@ -28,7 +28,7 @@ void suurballe(t_lemin *lemin, int path_index)
   char *pre;
   char *suc;
 
-  printf("in suurballe\n");
+  // printf("in suurballe\n");
 
   index = lemin->path_tab[path_index];
   while(index->next != NULL)
@@ -45,16 +45,17 @@ void suurballe(t_lemin *lemin, int path_index)
       {
         // printf("pre %s VS [%s] // suc %s VS [%s]\n", pre, lemin->edge_tab[i]->predecessor, suc, lemin->edge_tab[i]->successor);
         lemin->edge_tab[i]->weight = -1;
-        lemin->edge_tab[i]->visited += 1;
         if (ft_strcmp(suc, lemin->start_node))
           create_dup_room(lemin, lemin->node_tab, suc);
+          printf("[%s][%s] visite [%d]\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
       }
       if ((ft_strcmp(suc, lemin->edge_tab[i]->predecessor) == 0)
         && (ft_strcmp(pre,lemin->edge_tab[i]->successor) == 0))
       {
         // printf("suc %s VS PRE-tab[%s] // pre %s VS SUC-tab[%s]\n", suc, lemin->edge_tab[i]->predecessor, pre, lemin->edge_tab[i]->successor);
-        lemin->edge_tab[i]->weight = lemin->number_of_edges * 10;
-        lemin->edge_tab[i]->visited += 1;
+        // lemin->edge_tab[i]->weight = lemin->number_of_edges * 10;
+        lemin->edge_tab[i]->visited = 1;
+        printf("[%s][%s] visite [%d]\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
       }
       i++;
     }
@@ -64,7 +65,7 @@ void suurballe(t_lemin *lemin, int path_index)
   i = 0;
   while(i < lemin->number_of_edges)
   {
-    printf("[%s][%s] w[%d] visité [%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight, lemin->edge_tab[i]->visited);
+    // printf("[%s][%s] w[%d] visité [%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight, lemin->edge_tab[i]->visited);
     i++;
   }
 }

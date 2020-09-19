@@ -39,7 +39,7 @@ int parse_file(t_lemin *lemin)
 			return (0);
 	}
 	//----------end check-------------------------------
-
+// printf("in parse file 222 \n\n");
 	// ---------check ants format-----------------------
 	if ((lemin->nb_ants = ft_atoi(lemin->file[0])) < 1)
 		return (0);
@@ -50,33 +50,14 @@ int parse_file(t_lemin *lemin)
 	int node_flag;
 
 	i = 0;
-	node_flag = 1; // flag to end get_node & start get_edges
-	// while (lemin->file[++i])) //TO DO ---> (get this from) chained list
-	// {
-	// 	if (ft_strchr(lemin->file[++i], ' '))
-	// 	//TO DO?: si node_flag + ft_node_format -> ft_stock_node
-	// 	//		  si !node_flag + ft_edge_format -> ft_stock_edge
-	// }
-	//-----------end get + check------------------------
+	node_flag = 1;
 
-	//----------get number node & edge--------
-	// i = 0;
-	// while (lemin->file[++i]))
-	// {
-	//
-	// }
 	seperate_nodes_edges(lemin);
   	// printf("11\n");
  	get_nodes(lemin->file_nodes, lemin);
-	// i = -1;
-	// while (lemin->file_nodes[++i])
-	// {
-	// 	printf("%s\n", lemin->node_tab[i]->name);
-	// 	printf("%d\n", lemin->node_tab[i]->type);
-	// 	printf("---\n");
-	// }
-  	// printf("22\n");
+// printf("22\n");
   get_edges(lemin);
+	// printf("33\n");
 	return (1);
 }
 
@@ -107,8 +88,8 @@ int  seperate_nodes_edges(t_lemin *lemin)
        lemin->file_nodes[lemin->number_of_nodes] = ft_strdup(lemin->file[i]);
        lemin->number_of_nodes++;
      }
-    else if (lemin->file[i][0] == '#' && lemin->file[i][1] != '#')
-      continue;
+    // else if (lemin->file[i][0] == '#' && lemin->file[i][1] != '#')
+    //   continue;
     i++;
   }
   // not part of code, just to check the content is correct in nodes and edges
@@ -118,6 +99,7 @@ int  seperate_nodes_edges(t_lemin *lemin)
   // for ( i = 0; i < lemin->number_of_nodes; i++)
   //     printf("nodes are %s\n", lemin->file_nodes[i]);
   lemin->number_of_edges *= 2;
+	printf("END\n");
   return(1);
 }
 
@@ -160,16 +142,16 @@ lemin->nb_end_in = 0;
 	while(i < lemin->number_of_edges/2)
 	{
 		rooms = ft_strsplit(lemin->file_edges[i], '-');
-		printf("line is %s\n", lemin->file_edges[i]);
+		// printf("line is %s\n", lemin->file_edges[i]);
 		if (!(ft_strcmp(rooms[0], lemin->node_tab[0]->name)))
 		{
-			printf("here 1\n");
+			// printf("here 1\n");
 			ft_push_link_front(&lemin->node_tab[0]->links, rooms[1]);
 			lemin->nb_start_out++;
 		}
 		if (!(ft_strcmp(rooms[1], lemin->node_tab[0]->name)))
 		{
-			printf("here 2\n");
+			// printf("here 2\n");
 			ft_push_link_front(&lemin->node_tab[0]->links, rooms[0]);
 			lemin->nb_start_out++;
 		}
@@ -251,7 +233,9 @@ lemin->nb_end_in = 0;
         		j++;
       		lemin->edge_tab[z]->successor = ft_strsub(lemin->file_edges[i],k, j);
       		lemin->edge_tab[z]->weight = 1;
+
       		lemin->edge_tab[z + 1]=malloc(sizeof(t_edge));
+					lemin->edge_tab[z]->reverse = lemin->edge_tab[z + 1];
       		lemin->edge_tab[z + 1]->predecessor = ft_strdup(lemin->edge_tab[z]->successor);
       		lemin->edge_tab[z + 1]->successor = ft_strdup(lemin->edge_tab[z]->predecessor);
       		lemin->edge_tab[z + 1]->weight = 1;

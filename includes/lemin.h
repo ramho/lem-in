@@ -16,6 +16,7 @@ typedef struct s_path
 typedef struct s_link
 {
     char *room; // t_node *
+    int no_go; // here or in edge
     struct s_link *next;
 }              t_link;
 
@@ -39,12 +40,14 @@ typedef struct s_node
   int selected;
 }               t_node;
 
-typedef struct edges
+typedef struct s_edges
 {
     char *predecessor;// remplacer par t_node *
     char *successor;// remplacer par t_node *
     int weight;
     int visited;
+    struct s_edges *reverse; // when created, point to it
+    int no_go;
 }              t_edge;
 
 typedef struct  s_lemin
@@ -134,6 +137,7 @@ void suurballe(t_lemin *lemin, int path_index);
 */
 void get_path(t_lemin *lemin);
 char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
+void select_path(t_lemin *lemin);
 
 /*
 **  extra_func.cs

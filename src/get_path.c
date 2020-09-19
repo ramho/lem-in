@@ -2,85 +2,61 @@
 
 void get_path(t_lemin *lemin)
 {
-  int i;
-  int j;
-  t_path *head;
-  t_path *new;
-  t_path *index;
-  // printf("in get path\n");
-  //
-  // i = 0;
-  // while (i < lemin->number_of_nodes)
-  // {
-  //   printf(" Node %s has been visited %d times\n", lemin->node_tab[i]->name, lemin->node_tab[i]->visited);
-  //   i++;
-  // }
-  // i = 0;
-  // while (i < lemin->number_of_edges)
-  // {
-  //   printf(" edge %s to %s has been visited %d times\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
-  //   i++;
-  // }
+  int path;
 
-  // lemin->final_path_tabs = malloc(sizeof(t_path *) * lemin->nb_path);
-  // head = malloc(sizeof(t_path));
-  // head->node = lemin->node_tab[0];
-  // lemin->final_path_tabs[0] = head;
-  // i = 1;
-  // j = 0;
-  // while (i < nb_path)
-  // {
-  //
-  //   // new->node = recursive_get_path(lemin, lemin->final_path_tabs[j]->node,head);
-  //   new->next = NULL;
-  //   index = head;
-  //   while (index->next!= NULL)
-  //     index = index->next;
-  //   index->next = new;
-  //
-  //
-  // }
+  path = 0;
+  select_path(lemin);
+  // ! \\ not for code
+  // for (i = 0; i < lemin->number_of_edges; i++)
+  //   printf("edge [%s][%s] no_go [%d]\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->no_go);
+  // printf("in get path\n");
+
+  while (i < lemin->nb_path)
+  {
+    if (get_next_node(lemin->node_tab[0]) == 1)// has to be starting node
+      path += 1;
+    i++;
+  }
+
 }
-//
-//
-// t_node *recursive_get_path(t_lemin *lemin, t_node *pre_node, t_path * head )
-// {
-//   int i;
-//   t_path *index;
-//   t_path *new;
-//   printf("in recursive get path\n");
-//
-//   i = 0;
-//   while (i < lemin->number_of_edges)
-//   {
-//     if (ft_strcmp(pre_node->name,lemin->edge_tab[i]->predecessor) == 0)
-//     {
-//       if(lemin->edge_tab[i]->visited == 1)
-//       {
-//         new = malloc(sizeof(t_path));
-//         new->node = ft_strdup(lemin->edge_tab[i]->successor);
-//         new->next = NULL;
-//         index = head;
-//         while(index->next != NULL)
-//         {
-//           index = index->next;
-//         }
-//         index->next = new;
-//         index = head;
-//         i = 0;
-//         while (index != NULL)
-//           {
-//             printf("path is %s ", index->node);
-//             i++;
-//             index= index->next;
-//           }
-//         return (new);
-//
-//       }
-//     }
-//     i++;
-//   }
-//
-//   printf("out of recursive loop, no match\n");
-//   return(NULL);
-// }
+
+int get_next_node(t_node *start)
+{
+
+  links = start->links;
+  while (links)
+  {
+    if (lemin->edge_tab[hash_code(lemin->node_tab[i], links, ...)]->no_go == 0) // si edge est bon
+    {
+      add_node_link_to_final_path(link);
+      if (new_link = lemin->node_end)
+        return (1);
+      if (get_next_node(link) == 1)
+          return (1);
+    }
+    else if// si edge est pas bon
+    links = links-next;
+  }
+  return(-1);
+}
+
+void select_path(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans le parsing voir si on peut eviter les doubles
+{
+  int i;
+  printf("enter select path\n");
+  i = 0;
+
+  while (i < lemin->number_of_edges)
+  {
+    if (lemin->edge_tab[i]->reverse)
+    {
+      if (lemin->edge_tab[i]->visited == 1 && lemin->edge_tab[i]->reverse->visited == 1)
+      {
+        lemin->edge_tab[i]->no_go = 1;
+        lemin->edge_tab[i]->reverse->no_go = 1;
+      }
+    }
+    i++;
+  }
+
+}
