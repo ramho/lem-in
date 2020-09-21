@@ -2,9 +2,9 @@
 # define LEMIN_H
 
 # include "../libft/libft.h"
-# include <stdio.h> //
-# include <time.h> //
-# define LEMIN_READ_BUFF 65536
+# include <stdio.h>
+# include <time.h>
+# define LEMIN_READ_BUFF 1
 # define LINE_SIZE 100
 # define HASH_SIZE 1000000
 
@@ -26,7 +26,7 @@ typedef struct s_link
 
 typedef struct s_node
 {
-  int key; // for hash map but name can also be the key
+  unsigned long key; // for hash map but name can also be the key
   char *name;
   int type; // 1 is start and 2 is end
   int x;
@@ -34,15 +34,17 @@ typedef struct s_node
   int reach_cost;
   int infinity;
   char *predecessor;
+  struct s_node *next;
   t_link *links; // linked list for links
 }               t_node;
 
-typedef struct edges
+typedef struct s_edge
 {
-    char *predecessor;
-    char *successor;
+    t_node *predecessor;
+    t_node *successor;
     int weight;
     int visited;
+	struct s_edge *next;
 }              t_edge;
 
 typedef struct  s_lemin
@@ -55,35 +57,38 @@ typedef struct  s_lemin
 	char parse_flag;
 	char end_buff;
 	int rest;
-	int slash;
+	int end_line;
 	int	hash_tag;
 	int	space;
+	char get_out;
 	// int first_space;
 	int	tiret;
 	char start_room;
 	char end_room;
 	// int count_buff;
-	int hash_map[HASH_SIZE];
+	// int hash_map[HASH_SIZE];
+	int x;
+	int y;
 
     int nb_ants;
     char **file;
     int table_size;
 
-    char *start_node;
-    char *end_node;
+    // char *start_node;
+    // char *end_node;
 	int	nb_start_out;
 	int	nb_end_in;
 
     char **file_edges; //save only links
     char **file_nodes; // save only nodes
-
-    int start_end;
-
     int number_of_nodes; // count of nodes
     int number_of_edges;
 
-    t_node **node_tab;
-    t_edge **edge_tab;
+    t_node *node_tab[HASH_SIZE + 1];
+	t_node start_node;
+	t_node end_node;
+
+    t_edge *edge_tab;
     char **node_name;
 
     // t_path *head;
