@@ -1,9 +1,9 @@
 #include "../includes/lemin.h"
 
 // sauvegarde le chemin trouver par bellmanford dans un tableau
-void save_path(t_lemin *lemin, int index_path)
+int save_path(t_lemin *lemin, int index_path)
 {
-	// printf("in save path\n");
+	printf("in save path\n");
 	t_path *new;
 	t_path *head;
 	t_path *index;
@@ -21,6 +21,9 @@ void save_path(t_lemin *lemin, int index_path)
 	// printf("5.5 %s \n", new->node->name);
 	while (new->node->predecessor)// != lemin->start_node->name)
 	{
+    // printf("predecessor name %s\n", new->node->predecessor->name);
+    // if (new->node == new->node->predecessor->predecessor)
+    //   return(-1);
 		index = head;
 		while (index->next != NULL)
 			index = index->next;
@@ -30,18 +33,20 @@ void save_path(t_lemin *lemin, int index_path)
 		if(new->node == lemin->start_node)
 			break;
 	}
+  // printf("out save\n");
 	//
 	//
 	//
-	// // !\\not part of code, just to print shortest path
+	// !\\not part of code, just to print shortest path
 	index = head;
 	printf("shortest path[%d] is: ", index_path);
-	while (index != NULL)
+	while (index)
 	{
 		printf("%s ", index->node->name);
 		index = index->next;
 	}
 	printf("\n\n");
+  return(0);
 }
 
 //
@@ -52,7 +57,7 @@ void init_infinity_and_reach_cost(t_lemin *lemin)
 
 	i = 1;
 	j = 1;
-	// printf("in init\n");
+	printf("in init\n");
 	t_edge *index = lemin->edge_tab;
 	while (index)
 	{
@@ -63,7 +68,7 @@ void init_infinity_and_reach_cost(t_lemin *lemin)
 	lemin->start_node->infinity = 0;
 }
 
-void start_algo(t_lemin *lemin)
+int start_algo(t_lemin *lemin)
 {
 	int i;
 	int x;
@@ -78,9 +83,14 @@ void start_algo(t_lemin *lemin)
 	while (x < lemin->nb_path)
 	{
 
-		bellman_ford(lemin);//, &changed);
+		if (bellman_ford(lemin) == 1)//, &changed);
+    {
+      printf("neg cycle\n");
+      return(0);
+    }
 		// printf("--------------------------------------------------\n");
-		save_path(lemin, x);
+		if (save_path(lemin, x) == -1)
+      return(2);
 		suurballe(lemin, x);
 		init_infinity_and_reach_cost(lemin);
 		i = 0;
@@ -103,4 +113,5 @@ void start_algo(t_lemin *lemin)
 	// 	i++;
 	// 	printf("\n");
 	// }
+  return(0);
 }

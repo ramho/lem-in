@@ -19,7 +19,7 @@ void suurballe(t_lemin *lemin, int path_index)
   t_node *suc_path;
 
   // printf("in suurballe\n");
-//
+
   index = lemin->path_tab[path_index];
   while(index->next)
   {

@@ -287,14 +287,14 @@ void insert_node_in_table(t_lemin *lemin, t_node *node);
 /*
 **  algo.c
 */
-void save_path(t_lemin *lemin, int index_path);
+int save_path(t_lemin *lemin, int index_path);
 void init_infinity(t_lemin *lemin);
-void start_algo(t_lemin *lemin);
+int start_algo(t_lemin *lemin);
 
 /*
 **  bellman_ford.c
 */
-void bellman_ford(t_lemin *lemin);
+int bellman_ford(t_lemin *lemin);
 // void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin);
 // void bellman_ford(t_lemin *lemin, int *changed);
 void try_reduce(t_node *pre, t_node *sec, int w, int *changed);

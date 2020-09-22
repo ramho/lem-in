@@ -148,6 +148,7 @@ void	parse_edges(t_lemin *l)
 	// printf("[%s] == %s/%s [%s] == %s/%s\n", l->start_node.name, a->name, b->name, l->end_node.name, a->name, b->name );
 
 	reverse_edge(ed);
+	l->number_of_edges +=2;
 	if (a->key == l->start_node->key || b->key == l->start_node->key)
 	{
 		// printf("here\n");
@@ -503,12 +504,14 @@ int main()
 	float temps;
 	clock_t t1, t2;
 	t_lemin *lemin;
+	int ret;
 
 t1 = clock();
 	if (!(lemin = malloc(sizeof(t_lemin))))
         return (1);
 	get_file_content(lemin);
-	start_algo(lemin);
+	ret = start_algo(lemin);
+	printf("ret = %d\n", ret);
 	// get_path(&lemin);
 	// printf("out\n");
 	t2 = clock();
