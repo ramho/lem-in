@@ -1,40 +1,92 @@
 #include "../includes/lemin.h"
 
-void bellman_ford(t_lemin *lemin)
+void bellman_ford(t_lemin *lemin)//, int *changed)
 {
 	int i;
 	// int j;
 	t_edge *tmp;
+	int changed;
 
 	i = 0;
-	printf("in bellamn %d\n", lemin->number_of_nodes);
+	changed = 0;
+	printf("in bellman_ford \n");
 	while (i < lemin->number_of_nodes)
 	{
 		// j = 0;
-		printf("here\n");
+		// printf("here\n");
 		tmp = lemin->edge_tab;
-		while (tmp->next != NULL)
+		while (tmp)
 		{
-			printf("%s - %s\n", tmp->predecessor->name, tmp->successor->name);
-			// try_reduce(tmp->predecessor, tmp->successor)
-		// 	if (ft_strcmp(lemin->node_tab[i]->name, lemin->edge_tab[j]->predecessor) == 0 && lemin->edge_tab[j]->visited == 0)
-		// 	{
-				// printf("edge [%s][%s] is visited %d times\n", lemin->edge_tab[j]->predecessor, lemin->edge_tab[j]->successor, lemin->edge_tab[j]->visited);
-				// try_reduce(lemin->node_tab[i], lemin->edge_tab[j]->successor, lemin->edge_tab[j]->weight, lemin);
-					printf("===============\n");
-				// }
+			try_reduce (tmp->predecessor, tmp->successor, tmp->weight, &changed);
+			// printf("%s - %s\n", tmp->predecessor->name, tmp->successor->name);
+			// 	if (ft_strcmp(lemin->node_tab[i]->name, lemin->edge_tab[j]->predecessor) == 0 && lemin->edge_tab[j]->visited == 0)
+			// 	{
+			// printf("edge [%s][%s] is visited %d times\n", lemin->edge_tab[j]->predecessor, lemin->edge_tab[j]->successor, lemin->edge_tab[j]->visited);
+			// try_reduce(lemin->node_tab[i], lemin->edge_tab[j]->successor, lemin->edge_tab[j]->weight, lemin);
 
-		// 	j++;
+			// }
+
+			// 	j++;
 			tmp = tmp->next;
-			printf("in\n");
+			// printf("in\n");
 		}
-		printf("out\n");
+					printf("===============\n");
+					if (changed == 0)
+					{
+						printf("BREAK\n");
+						break;
+					}
+		// printf("out\n");
 		i++;
 	}
 	// printf_current_reach_cost(lemin, 0);
 }
 
-// void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin)
+void try_reduce(t_node *pre, t_node *sec, int w, int *changed)
+{
+	// printf("in try reduce \n");
+	t_node *pre_node;
+	int in = 0; // check if not will have a predecssor otherwise will seg when printf
+
+	if (pre->duplicated == 1)
+		pre_node = pre->dup_out;
+	else
+		pre_node = pre;
+// printf("%s [%d] - %s [%d] -- weight %d\n", pre_node->name, pre_node->infinity, sec->name, sec->infinity, w);
+	if (pre_node->infinity == 0 && sec->infinity == 1) // if not yet passed to the second node
+	{
+		// printf("enter if infinity\n");
+		in = 1;
+		*changed = 1;
+		sec->reach_cost = pre_node->reach_cost + w;
+		sec->infinity = 0;
+		sec->predecessor = pre_node;
+		if (sec->duplicated == 1)
+		{
+			sec->dup_out->reach_cost = pre_node->reach_cost + w;
+			sec->dup_out->infinity = 0;
+			sec->dup_out->predecessor = pre_node;
+		}
+
+	}
+	// printf("333\n");
+
+	else if (pre_node->infinity  == 0 && sec->infinity == 0) // if both nodes have already been connected to a previous one
+	{
+		// printf("enter if not infinity\n");
+		if (sec->reach_cost > (pre_node->reach_cost + w))
+		{
+			in = 1;
+			*changed = 1;
+			sec->reach_cost = pre_node->reach_cost + w;
+			sec->predecessor = pre_node;
+		}
+	}
+	// if (in > 0)
+		// printf("name [%s] pre [%s] reach cost [%d]\n", sec->name, sec->predecessor->name, sec->reach_cost);
+// printf("predecessor [%s] --> sec[%s]\n", pre_node->name, sec->name);//, sec->predecessor->name);
+}
+
 // {
 // 	int i;
 // 	int pre_index;

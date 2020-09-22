@@ -66,7 +66,6 @@
 
 #include "../includes/lemin.h"
 
-
 int	hash(t_lemin *l, int *i, char c)
 {
 	int odd;
@@ -77,9 +76,11 @@ int	hash(t_lemin *l, int *i, char c)
 	oups = *i + 1;
 	while(l->line[++(*i)] != c)
 	{
+		// printf("%c", l->line[*i]);
 		odd = ((*i - oups) % 2) ? 3 : 2;
 		key = (key * 19) + l->line[*i] - odd + ((l->line[*i] - 32) * odd) + 32;
 	}
+	// printf("===== %d\n", key % HASH_SIZE);
 	return (key % HASH_SIZE);
 }
 
@@ -125,7 +126,27 @@ void	parse_edges(t_lemin *l)
 		return;
 	ed->predecessor = a;
 	ed->successor = b;
+	ed->weight = 1;
 
+
+//START ajout RH
+// printf("key start[%s] %lu key end[%s] %lu\n", l->start_node->name, l->start_node->key,l->end_node->name, l->end_node->key);
+// printf( "key[%s] %lu key[%s] %lu\n", a->name, a->key, b->name, b->key);
+// printf("\n a name ->%s/key[%lu] , b  ->%s/key[%lu]\n", a->name, a->key, b->name, b->key);
+// printf("start %p end %p ==== a %p b %p\n", &l->start_node, &l->end_node, a, b);
+	// printf("[%s] == %s/%s [%s] == %s/%s\n", l->start_node.name, a->name, b->name, l->end_node.name, a->name, b->name );
+	if (a->key == l->start_node->key || b->key == l->start_node->key)
+	{
+		// printf("here\n");
+		l->nb_start_out += 1;
+	}
+	if (a->key == l->end_node->key || b->key == l->end_node->key)
+	{
+		// printf("there\n");
+		l->nb_end_in += 1;
+	}
+
+// END ajout RH
 	if (!(l->edge_tab))
 	{
 		l->edge_tab = ed;
@@ -156,15 +177,6 @@ int	parse_nodes(t_lemin *l)
 
 	if (!(node = (t_node*)malloc(sizeof(t_node))))
 		return (0);
-	// printf("######### ROOM #########\n");
-	// printf("line       : %s", l->line);
-	// printf("name       : %s\n", node->name);
-	// printf("x          : %i\n", node->x);
-	// printf("y          : %i\n", node->y);
-	// printf("hash key   : %lu\n", node->key);
-	// printf("start room : %i\n", l->start_room);
-	// printf("end room   : %i\n", l->end_room);
-	// printf("########################\n");
 	i = -1;
 	node->key = hash(l, &i, ' ');
 	// ---------hash fonction-------------
@@ -218,18 +230,23 @@ int	parse_nodes(t_lemin *l)
 		}
 	}
 	node->y *= neg;
+	node->reach_cost = 0;
 	if (l->start_room == 1)
 	{
-		printf("START\n");
-		l->start_node = *node;
+		node->infinity = 0;
+		l->start_node = node;
 		l->start_room++;
+		// printf("START address [%p] VS node address [%p]\n", l->start_node, node);
 	}
 	else if (l->end_room == 1)
 	{
-		printf("END\n");
-		l->end_node = *node;
+		// printf("END\n");
+			node->infinity = 1;
+		l->end_node = node;
 		l->end_room++;
 	}
+	else
+			node->infinity = 1;
 	l->number_of_nodes++;
 	// printf("########################\n");
 	// printf("line       : %s", l->line);
@@ -371,15 +388,7 @@ int parse_buff(t_lemin *l)
 		(l->buff[l->i] >= '0' && l->buff[l->i] <= '9') || \
 		(l->buff[l->i] == '#') || (l->buff[l->i] == ' ') || (l->buff[l->i] == '-') || (l->buff[l->i] == '_') || (l->buff[l->i] == ':'))
 		{
-			// printf("--------char-------\n");
-			// printf("--- i_buff   : %i\n", l->i);
-			// printf("--- i_line   : %i\n", l->i_line);
-			// printf("--- end_line : %i\n", l->end_line);
-			// printf("--- rest     : %i\n", l->rest);
-			// printf("--- end_buff : %i\n", l->end_buff);
-			// printf("--- line     : %s\n", l->line);
-			// printf("--- buff     : %s\n", l->buff);
-			// printf("--------------------\n");
+
 			if (((l->buff[l->i] == '#') && l->i_line < 2))
 				l->hash_tag += (l->i_line + 1);
 			if (l->buff[l->i] == ' ')
@@ -389,27 +398,10 @@ int parse_buff(t_lemin *l)
 			l->line[l->i_line] = l->buff[l->i];
 			l->i++;
 			l->i_line++;
-			// printf("--------char-------\n");
-			// printf("--- i_buff   : %i\n", l->i);
-			// printf("--- i_line   : %i\n", l->i_line);
-			// printf("--- end_line : %i\n", l->end_line);
-			// printf("--- rest     : %i\n", l->rest);
-			// printf("--- end_buff : %i\n", l->end_buff);
-			// printf("--- line     : %s\n", l->line);
-			// printf("--- buff     : %s\n", l->buff);
-			// printf("--------------------\n");
 		}
 		else if (l->buff[l->i] == '\n')
 		{
-			// printf("--------char-------\n");
-			// printf("--- i_buff   : %i\n", l->i);
-			// printf("--- i_line   : %i\n", l->i_line);
-			// printf("--- end_line : %i\n", l->end_line);
-			// printf("--- rest     : %i\n", l->rest);
-			// printf("--- end_buff : %i\n", l->end_buff);
-			// printf("--- line     : %s\n", l->line);
-			// printf("--- buff     : %s\n", l->buff);
-			// printf("--------------------\n");
+
 			if (!l->i_line)
 			{
 				printf("ERROR : empty line\n");
@@ -440,16 +432,7 @@ int parse_buff(t_lemin *l)
 		{
 			if (l->end_line)
 			{
-				// write(1, "-----------------start end_buff\n", 32);
-				// printf("--- i_buff :%i\n", l->i);
-				// printf("--- i_line :%i\n", l->i_line);
-				// printf("--- end_line :%i\n", l->end_line);
-				// printf("--- rest :%i\n", l->rest);
-				// printf("--- end_buff :%i\n", l->end_buff);
-				// printf("--- line :%s\n", l->line);
-				// printf("--- buff :[%s]\n", l->buff);
-				// printf("--------------------\n");
-				// write(1,"\n######write_BUFF###### |", 25);
+
 				if (l->end_line - l->rest)
 					write(1, &l->buff[l->rest], l->end_line - l->rest);
 				// write(1,"|\n\n", 3);
@@ -487,119 +470,36 @@ void	get_file_content(t_lemin *lemin)
 		if (!(parse_buff(lemin)))
 			break;
 	}
-
+	//START ajout RH , pur nombre de path
+	printf("start %d - end %d\n", lemin->nb_start_out, lemin->nb_end_in);
+		if (lemin->nb_start_out == lemin->nb_end_in)
+			lemin->nb_path = lemin->nb_start_out;
+		else if (lemin->nb_start_out > lemin->nb_end_in)
+			lemin->nb_path = lemin->nb_end_in;
+		else if (lemin->nb_start_out < lemin->nb_end_in)
+			lemin->nb_path = lemin->nb_start_out;
+	//END ajout RH
 	t2 = clock();
 	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
 	printf("temps = %f\n", temps);
 
-	// int w = -1;
-	// // int tic = 0;
-	// t_node *tmp;
-	// // while(++w < HASH_SIZE)
-	// // {
-	// // 	if (lemin->hash_map[w] > tic)
-	// // 		tic = lemin->hash_map[w];
-	// // }
-	// // printf("%i\n", tic);
-	// // printf("%i\n", lemin->number_of_nodes);
-	//
-	// //------CHECK ALL ROOM PRESENCE
-	// w = -1;
-	// int count = 0;
-	// while(++w < HASH_SIZE)
-	// {
-	// 	if (lemin->node_tab[w])
-	// 	{
-	// 		count++;
-	// 		printf("%s\n", lemin->node_tab[w]->name);
-	// 		if (lemin->node_tab[w]->next)
-	// 		{
-	// 			printf("##########################%i\n", w);
-	// 			tmp = lemin->node_tab[w]->next;
-	// 			while (tmp)
-	// 			{
-	// 				count++;
-	// 				printf("in list [%s]\n", tmp->name);
-	// 				tmp = tmp->next;
-	// 				if (count >= 4)
-	// 					printf("_______________________________________\n");
-	// 			}
-	// 		}
-	// 	}
-	// }
-	// printf("%i\n", count);
-	// //------CHECK ALL ROOM PRESENCE END
-	// exit(0);
-	// -------DATA<----------------------------
-
-
-
-	//------TEST-------------------------------
-	// int i;
-	// int ret;
-	// char *line;
-	// float temps;
-	// clock_t t1, t2;
-	//
-	// ret = 0;
-	// i = 0;
-	// t1 = clock();
-	// while ((ret = get_next_line(0, &line)) > 0)
-	// {
-	// 	printf("%s\n", line);
-	// 	i++;
-	// }
-	// t2 = clock();
-	// temps = (float)(t2-t1)/CLOCKS_PER_SEC;
-	// printf("temps = %f\n", temps);
-	// exit(0);
-	//------END-TEST---------------------------
-
-
-
-	// int i;
-	// int ret;
-	// char *line;
-	// // printf("in get file content\n\n");
-	// ret = 0;
-	// i = 0;
-	// lemin->file = malloc(sizeof(char *) * 10000);
-	// while ((ret = get_next_line(0, &line)) > 0)
-	// {
-	// 	lemin->file[i] = ft_strdup(line);
-	// 	i++;
-	// }
-	// lemin->file[i] = NULL;
-	// lemin->table_size = i;// get number of lines and more for table
-	// if (ret < 0 || i < 5) // 5 because otherwise not enough rooms
-	// {
-	// 	printf("FILE ERROR");
-	// 	exit(0);
-	// }
-	// print file--------------------------------
-	// i = -1;
-	// while (++i < lemin->table_size)
-	// 	printf("%s\n", lemin->file[i]);
-	// end print file ---------------------------
 }
 
 int main()
 {
+	float temps;
+	clock_t t1, t2;
 	t_lemin *lemin;
 
+t1 = clock();
 	if (!(lemin = malloc(sizeof(t_lemin))))
         return (1);
-
-    get_file_content(lemin);
-    // free(lemin);
-	// printf("11\n");
-	// if (!(parse_file(&lemin)))
-	// {
-	// 	printf("FILE ERROR\n");
-	// 	exit(0);
-	// }
-	// // printf("22\n");
+	get_file_content(lemin);
 	start_algo(lemin);
 	// get_path(&lemin);
+	printf("out\n");
+	t2 = clock();
+	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
+	printf("temps = %f\n", temps);
 	return(0);
 }

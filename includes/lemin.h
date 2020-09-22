@@ -161,22 +161,11 @@
 # define LEMIN_READ_BUFF 1
 # define LINE_SIZE 100
 # define HASH_SIZE 1000000
-
-//# define PLUS_GRAND INT_MAX
-
-typedef struct s_path
-{
-  char *node;
-  struct s_path * next;
-}             t_path;
-
 typedef struct s_link
 {
     char *room;
     struct s_link *next;
 }              t_link;
-
-// coucou
 
 typedef struct s_node
 {
@@ -187,7 +176,7 @@ typedef struct s_node
   int y;
   int reach_cost;
   int infinity;
-  char *predecessor;
+  struct s_node *predecessor;
   struct s_node *next;
   int duplicated;
   t_link *links; // linked list for links
@@ -203,6 +192,12 @@ typedef struct s_edge
     int visited;
 	struct s_edge *next;
 }              t_edge;
+
+typedef struct s_path
+{
+  t_node *node;
+  struct s_path * next;
+}             t_path;
 
 typedef struct  s_lemin
 {
@@ -242,8 +237,8 @@ typedef struct  s_lemin
     int number_of_edges;
 
     t_node *node_tab[HASH_SIZE + 1];
-	t_node start_node;
-	t_node end_node;
+	t_node *start_node;
+	t_node *end_node;
 
     t_edge *edge_tab;
     char **node_name;
@@ -299,7 +294,9 @@ void start_algo(t_lemin *lemin);
 **  bellman_ford.c
 */
 void bellman_ford(t_lemin *lemin);
-void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin);
+// void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin);
+// void bellman_ford(t_lemin *lemin, int *changed);
+void try_reduce(t_node *pre, t_node *sec, int w, int *changed);
 
 /*
 **  suurballe.c

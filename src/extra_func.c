@@ -36,5 +36,8 @@ void printf_current_reach_cost(t_lemin *lemin, int iteration)
 	int i;
 
 	for (i = 0; i < lemin->number_of_nodes; i++)
-		printf("%10s |%10s |%10d\n", lemin->node_tab[i]->name, lemin->node_tab[i]->predecessor,lemin->node_tab[i]->reach_cost);
+	{
+		if (lemin->node_tab[i])
+			printf("%10s |%10s |%10d\n", lemin->node_tab[i]->name, lemin->node_tab[i]->predecessor->name,lemin->node_tab[i]->reach_cost);
+	}
 }
