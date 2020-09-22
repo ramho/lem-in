@@ -190,6 +190,7 @@ typedef struct s_edge
     t_node *successor;
     int weight;
     int visited;
+	struct s_edge *reversed;
 	struct s_edge *next;
 }              t_edge;
 
@@ -301,7 +302,8 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed);
 /*
 **  suurballe.c
 */
-void create_dup_room(t_lemin *lemin, t_node **tab, char *node);
+// void create_dup_room(t_lemin *lemin, t_node **tab, char *node);
+void create_dup_room(t_lemin *lemin, t_node *node);
 void suurballe(t_lemin *lemin, int path_index);
 
 /*

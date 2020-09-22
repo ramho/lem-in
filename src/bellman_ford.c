@@ -18,6 +18,8 @@ void bellman_ford(t_lemin *lemin)//, int *changed)
 		while (tmp)
 		{
 			try_reduce (tmp->predecessor, tmp->successor, tmp->weight, &changed);
+		
+
 			// printf("%s - %s\n", tmp->predecessor->name, tmp->successor->name);
 			// 	if (ft_strcmp(lemin->node_tab[i]->name, lemin->edge_tab[j]->predecessor) == 0 && lemin->edge_tab[j]->visited == 0)
 			// 	{
@@ -30,7 +32,7 @@ void bellman_ford(t_lemin *lemin)//, int *changed)
 			tmp = tmp->next;
 			// printf("in\n");
 		}
-					printf("===============\n");
+					// printf("===============\n");
 					if (changed == 0)
 					{
 						printf("BREAK\n");
@@ -83,7 +85,7 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed)
 		}
 	}
 	// if (in > 0)
-		// printf("name [%s] pre [%s] reach cost [%d]\n", sec->name, sec->predecessor->name, sec->reach_cost);
+	// 	printf("name [%s] pre [%s] reach cost [%d]\n", sec->name, sec->predecessor->name, sec->reach_cost);
 // printf("predecessor [%s] --> sec[%s]\n", pre_node->name, sec->name);//, sec->predecessor->name);
 }
 

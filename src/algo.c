@@ -14,60 +14,61 @@ void save_path(t_lemin *lemin, int index_path)
   head = malloc(sizeof(t_path));
   lemin->path_tab[index_path] = head;
 	head->node = lemin->end_node;
-  printf("end node pre %s\n", lemin->end_node->predecessor->name);
-printf("1\n");
   new = malloc(sizeof(t_path));
-  new->node = head->node->predecessor; // should be a t_node * in structure
-  // printf("new node %s\n", head->node->predecessor->name);
+  new->node = head->node->predecessor;
   new->next = NULL;
   head->next = new;
-  // printf("2 %s\n", new->node->predecessor->name);
-  // while (new->node->predecessor->name != lemin->start_node->name)
-  // {
-  //   printf("3\n");
-  //   new = malloc(sizeof(t_path));
-  //   new->node = index->next->node->predecessor;
-  //   index = head;
-  //   while (index->next != NULL)
-  //     index = index->next;
-  //   index->next = new;
-  // }
+  // printf("5.5 %s \n", new->node->name);
+  while (new->node->predecessor)// != lemin->start_node->name)
+  {
+	 index = head;
+     while (index->next != NULL)
+        index = index->next;
+    new = malloc(sizeof(t_path));
+    new->node = index->node->predecessor;
+    index->next = new;
+	if(new->node == lemin->start_node)
+		break;
+  }
   //
   //
   //
   // // !\\not part of code, just to print shortest path
-  // index = head;
-  // printf("shortest path is: ");
-  // while (index != NULL)
-  // {
-  //   printf("%s ", index->node->name);
-  //   index = index->next;
-  // }
-  // printf("\n");
+  index = head;
+  printf("shortest path is: ");
+  while (index != NULL)
+  {
+    printf("%s ", index->node->name);
+    index = index->next;
+  }
+  printf("\n");
 }
 
 //
-// void init_infinity_and_reach_cost(t_lemin *lemin)
-// {
-// 	int i;
-//
-// 	i = 1;
-// 	while ( i < lemin->number_of_nodes)
-// 	{
-// 		lemin->node_tab[i]->infinity = 1;
-//     lemin->node_tab[i]->reach_cost = 0;
-//
-// 		i++;
-// 	}
-// }
+void init_infinity_and_reach_cost(t_lemin *lemin)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (lemin->node_tab[i] && j <= lemin->number_of_nodes)
+	{
+		if(lemin->node_tab[i])
+		{
+		lemin->node_tab[i]->infinity = 1;
+    	lemin->node_tab[i]->reach_cost = 0;
+		j++;
+	}
+	i++;
+	}
+}
 
 void start_algo(t_lemin *lemin)
 {
 	int i;
 	int x;
-  int changed;
 
-  // lemin->nb_path = 2;
   // printf("nb of edges %d\n", lemin->number_of_edges);
   printf("nb of path %d and ants %d\n", lemin->nb_path, lemin->nb_ants);
   printf("in start algo\n");
@@ -77,15 +78,10 @@ void start_algo(t_lemin *lemin)
 
 	while (x < lemin->nb_path)
 	{
-      changed = 0;
+
       bellman_ford(lemin);//, &changed);
-      printf("--------------------------------------------------\n");
-      // if (changed == 0)// or infinite loop
-      // {
-      //   printf("break\n");
-      //   break;
-      // }
-    save_path(lemin, x);
+      // printf("--------------------------------------------------\n");
+    	save_path(lemin, x);
 		// suurballe(lemin, x);
     // printf("apre suurballe\n");
   //   i = 0;
@@ -94,9 +90,9 @@ void start_algo(t_lemin *lemin)
   //     // printf("[%s][%s] w[%d] visité [%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight, lemin->edge_tab[i]->visited);
   //     i++;
   //   }
-	// 	init_infinity_and_reach_cost(lemin);
+		init_infinity_and_reach_cost(lemin);
 		x++;
-  //   printf("--------------------------------------------------\n");
+    printf("--------------------------------------------------\n");
 	}
 	// //!\\ not part of code, print different path
   // for(i = 0; i < lemin->number_of_edges; i++)

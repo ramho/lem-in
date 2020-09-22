@@ -84,6 +84,17 @@ int	hash(t_lemin *l, int *i, char c)
 	return (key % HASH_SIZE);
 }
 
+void	reverse_edge(t_edge *ed)
+{
+	t_edge *reverse;
+
+	if (!(reverse = (t_edge*)malloc(sizeof(t_edge))))
+		return;
+	reverse->predecessor = ed->successor;
+	reverse->successor = ed->predecessor;
+	reverse->weight = 1;
+	ed->reversed = reverse;
+}
 void	parse_edges(t_lemin *l)
 {
 	// printf("\n------------------parse_edges----------------\n");
@@ -135,6 +146,8 @@ void	parse_edges(t_lemin *l)
 // printf("\n a name ->%s/key[%lu] , b  ->%s/key[%lu]\n", a->name, a->key, b->name, b->key);
 // printf("start %p end %p ==== a %p b %p\n", &l->start_node, &l->end_node, a, b);
 	// printf("[%s] == %s/%s [%s] == %s/%s\n", l->start_node.name, a->name, b->name, l->end_node.name, a->name, b->name );
+
+	reverse_edge(ed);
 	if (a->key == l->start_node->key || b->key == l->start_node->key)
 	{
 		// printf("here\n");
@@ -471,7 +484,7 @@ void	get_file_content(t_lemin *lemin)
 			break;
 	}
 	//START ajout RH , pur nombre de path
-	printf("start %d - end %d\n", lemin->nb_start_out, lemin->nb_end_in);
+	// printf("start %d - end %d\n", lemin->nb_start_out, lemin->nb_end_in);
 		if (lemin->nb_start_out == lemin->nb_end_in)
 			lemin->nb_path = lemin->nb_start_out;
 		else if (lemin->nb_start_out > lemin->nb_end_in)
