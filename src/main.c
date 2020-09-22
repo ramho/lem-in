@@ -23,34 +23,56 @@ void	parse_edges(t_lemin *l)
 	int i;
 	int key;
 	int key2;
-	t_node *a;
-	t_node *b;
+	t_node *a = NULL;
+	t_node *b = NULL;
 	int middle;
 	int end;
-	// t_node *tmp;
+	t_node *tmp;
 
 	i = -1;
 	key = hash(l, &i, '-');
-	// middle = i;
-	// key = hash(l, &i, '\n')
-	// tmp = l->node_tab[key];
-	if (l->node_tab[key])
-		a = l->node_tab[key];
-	else
+	middle = i;
+	tmp = l->node_tab[key];
+	while (tmp)
+	{
+		if (ft_strnequ(tmp->name, l->line, middle))
+		{
+			a = tmp;
+			// printf("%s\n", "coucou a");
+		}
+		tmp = tmp->next;
+	}
+	if (!a)
 	{
 		printf("linked room a doesn't exit\n");
 		exit (0);
 	}
 
-	key2 = hash(l, &i, '\n');
-	if (l->node_tab[key2])
-		b = l->node_tab[key2];
-	else
+	key = hash(l, &i, '\n');
+	tmp = l->node_tab[key];
+	while (tmp)
+	{
+		if (ft_strnequ(tmp->name, l->line + middle + 1, i - middle - 1))
+		{
+			b = tmp;
+			// printf("%s\n", "coucou b");
+		}
+		tmp = tmp->next;
+	}
+	if (!b)
 	{
 		printf("linked room b doesn't exit\n");
 		exit (0);
 	}
-	// printf("[%s-%s]\n", a->name, b->name);
+
+	// if (l->node_tab[key])
+	// 	b = l->node_tab[key];
+	// else
+	// {
+	// 	printf("linked room b doesn't exit\n");
+	// 	exit (0);
+	// }
+	printf("[%s-%s]\n", a->name, b->name);
 
 
 	t_edge *ed;
@@ -114,6 +136,7 @@ int	parse_nodes(t_lemin *l)
 		return (0);
 	ft_strncpy(node->name, l->line, i);
 	node->name[i] = 0;
+	// printf("[room %s hash %lu]\n", node->name, node->key);
 
 	// if (!l->hash_map[node->key])
 	// 	l->hash_map[node->key] = 1;
@@ -154,13 +177,13 @@ int	parse_nodes(t_lemin *l)
 	node->y *= neg;
 	if (l->start_room == 1)
 	{
-		printf("START\n");
+		// printf("START\n");
 		l->start_node = *node;
 		l->start_room++;
 	}
 	else if (l->end_room == 1)
 	{
-		printf("END\n");
+		// printf("END\n");
 		l->end_node = *node;
 		l->end_room++;
 	}
