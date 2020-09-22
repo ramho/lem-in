@@ -17,87 +17,53 @@ int	hash(t_lemin *l, int *i, char c)
 	return (key % HASH_SIZE);
 }
 
-void	parse_edges(t_lemin *l)
+t_node *get_edge_room(t_lemin *l, int i, int key, int place)
+{
+	t_node *tmp;
+
+	tmp = l->node_tab[key];
+	while (tmp)
+	{
+		if (ft_strnequ(tmp->name, l->line + place, i - place))
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+int	parse_edges(t_lemin *l)
 {
 	// printf("\n------------------parse_edges----------------\n");
 	int i;
 	int key;
-	int key2;
-	t_node *a = NULL;
-	t_node *b = NULL;
 	int middle;
-	int end;
-	t_node *tmp;
-
-	i = -1;
-	key = hash(l, &i, '-');
-	middle = i;
-	tmp = l->node_tab[key];
-	while (tmp)
-	{
-		if (ft_strnequ(tmp->name, l->line, middle))
-		{
-			a = tmp;
-			// printf("%s\n", "coucou a");
-		}
-		tmp = tmp->next;
-	}
-	if (!a)
-	{
-		printf("linked room a doesn't exit\n");
-		exit (0);
-	}
-
-	key = hash(l, &i, '\n');
-	tmp = l->node_tab[key];
-	while (tmp)
-	{
-		if (ft_strnequ(tmp->name, l->line + middle + 1, i - middle - 1))
-		{
-			b = tmp;
-			// printf("%s\n", "coucou b");
-		}
-		tmp = tmp->next;
-	}
-	if (!b)
-	{
-		printf("linked room b doesn't exit\n");
-		exit (0);
-	}
-
-	// if (l->node_tab[key])
-	// 	b = l->node_tab[key];
-	// else
-	// {
-	// 	printf("linked room b doesn't exit\n");
-	// 	exit (0);
-	// }
-	printf("[%s-%s]\n", a->name, b->name);
-
-
 	t_edge *ed;
 
 	if (!(ed = (t_edge*)malloc(sizeof(t_edge))))
-		return;
-	ed->predecessor = a;
-	ed->successor = b;
-
-	if (!(l->edge_tab))
+		return (0);
+	i = -1;
+	key = hash(l, &i, '-');
+	middle = i;
+	if (!(ed->predecessor = get_edge_room(l, i, key, 0)))
 	{
-		l->edge_tab = ed;
+		printf("linked room a doesn't exit\n");
+		return (0);
 	}
+	key = hash(l, &i, '\n');
+	if (!(ed->successor = get_edge_room(l, i, key, middle + 1)))
+	{
+		printf("linked room b doesn't exit\n");
+		return (0);
+	}
+	if (!(l->edge_tab))
+		l->edge_tab = ed;
 	else
 	{
 		ed->next = l->edge_tab;
 		l->edge_tab = ed;
 	}
-	// printf("%s\n", "coucou");
-
-	// printf("(%s)\n", l->edge_tab->predecessor->name);
-	// printf("(%s)\n", l->edge_tab->successor->name);
-
-
-	return;
+	// printf("[%s-%s]\n", l->edge_tab->predecessor->name, l->edge_tab->successor->name);
+	return (1);
 }
 
 int	parse_nodes(t_lemin *l)
@@ -291,7 +257,8 @@ int parse_line(t_lemin *l)
 		parse_comment(l);
 	else if (l->parse_flag == 2 && !l->space)
 	{
-		parse_edges(l);
+		if (!(parse_edges(l)))
+			return (0);
 	}
 	else if (l->parse_flag == 1)
 	{
@@ -303,7 +270,8 @@ int parse_line(t_lemin *l)
 		else
 		{
 			l->parse_flag++;
-			parse_edges(l);
+			if (!(parse_edges(l)))
+				return (0);
 		}
 	}
 	else if (!l->parse_flag)
@@ -448,44 +416,36 @@ void	get_file_content(t_lemin *lemin)
 	t2 = clock();
 	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
 	printf("temps = %f\n", temps);
-
-	int w = -1;
-	// int tic = 0;
-	t_node *tmp;
-	// while(++w < HASH_SIZE)
-	// {
-	// 	if (lemin->hash_map[w] > tic)
-	// 		tic = lemin->hash_map[w];
-	// }
-	// printf("%i\n", tic);
-	// printf("%i\n", lemin->number_of_nodes);
+	printf("number of nodes%i\n", lemin->number_of_nodes);
 
 	//------CHECK ALL ROOM PRESENCE
-	w = -1;
-	int count = 0;
-	while(++w < HASH_SIZE)
-	{
-		if (lemin->node_tab[w])
-		{
-			count++;
-			printf("%s\n", lemin->node_tab[w]->name);
-			if (lemin->node_tab[w]->next)
-			{
-				printf("##########################%i\n", w);
-				tmp = lemin->node_tab[w]->next;
-				while (tmp)
-				{
-					count++;
-					printf("in list [%s]\n", tmp->name);
-					tmp = tmp->next;
-					if (count >= 4)
-						printf("_______________________________________\n");
-				}
-			}
-		}
-	}
-	printf("%i\n", count);
+	// int w = -1;
+	// t_node *tmp;
+	// int count = 0;
+	// while(++w < HASH_SIZE)
+	// {
+	// 	if (lemin->node_tab[w])
+	// 	{
+	// 		count++;
+	// 		printf("%s\n", lemin->node_tab[w]->name);
+	// 		if (lemin->node_tab[w]->next)
+	// 		{
+	// 			printf("##########################%i\n", w);
+	// 			tmp = lemin->node_tab[w]->next;
+	// 			while (tmp)
+	// 			{
+	// 				count++;
+	// 				printf("in list [%s]\n", tmp->name);
+	// 				tmp = tmp->next;
+	// 				if (count >= 4)
+	// 					printf("_______________________________________\n");
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// printf("%i\n", count);
 	//------CHECK ALL ROOM PRESENCE END
+
 	exit(0);
 	// -------DATA<----------------------------
 
@@ -511,33 +471,6 @@ void	get_file_content(t_lemin *lemin)
 	// printf("temps = %f\n", temps);
 	// exit(0);
 	//------END-TEST---------------------------
-
-
-
-	int i;
-	int ret;
-	char *line;
-	// printf("in get file content\n\n");
-	ret = 0;
-	i = 0;
-	lemin->file = malloc(sizeof(char *) * 10000);
-	while ((ret = get_next_line(0, &line)) > 0)
-	{
-		lemin->file[i] = ft_strdup(line);
-		i++;
-	}
-	lemin->file[i] = NULL;
-	lemin->table_size = i;// get number of lines and more for table
-	if (ret < 0 || i < 5) // 5 because otherwise not enough rooms
-	{
-		printf("FILE ERROR");
-		exit(0);
-	}
-	// print file--------------------------------
-	// i = -1;
-	// while (++i < lemin->table_size)
-	// 	printf("%s\n", lemin->file[i]);
-	// end print file ---------------------------
 }
 
 int main()
