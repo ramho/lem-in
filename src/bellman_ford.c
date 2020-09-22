@@ -8,17 +8,21 @@ void bellman_ford(t_lemin *lemin)//, int *changed)
 	int changed;
 
 	i = 0;
-	changed = 0;
+
 	printf("in bellman_ford \n");
 	while (i < lemin->number_of_nodes)
 	{
 		// j = 0;
-		// printf("here\n");
+		changed = 0;
+		printf("here\n");
 		tmp = lemin->edge_tab;
 		while (tmp)
 		{
-			try_reduce (tmp->predecessor, tmp->successor, tmp->weight, &changed);
-			try_reduce (tmp->reversed->predecessor, tmp->reversed->successor, tmp->reversed->weight, &changed);	
+			printf("tmp[%s][%s] visite [%d] // reversed tmp[%s][%s] visite [%d]\n", tmp->predecessor->name, tmp->successor->name, tmp->visited, tmp->reversed->predecessor->name, tmp->reversed->successor->name, tmp->reversed->visited);
+			if(tmp->visited == 0)
+				try_reduce (tmp->predecessor, tmp->successor, tmp->weight, &changed);
+			if(tmp->reversed->visited == 0)
+				try_reduce (tmp->reversed->predecessor, tmp->reversed->successor, tmp->reversed->weight, &changed);
 
 			// printf("%s - %s\n", tmp->predecessor->name, tmp->successor->name);
 			// 	if (ft_strcmp(lemin->node_tab[i]->name, lemin->edge_tab[j]->predecessor) == 0 && lemin->edge_tab[j]->visited == 0)
@@ -32,7 +36,7 @@ void bellman_ford(t_lemin *lemin)//, int *changed)
 			tmp = tmp->next;
 			// printf("in\n");
 		}
-					// printf("===============\n");
+					printf("=============== changed [%d]\n", changed);
 					if (changed == 0)
 					{
 						printf("BREAK\n");
@@ -46,7 +50,7 @@ void bellman_ford(t_lemin *lemin)//, int *changed)
 
 void try_reduce(t_node *pre, t_node *sec, int w, int *changed)
 {
-	// printf("in try reduce \n");
+	printf("in try reduce [%s][%s] weight [%d] \n", pre->name, sec->name, w);
 	t_node *pre_node;
 	int in = 0; // check if not will have a predecssor otherwise will seg when printf
 
@@ -54,7 +58,7 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed)
 		pre_node = pre->dup_out;
 	else
 		pre_node = pre;
-// printf("%s [%d] - %s [%d] -- weight %d\n", pre_node->name, pre_node->infinity, sec->name, sec->infinity, w);
+printf("----->>pre %s inf [%d] - sec %s inf[%d] -- weight %d\n\n", pre_node->name, pre_node->infinity, sec->name, sec->infinity, w);
 	if (pre_node->infinity == 0 && sec->infinity == 1) // if not yet passed to the second node
 	{
 		// printf("enter if infinity\n");
@@ -75,17 +79,18 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed)
 
 	else if (pre_node->infinity  == 0 && sec->infinity == 0) // if both nodes have already been connected to a previous one
 	{
-		// printf("enter if not infinity\n");
+		printf("enter if not infinity\n");
 		if (sec->reach_cost > (pre_node->reach_cost + w))
 		{
+			printf("------>enter in if\n");
 			in = 1;
 			*changed = 1;
 			sec->reach_cost = pre_node->reach_cost + w;
 			sec->predecessor = pre_node;
 		}
 	}
-	// if (in > 0)
-	// 	printf("name [%s] pre [%s] reach cost [%d]\n", sec->name, sec->predecessor->name, sec->reach_cost);
+	if (in > 0)
+		printf("name [%s] pre [%s] reach cost [%d]\n\n", sec->name, sec->predecessor->name, sec->reach_cost);
 // printf("predecessor [%s] --> sec[%s]\n", pre_node->name, sec->name);//, sec->predecessor->name);
 }
 

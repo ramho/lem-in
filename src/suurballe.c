@@ -7,7 +7,7 @@ void create_dup_room(t_lemin *lemin, t_node *node)
 	node->dup_out = malloc(sizeof(t_node));
 	node->dup_out->name = node->name;
 	node->dup_out->reach_cost = 0;
-	node->dup_out-> infinity = 1;
+	node->dup_out->infinity = 1;
 }
 //
 void suurballe(t_lemin *lemin, int path_index)
@@ -33,6 +33,7 @@ void suurballe(t_lemin *lemin, int path_index)
         // printf("pre %s suc %s ------ edge pre [%s]  edge suc [%s]\n", pre->name,suc->name, edge->predecessor->name, edge->successor->name);
       if ((pre_path == edge->predecessor) && (suc_path == edge->successor))
       {
+		  printf(" in pre suc\n");
         // printf("pre %s VS [%s] // suc %s VS [%s]\n", pre, lemin->edge_tab[i]->predecessor, suc, lemin->edge_tab[i]->successor);
         edge->weight = -1;
         if (suc_path != lemin->start_node)
@@ -41,8 +42,9 @@ void suurballe(t_lemin *lemin, int path_index)
       }
 	  if ((pre_path == edge->reversed->predecessor) && (suc_path == edge->reversed->successor))
 	  {
+		  printf("in pre suc reversed\n");
 		// printf("pre %s VS [%s] // suc %s VS [%s]\n", pre, lemin->edge_tab[i]->predecessor, suc, lemin->edge_tab[i]->successor);
-		edge->weight = -1;
+		edge->reversed->weight = -1;
 		if (suc_path != lemin->start_node)
 		  create_dup_room(lemin, suc_path);
 		  // printf("[%s][%s] visite [%d]\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
@@ -50,6 +52,7 @@ void suurballe(t_lemin *lemin, int path_index)
 
       if ((suc_path == edge->predecessor) && (pre_path == edge->successor))
       {
+		  printf("in suc pre\n");
         // printf("suc %s VS PRE-tab[%s] // pre %s VS SUC-tab[%s]\n", suc, lemin->edge_tab[i]->predecessor, pre, lemin->edge_tab[i]->successor);
         // lemin->edge_tab[i]->weight = lemin->number_of_edges * 10;
         edge->visited = 1;
@@ -57,9 +60,10 @@ void suurballe(t_lemin *lemin, int path_index)
       }
 	  if ((suc_path == edge->reversed->predecessor) && (pre_path == edge->reversed->successor))
       {
+		   printf("in suc pre reversed\n");
         // printf("suc %s VS PRE-tab[%s] // pre %s VS SUC-tab[%s]\n", suc, lemin->edge_tab[i]->predecessor, pre, lemin->edge_tab[i]->successor);
         // lemin->edge_tab[i]->weight = lemin->number_of_edges * 10;
-        edge->visited = 1;
+        edge->reversed->visited = 1;
         // printf("[%s][%s] visite [%d]\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
       }
       edge = edge->next;

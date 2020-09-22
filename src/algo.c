@@ -52,15 +52,19 @@ void init_infinity_and_reach_cost(t_lemin *lemin)
 
 	i = 0;
 	j = 0;
-	while (lemin->node_tab[i] && j <= lemin->number_of_nodes)
+	printf("in init\n");
+	while (lemin->node_tab)
 	{
-		if(lemin->node_tab[i])
+		if(lemin->node_tab[i]->name)
 		{
+			printf("INIT\n\n");
 		lemin->node_tab[i]->infinity = 1;
+		lemin->node_tab[i]->dup_out->infinity = 1;
     	lemin->node_tab[i]->reach_cost = 0;
-		j++;
-	}
-	i++;
+		lemin->node_tab[i]->dup_out->reach_cost = 0;
+
+		}
+		i++;
 	}
 }
 
@@ -82,7 +86,7 @@ void start_algo(t_lemin *lemin)
       bellman_ford(lemin);//, &changed);
       // printf("--------------------------------------------------\n");
     	save_path(lemin, x);
-		// suurballe(lemin, x);
+		suurballe(lemin, x);
     // printf("apre suurballe\n");
   //   i = 0;
   //   while(i < lemin->number_of_edges)
@@ -91,6 +95,14 @@ void start_algo(t_lemin *lemin)
   //     i++;
   //   }
 		init_infinity_and_reach_cost(lemin);
+		i = 0;
+		printf("\nHALLOOOOOO\n");
+		while (lemin->node_tab[i])
+		{
+			if(lemin->node_tab[i])
+				printf("node name [%s] - infinity [%d]\n", lemin->node_tab[i]->name, lemin->node_tab[i]->infinity);
+			i++;
+		}
 		x++;
     printf("--------------------------------------------------\n");
 	}
