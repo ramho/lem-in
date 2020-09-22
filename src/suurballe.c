@@ -39,7 +39,23 @@ void suurballe(t_lemin *lemin, int path_index)
           create_dup_room(lemin, suc_path);
           // printf("[%s][%s] visite [%d]\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
       }
+	  if ((pre_path == edge->reversed->predecessor) && (suc_path == edge->reversed->successor))
+	  {
+		// printf("pre %s VS [%s] // suc %s VS [%s]\n", pre, lemin->edge_tab[i]->predecessor, suc, lemin->edge_tab[i]->successor);
+		edge->weight = -1;
+		if (suc_path != lemin->start_node)
+		  create_dup_room(lemin, suc_path);
+		  // printf("[%s][%s] visite [%d]\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
+	  }
+
       if ((suc_path == edge->predecessor) && (pre_path == edge->successor))
+      {
+        // printf("suc %s VS PRE-tab[%s] // pre %s VS SUC-tab[%s]\n", suc, lemin->edge_tab[i]->predecessor, pre, lemin->edge_tab[i]->successor);
+        // lemin->edge_tab[i]->weight = lemin->number_of_edges * 10;
+        edge->visited = 1;
+        // printf("[%s][%s] visite [%d]\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
+      }
+	  if ((suc_path == edge->reversed->predecessor) && (pre_path == edge->reversed->successor))
       {
         // printf("suc %s VS PRE-tab[%s] // pre %s VS SUC-tab[%s]\n", suc, lemin->edge_tab[i]->predecessor, pre, lemin->edge_tab[i]->successor);
         // lemin->edge_tab[i]->weight = lemin->number_of_edges * 10;
