@@ -3,13 +3,13 @@
 // sauvegarde le chemin trouver par bellmanford dans un tableau
 void save_path(t_lemin *lemin, int index_path)
 {
-	printf("in save path\n");
+	// printf("in save path\n");
 	t_path *new;
 	t_path *head;
 	t_path *index;
 
 
-	printf("reach cost each node %d\n", lemin->end_node->reach_cost);
+	// printf("reach cost each node %d\n", lemin->end_node->reach_cost);
 
 	head = malloc(sizeof(t_path));
 	lemin->path_tab[index_path] = head;
@@ -35,13 +35,13 @@ void save_path(t_lemin *lemin, int index_path)
 	//
 	// // !\\not part of code, just to print shortest path
 	index = head;
-	printf("shortest path is: ");
+	printf("shortest path[%d] is: ", index_path);
 	while (index != NULL)
 	{
 		printf("%s ", index->node->name);
 		index = index->next;
 	}
-	printf("\n");
+	printf("\n\n");
 }
 
 //
@@ -52,7 +52,7 @@ void init_infinity_and_reach_cost(t_lemin *lemin)
 
 	i = 1;
 	j = 1;
-	printf("in init\n");
+	// printf("in init\n");
 	t_edge *index = lemin->edge_tab;
 	while (index)
 	{
@@ -70,7 +70,7 @@ void start_algo(t_lemin *lemin)
 
 	// printf("nb of edges %d\n", lemin->number_of_edges);
 	printf("nb of path %d and ants %d\n", lemin->nb_path, lemin->nb_ants);
-	printf("in start algo\n");
+	// printf("in start algo\n");
 
 	lemin->path_tab = malloc(sizeof(t_path *) * lemin->nb_path);
 	x = 0;
@@ -82,24 +82,10 @@ void start_algo(t_lemin *lemin)
 		// printf("--------------------------------------------------\n");
 		save_path(lemin, x);
 		suurballe(lemin, x);
-		// printf("apre suurballe\n");
-		//   i = 0;
-		//   while(i < lemin->number_of_edges)
-		//   {
-		//     // printf("[%s][%s] w[%d] visité [%d]\n", lemin->edge_tab[i]->predecessor,lemin->edge_tab[i]->successor,lemin->edge_tab[i]->weight, lemin->edge_tab[i]->visited);
-		//     i++;
-		//   }
 		init_infinity_and_reach_cost(lemin);
 		i = 0;
-		// printf("\nHALLOOOOOO\n");
-		while (lemin->node_tab[i])
-		{
-			if(lemin->node_tab[i])
-				printf("node name [%s] - infinity [%d]\n", lemin->node_tab[i]->name, lemin->node_tab[i]->infinity);
-			i++;
-		}
 		x++;
-		printf("--------------------------------------------------\n");
+		// printf("--------------------------------------------------\n");
 	}
 	// //!\\ not part of code, print different path
 	// for(i = 0; i < lemin->number_of_edges; i++)

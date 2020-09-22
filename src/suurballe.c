@@ -18,7 +18,7 @@ void suurballe(t_lemin *lemin, int path_index)
   t_node *pre_path;
   t_node *suc_path;
 
-  printf("in suurballe\n");
+  // printf("in suurballe\n");
 //
   index = lemin->path_tab[path_index];
   while(index->next)
@@ -33,7 +33,7 @@ void suurballe(t_lemin *lemin, int path_index)
         // printf("pre %s suc %s ------ edge pre [%s]  edge suc [%s]\n", pre->name,suc->name, edge->predecessor->name, edge->successor->name);
       if ((pre_path == edge->predecessor) && (suc_path == edge->successor))
       {
-		  printf(" in pre suc\n");
+		  // printf(" in pre suc\n");
         // printf("pre %s VS [%s] // suc %s VS [%s]\n", pre, lemin->edge_tab[i]->predecessor, suc, lemin->edge_tab[i]->successor);
         edge->weight = -1;
         if (suc_path != lemin->start_node)
@@ -42,7 +42,7 @@ void suurballe(t_lemin *lemin, int path_index)
       }
 	  if ((pre_path == edge->reversed->predecessor) && (suc_path == edge->reversed->successor))
 	  {
-		  printf("in pre suc reversed\n");
+		  // printf("in pre suc reversed\n");
 		// printf("pre %s VS [%s] // suc %s VS [%s]\n", pre, lemin->edge_tab[i]->predecessor, suc, lemin->edge_tab[i]->successor);
 		edge->reversed->weight = -1;
 		if (suc_path != lemin->start_node)
@@ -52,7 +52,7 @@ void suurballe(t_lemin *lemin, int path_index)
 
       if ((suc_path == edge->predecessor) && (pre_path == edge->successor))
       {
-		  printf("in suc pre\n");
+		  // printf("in suc pre\n");
         // printf("suc %s VS PRE-tab[%s] // pre %s VS SUC-tab[%s]\n", suc, lemin->edge_tab[i]->predecessor, pre, lemin->edge_tab[i]->successor);
         // lemin->edge_tab[i]->weight = lemin->number_of_edges * 10;
         edge->visited = 1;
@@ -60,7 +60,7 @@ void suurballe(t_lemin *lemin, int path_index)
       }
 	  if ((suc_path == edge->reversed->predecessor) && (pre_path == edge->reversed->successor))
       {
-		   printf("in suc pre reversed\n");
+		   // printf("in suc pre reversed\n");
         // printf("suc %s VS PRE-tab[%s] // pre %s VS SUC-tab[%s]\n", suc, lemin->edge_tab[i]->predecessor, pre, lemin->edge_tab[i]->successor);
         // lemin->edge_tab[i]->weight = lemin->number_of_edges * 10;
         edge->reversed->visited = 1;

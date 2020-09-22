@@ -1,4 +1,4 @@
-// #include "../includes/lemin.h"
+#include "../includes/lemin.h"
 //
 //
 //
@@ -510,7 +510,7 @@ t1 = clock();
 	get_file_content(lemin);
 	start_algo(lemin);
 	// get_path(&lemin);
-	printf("out\n");
+	// printf("out\n");
 	t2 = clock();
 	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
 	printf("temps = %f\n", temps);
