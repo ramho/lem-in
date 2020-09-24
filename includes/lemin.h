@@ -297,7 +297,7 @@ int start_algo(t_lemin *lemin);
 int bellman_ford(t_lemin *lemin);
 // void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin);
 // void bellman_ford(t_lemin *lemin, int *changed);
-void try_reduce(t_node *pre, t_node *sec, int w, int *changed);
+void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z);
 
 /*
 **  suurballe.c
