@@ -131,20 +131,20 @@ int start_algo(t_lemin *lemin)
 	// //!\\ not part of code, print different path
 	// for(i = 0; i < lemin->number_of_edges; i++)
 	//   printf("edge [%s][%s] is visited %d\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
-	// t_path *index;
-	// i = 0;
-	// printf("\nnb of path possible = %d\n\n", lemin->nb_path);
+	t_path *index;
+	i = 0;
+	printf("\nnb of path possible = %d\n\n", lemin->nb_path);
 	while(i < nb_final_path)
 	{
-	// 	index = lemin->path_tab[i];
+		index = lemin->path_tab[i];
 		printf("PATH %d/%d : ", i, nb_final_path);
-	// 	while (index)
-	// 	{
-	// 		printf("%s ", index->node->name);
-	// 		index = index->next;
-	// 	}
+		while (index)
+		{
+			printf("%s ", index->node->name);
+			index = index->next;
+		}
 		i++;
-	// 	printf("\n\n");
+		printf("\n\n");
 	}
   return(0);
 }

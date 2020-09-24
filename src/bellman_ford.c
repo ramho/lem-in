@@ -12,12 +12,14 @@ int bellman_ford(t_lemin *lemin)//, int *changed)
 	// printf("in bellman_ford \n");
 	while (i < lemin->number_of_nodes - 1)
 	{
+
 		// j = 0;
 		changed = 0;
 		// printf("here\n");
 		tmp = lemin->edge_tab;
 		while (tmp)
 		{
+			// printf("tmp %s\n", tmp->predecessor->name);
 			// printf("tmp[%s][%s] visite [%d] // reversed tmp[%s][%s] visite [%d]\n", tmp->predecessor->name, tmp->successor->name, tmp->visited, tmp->reversed->predecessor->name, tmp->reversed->successor->name, tmp->reversed->visited);
 			if(tmp->visited == 0)
 				try_reduce (tmp->predecessor, tmp->successor, tmp->weight, &changed, 0);
@@ -53,6 +55,7 @@ int bellman_ford(t_lemin *lemin)//, int *changed)
 
 void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z)
 {
+	// printf("try reduce\n");
 	// printf("in try reduce [%s][%s] weight [%d] \n", pre->name, sec->name, w);
 	t_node *pre_node;
 	int in = 0; // check if not will have a predecssor otherwise will seg when printf
@@ -61,6 +64,7 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z)
 		pre_node = pre->dup_out;
 	else
 		pre_node = pre;
+	// printf("pre %s suc %s\n", pre->name, sec->name);
 // printf("----->>pre %s inf [%d] - sec %s inf[%d] -- weight %d\n\n", pre_node->name, pre_node->infinity, sec->name, sec->infinity, w);
 	if (pre_node->infinity == 0 && sec->infinity == 1) // if not yet passed to the second node
 	{
