@@ -4,7 +4,7 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <time.h>
-# define LEMIN_READ_BUFF 1
+# define LEMIN_READ_BUFF 65536
 # define LINE_SIZE 100
 # define HASH_SIZE 1000000
 
@@ -35,7 +35,8 @@ typedef struct s_node
   int infinity;
   char *predecessor;
   struct s_node *next;
-  t_link *links; // linked list for links
+  // t_link *links; // linked list for links
+  struct s_node *links; // nodes linked to this node
 }               t_node;
 
 typedef struct s_edge
@@ -85,8 +86,8 @@ typedef struct  s_lemin
     int number_of_edges;
 
     t_node *node_tab[HASH_SIZE + 1];
-	t_node start_node;
-	t_node end_node;
+	t_node *start_node;
+	t_node *end_node;
 
     t_edge *edge_tab;
     char **node_name;
