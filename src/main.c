@@ -31,6 +31,34 @@ t_node *get_edge_room(t_lemin *l, int i, int key, int place)
 	return (NULL);
 }
 
+void add_new_link(t_node *room, t_node *room_to_link)
+{
+	t_node *tmp;
+
+	printf("coucou\n");
+	tmp = room->links;
+	if (!(tmp))
+	{
+		tmp = room_to_link;
+		printf("room linked = %s\n", tmp->name);
+	}
+	else
+	{
+		while (tmp)
+		{
+			if (ft_strequ(tmp->name, room_to_link->name))
+			{
+				printf("room_to_link already linked to the room");
+				return ;
+			}
+			tmp = tmp->next;
+		}
+		tmp = room_to_link;
+		printf("room linked = %s\n", tmp->name);
+	}
+	return ;
+}
+
 int	parse_edges(t_lemin *l)
 {
 	// printf("\n------------------parse_edges----------------\n");
@@ -50,11 +78,14 @@ int	parse_edges(t_lemin *l)
 		return (0);
 	}
 	key = hash(l, &i, '\n');
+
 	if (!(ed->successor = get_edge_room(l, i, key, middle + 1)))
 	{
 		printf("linked room b doesn't exit\n");
 		return (0);
 	}
+
+	//------store new_edge----------------
 	if (!(l->edge_tab))
 		l->edge_tab = ed;
 	else
@@ -63,6 +94,12 @@ int	parse_edges(t_lemin *l)
 		l->edge_tab = ed;
 	}
 	// printf("[%s-%s]\n", l->edge_tab->predecessor->name, l->edge_tab->successor->name);
+	//------end store new_edge------------
+
+	//-----store linked node--------------
+	add_new_link(ed->successor, ed->predecessor);
+	add_new_link(ed->predecessor, ed->successor);
+	//------------------------------------
 	return (1);
 }
 
@@ -144,12 +181,14 @@ int	parse_nodes(t_lemin *l)
 	if (l->start_room == 1)
 	{
 		// printf("START\n");
+		node->type = 1;
 		l->start_node = *node;
 		l->start_room++;
 	}
 	else if (l->end_room == 1)
 	{
 		// printf("END\n");
+		node->type = 2;
 		l->end_node = *node;
 		l->end_room++;
 	}
@@ -445,6 +484,28 @@ void	get_file_content(t_lemin *lemin)
 	// }
 	// printf("%i\n", count);
 	//------CHECK ALL ROOM PRESENCE END
+
+	//------CHECK ALL ROOM LINKED
+	int w = -1;
+	t_node *tmp;
+	while(++w < HASH_SIZE)
+	{
+		if (lemin->node_tab[w])
+		{
+			printf("ROOM : %s\n", lemin->node_tab[w]->name);
+			if (lemin->node_tab[w]->links)
+			{
+				tmp = lemin->node_tab[w]->links;
+				while (tmp)
+				{
+					printf("has link to [%s]\n", tmp->name);
+					tmp = tmp->next;
+				}
+			}
+		}
+	}
+	//------CHECK ALL ROOM LINKED END
+
 
 	exit(0);
 	// -------DATA<----------------------------
