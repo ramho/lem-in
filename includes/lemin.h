@@ -16,11 +16,7 @@ typedef struct s_path
   struct s_path * next;
 }             t_path;
 
-typedef struct s_link
-{
-    char *room;
-    struct s_link *next;
-}              t_link;
+
 
 // coucou
 
@@ -35,9 +31,16 @@ typedef struct s_node
   int infinity;
   char *predecessor;
   struct s_node *next;
-  // t_link *links; // linked list for links
-  struct s_node *links; // nodes linked to this node
+  struct s_link *links; // linked list for links
+  // struct s_node *begin_links;
+  // struct s_node *links; // nodes linked to this node
 }               t_node;
+
+typedef struct s_link
+{
+    t_node *room;
+    struct s_link *next;
+}              t_link;
 
 typedef struct s_edge
 {

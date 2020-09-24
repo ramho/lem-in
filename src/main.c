@@ -33,28 +33,28 @@ t_node *get_edge_room(t_lemin *l, int i, int key, int place)
 
 void add_new_link(t_node *room, t_node *room_to_link)
 {
-	t_node *tmp;
+	t_link *link;
+	t_link *tmp;
 
-	printf("coucou\n");
+	if (!(link = (t_link*)ft_memalloc(sizeof(t_link))))
+		return ;
+	link->room = room_to_link;
 	tmp = room->links;
 	if (!(tmp))
-	{
-		tmp = room_to_link;
-		printf("room linked = %s\n", tmp->name);
-	}
+		room->links = link;
 	else
 	{
 		while (tmp)
 		{
-			if (ft_strequ(tmp->name, room_to_link->name))
+			if (ft_strequ(tmp->room->name, room_to_link->name))
 			{
 				printf("room_to_link already linked to the room");
 				return ;
 			}
 			tmp = tmp->next;
 		}
-		tmp = room_to_link;
-		printf("room linked = %s\n", tmp->name);
+		link->next = room->links;
+		room->links = link;
 	}
 	return ;
 }
@@ -67,7 +67,7 @@ int	parse_edges(t_lemin *l)
 	int middle;
 	t_edge *ed;
 
-	if (!(ed = (t_edge*)malloc(sizeof(t_edge))))
+	if (!(ed = (t_edge*)ft_memalloc(sizeof(t_edge))))
 		return (0);
 	i = -1;
 	key = hash(l, &i, '-');
@@ -85,6 +85,11 @@ int	parse_edges(t_lemin *l)
 		return (0);
 	}
 
+	if (((ed->predecessor == l->start_node) && (ed->successor == l->end_node)) || ((ed->successor == l->start_node) && (ed->predecessor == l->end_node)))
+	{
+		printf("%s\n", "room start and end connected");
+		return (0);
+	}
 	//------store new_edge----------------
 	if (!(l->edge_tab))
 		l->edge_tab = ed;
@@ -113,8 +118,9 @@ int	parse_nodes(t_lemin *l)
 	t_node *node;
 	static int collision = 0;
 
-	if (!(node = (t_node*)malloc(sizeof(t_node))))
+	if (!(node = (t_node*)ft_memalloc(sizeof(t_node))))
 		return (0);
+	node->links = NULL;
 	// printf("######### ROOM #########\n");
 	// printf("line       : %s", l->line);
 	// printf("name       : %s\n", node->name);
@@ -135,7 +141,7 @@ int	parse_nodes(t_lemin *l)
 	// node->key %= HASH_SIZE;
 	// -----------------------------------
 
-	if (!(node->name = (char*)malloc(sizeof(char) * (i + 1))))
+	if (!(node->name = (char*)ft_memalloc(sizeof(char) * (i + 1))))
 		return (0);
 	ft_strncpy(node->name, l->line, i);
 	node->name[i] = 0;
@@ -182,14 +188,14 @@ int	parse_nodes(t_lemin *l)
 	{
 		// printf("START\n");
 		node->type = 1;
-		l->start_node = *node;
+		l->start_node = node;
 		l->start_room++;
 	}
 	else if (l->end_room == 1)
 	{
 		// printf("END\n");
 		node->type = 2;
-		l->end_node = *node;
+		l->end_node = node;
 		l->end_room++;
 	}
 	l->number_of_nodes++;
@@ -261,7 +267,7 @@ void	parse_command(t_lemin *l)
 		if (l->start_room == 2)
 		{
 			printf("2nd start room\n");
-			exit (0);
+			exit(0);
 		}
 		l->start_room++;
 	}
@@ -438,7 +444,7 @@ void	get_file_content(t_lemin *lemin)
 	t1 = clock();
 	if (LEMIN_READ_BUFF < 1 || read(0, lemin->buff, 0) < 0)
 		return ;
-	// if (!(lemin->node_tab = (t_node **)malloc(sizeof(t_node *) * (HASH_SIZE + 1))))
+	// if (!(lemin->node_tab = (t_node **)ft_memalloc(sizeof(t_node *) * (HASH_SIZE + 1))))
 	// 	return ;
 
 	// int x = -1;
@@ -486,24 +492,25 @@ void	get_file_content(t_lemin *lemin)
 	//------CHECK ALL ROOM PRESENCE END
 
 	//------CHECK ALL ROOM LINKED
-	int w = -1;
-	t_node *tmp;
-	while(++w < HASH_SIZE)
-	{
-		if (lemin->node_tab[w])
-		{
-			printf("ROOM : %s\n", lemin->node_tab[w]->name);
-			if (lemin->node_tab[w]->links)
-			{
-				tmp = lemin->node_tab[w]->links;
-				while (tmp)
-				{
-					printf("has link to [%s]\n", tmp->name);
-					tmp = tmp->next;
-				}
-			}
-		}
-	}
+	// int w = -1;
+	// t_node *tmp;
+	// t_link *tmp_l;
+	// while(++w < HASH_SIZE)
+	// {
+	// 	if (lemin->node_tab[w])
+	// 	{
+	// 		printf("\nROOM : %s\n", lemin->node_tab[w]->name);
+	// 		if (lemin->node_tab[w]->links)
+	// 		{
+	// 			tmp_l = lemin->node_tab[w]->links;
+	// 			while (tmp_l)
+	// 			{
+	// 				printf("has link to [%s]\n", tmp_l->room->name);
+	// 				tmp_l = tmp_l->next;
+	// 			}
+	// 		}
+	// 	}
+	// }
 	//------CHECK ALL ROOM LINKED END
 
 
@@ -538,7 +545,7 @@ int main()
 {
 	t_lemin *lemin;
 
-	if (!(lemin = malloc(sizeof(t_lemin))))
+	if (!(lemin = ft_memalloc(sizeof(t_lemin))))
         return (1);
 
     get_file_content(lemin);
