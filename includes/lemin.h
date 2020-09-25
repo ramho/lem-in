@@ -323,4 +323,8 @@ void print_tab(t_lemin *lemin);
 void shortest_path(t_lemin *lemin);
 void printf_current_reach_cost(t_lemin *lemin, int iteration);
 
+
+
+
+int	hash(t_lemin *l, int *i, char c);
 #endif

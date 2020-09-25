@@ -506,7 +506,7 @@ int main()
 	t_lemin *lemin;
 	int ret;
 
-t1 = clock();
+	t1 = clock();
 	if (!(lemin = malloc(sizeof(t_lemin))))
         return (1);
 	get_file_content(lemin);
@@ -519,7 +519,7 @@ t1 = clock();
 	// }
 	ret = start_algo(lemin);
 	printf("ret = %d\n", ret);
-	get_path(lemin);
+	// get_path(lemin);
 	// printf("out\n");
 	t2 = clock();
 	temps = (float)(t2-t1)/CLOCKS_PER_SEC;

@@ -15,7 +15,7 @@ int bellman_ford(t_lemin *lemin)//, int *changed)
 
 		// j = 0;
 		changed = 0;
-		// printf("here\n");
+		// printf("#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}\n");
 		tmp = lemin->edge_tab;
 		while (tmp)
 		{
@@ -56,7 +56,7 @@ int bellman_ford(t_lemin *lemin)//, int *changed)
 void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z)
 {
 	// printf("try reduce\n");
-	// printf("in try reduce [%s][%s] weight [%d] \n", pre->name, sec->name, w);
+	// printf("in try reduce [%s](%d)[%s](%d) \n", pre->name, pre->reach_cost, sec->name, sec->reach_cost);
 	t_node *pre_node;
 	int in = 0; // check if not will have a predecssor otherwise will seg when printf
 
@@ -69,6 +69,7 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z)
 	if (pre_node->infinity == 0 && sec->infinity == 1) // if not yet passed to the second node
 	{
 		// printf("enter if infinity\n");
+		// printf(" AVANT suc node [%s] reach_cost [%d]\n", sec->name, sec->reach_cost);
 		in = 1;
 		*changed = 1;
 		sec->reach_cost = pre_node->reach_cost + w;
@@ -80,7 +81,7 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z)
 			sec->dup_out->infinity = 0;
 			sec->dup_out->predecessor = pre_node;
 		}
-
+		// printf(" APRES sec node [%s] reach_cost [%d]\n", sec->name, sec->reach_cost);
 	}
 	// printf("333\n");
 
@@ -89,11 +90,13 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z)
 		// printf("enter if not infinity\n");
 		if (sec->reach_cost > (pre_node->reach_cost + w))
 		{
+			// printf(" AVANT sec node [%s] reach_cost [%d]\n", sec->name, sec->reach_cost);
 			// printf("------>enter in if\n");
 			in = 1;
 			*changed = 1;
 			sec->reach_cost = pre_node->reach_cost + w;
 			sec->predecessor = pre_node;
+			// printf(" APRES sec node [%s] reach_cost [%d]\n", sec->name, sec->reach_cost);
 		}
 	}
 	// if( z == 0)

@@ -9,6 +9,7 @@ void get_path(t_lemin *lemin)
   select_path(lemin);
   // ! \\ not for code
 	printf("\n\n\n");
+	printf("after select path\n\n");
   t_edge *index;
 index = lemin->edge_tab;
   while (index)

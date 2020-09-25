@@ -1,6 +1,5 @@
 #include "../includes/lemin.h"
 
-// sauvegarde le chemin trouver par bellmanford dans un tableau
 int save_path(t_lemin *lemin, int index_path)
 {
 	// printf("in save path\n");
@@ -36,26 +35,10 @@ int save_path(t_lemin *lemin, int index_path)
 		index->next = new;
 		if(new->node == lemin->start_node)
 		{
-			// index = head;
-			// printf("GO - shortest path[%d] is: ", index_path);
-			// while (index)
-			// {
-			// 	printf("%s ", index->node->name);
-			// 	index = index->next;
-			// }
-			// printf("\n\n");
 			return(1);
 		}
 		if (new->node == lemin->end_node)
 		{
-			// index = head;
-			// printf("NO GO - shortest path[%d] is: ", index_path);
-			// while (index)
-			// {
-			// 	printf("%s ", index->node->name);
-			// 	index = index->next;
-			// }
-			// printf("\n\n");
 			return(0);
 		}
 	}
@@ -90,7 +73,12 @@ void init_infinity_and_reach_cost(t_lemin *lemin)
 	while (index)
 	{
 		index->predecessor->infinity = 1;
+		index->predecessor->reach_cost = 0;
+		index->predecessor->predecessor = ft_memalloc(sizeof(t_node));
 		index->successor->infinity = 1;
+		index->successor->reach_cost = 0;
+		index->successor->predecessor = ft_memalloc(sizeof(t_node));
+
 		index = index->next;
 	}
 	lemin->start_node->infinity = 0;
@@ -100,12 +88,15 @@ int start_algo(t_lemin *lemin)
 {
 	int i;
 	int x;
-	int nb_final_path;
+	int nb_final_path = 0;
+	int ret;
 
 	// printf("nb of edges %d\n", lemin->number_of_edges);
 
-	printf("nb of path %d and ants %d\n", lemin->nb_path, lemin->nb_ants);
+	// printf("nb of path %d and ants %d\n", lemin->nb_path, lemin->nb_ants);
 	// printf("in start algo\n");
+	if (lemin->nb_ants == 1)
+		lemin->nb_path = 1;
 
 	lemin->path_tab = malloc(sizeof(t_path *) * lemin->nb_path);
 	x = 0;
@@ -114,26 +105,31 @@ int start_algo(t_lemin *lemin)
 	{
 
 		if (bellman_ford(lemin) == 1)//, &changed);
-    {
-      printf("neg cycle\n");
-      return(0);
-    }
-		// printf("--------------------------------------------------\n");
-		nb_final_path += save_path(lemin, nb_final_path);
-		// printf(" return of save path %d\n", nb_final_path);
+		{
+			// printf("neg cycle\n");
+			return(0);
+		}
+		ret = 0;
+		ret = save_path(lemin, nb_final_path);
+		nb_final_path += ret;
 
-		suurballe(lemin, nb_final_path - 1);
-		init_infinity_and_reach_cost(lemin);
+		// printf(" return of save path %d\n", nb_final_path);
+		if (ret != 0 || (x + 1) < lemin->nb_path)
+		{
+			suurballe(lemin, nb_final_path - 1);
+			init_infinity_and_reach_cost(lemin);
+		}
 		i = 0;
 		x++;
 		// printf("--------------------------------------------------\n");
 	}
-	// //!\\ not part of code, print different path
+	// printf("NO MORE BELLMAN\n");
+	// // //!\\ not part of code, print different path
 	// for(i = 0; i < lemin->number_of_edges; i++)
 	//   printf("edge [%s][%s] is visited %d\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
 	t_path *index;
 	i = 0;
-	printf("\nnb of path possible = %d\n\n", lemin->nb_path);
+	printf("\nnb of path possible = %d -- ants[%d]\n\n", lemin->nb_path, lemin->nb_ants);
 	while(i < nb_final_path)
 	{
 		index = lemin->path_tab[i];
