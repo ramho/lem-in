@@ -1,23 +1,31 @@
-// #include "../includes/lemin.h"
-//
-// void get_path(t_lemin *lemin)
-// {
-//   int path;
-//
-//   path = 0;
-//   select_path(lemin);
-//   // ! \\ not for code
-//   // for (i = 0; i < lemin->number_of_edges; i++)
-//   //   printf("edge [%s][%s] no_go [%d]\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->no_go);
-//   // printf("in get path\n");
-//
-//   while (i < lemin->nb_path)
-//   {
-//     if (get_next_node(lemin->node_tab[0]) == 1)// has to be starting node
-//       path += 1;
-//     i++;
-//   }
-//
+#include "../includes/lemin.h"
+
+void get_path(t_lemin *lemin)
+{
+	printf("in get path\n");
+  // int path;
+
+  // path = 0;
+  select_path(lemin);
+  // ! \\ not for code
+	printf("\n\n\n");
+  t_edge *index;
+index = lemin->edge_tab;
+  while (index)
+   { printf("edge [%s][%s] no_go [%d]\n", index->predecessor->name, index->successor->name, index->no_go);
+   printf("reversed edge [%s][%s] no_go [%d]\n\n", index->reversed->predecessor->name, index->reversed->successor->name, index->reversed->no_go);
+
+		index=index->next;
+}
+
+
+  // while (i < lemin->nb_path)
+  // {
+  //   if (get_next_node(lemin->node_tab[0]) == 1)// has to be starting node
+  //     path += 1;
+  //   i++;
+  }
+
 // }
 //
 // int get_next_node(t_node *start)
@@ -40,23 +48,26 @@
 //   return(-1);
 // }
 //
-// void select_path(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans le parsing voir si on peut eviter les doubles
-// {
-//   int i;
-//   printf("enter select path\n");
-//   i = 0;
-//
-//   while (i < lemin->number_of_edges)
-//   {
-//     if (lemin->edge_tab[i]->reverse)
-//     {
-//       if (lemin->edge_tab[i]->visited == 1 && lemin->edge_tab[i]->reverse->visited == 1)
-//       {
-//         lemin->edge_tab[i]->no_go = 1;
-//         lemin->edge_tab[i]->reverse->no_go = 1;
-//       }
-//     }
-//     i++;
-//   }
-//
-// }
+void select_path(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans le parsing voir si on peut eviter les doubles
+{
+  t_edge *edge;
+  printf("enter select path\n");
+
+	edge = lemin->edge_tab;
+  while (edge)
+  {
+    // if (edge->reversed)
+    // {
+		printf("reversed\n");
+		printf("edge [%s][%s] visited [%d]\n", edge->predecessor->name, edge->successor->name, edge->visited);
+	    printf("reversed edge [%s][%s] visited [%d]\n\n", edge->reversed->predecessor->name, edge->reversed->successor->name, edge->reversed->visited);
+      if (edge->visited == 1 && edge->reversed->visited == 1)
+      {
+        edge->no_go = 1;
+        edge->reversed->no_go = 1;
+      }
+    // }
+    edge = edge->next;
+  }
+
+}

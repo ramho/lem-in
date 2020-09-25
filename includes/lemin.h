@@ -161,6 +161,7 @@
 # define LEMIN_READ_BUFF 1
 # define LINE_SIZE 100
 # define HASH_SIZE 1000000
+
 typedef struct s_link
 {
     char *room;
@@ -190,6 +191,7 @@ typedef struct s_edge
     t_node *successor;
     int weight;
     int visited;
+	int no_go;
 	struct s_edge *reversed;
 	struct s_edge *next;
 }              t_edge;

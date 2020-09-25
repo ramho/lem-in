@@ -510,9 +510,16 @@ t1 = clock();
 	if (!(lemin = malloc(sizeof(t_lemin))))
         return (1);
 	get_file_content(lemin);
+	// t_edge * edge;
+	// edge = lemin->edge_tab;
+	// while (edge)
+	// {
+	// 	printf("front[%s][%s]  reverse [%s][%s]\n", edge->predecessor->name, edge->successor->name,edge->reversed->predecessor->name, edge->reversed->successor->name );
+	// 	edge = edge->next;
+	// }
 	ret = start_algo(lemin);
 	printf("ret = %d\n", ret);
-	get_path(&lemin);
+	get_path(lemin);
 	// printf("out\n");
 	t2 = clock();
 	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
