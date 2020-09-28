@@ -158,17 +158,12 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <time.h>
-# define LEMIN_READ_BUFF 1
+# define LEMIN_READ_BUFF 65536
 # define LINE_SIZE 100
 # define HASH_SIZE 1000000
 
-typedef struct s_link
-{
-    char *room;
-    struct s_link *next;
-}              t_link;
-
-typedef struct s_node
+typedef struct s_node 	t_node;
+struct 					s_node
 {
   unsigned long key; // for hash map but name can also be the key
   char *name;
@@ -177,15 +172,16 @@ typedef struct s_node
   int y;
   int reach_cost;
   int infinity;
-  struct s_node *predecessor;
-  struct s_node *next;
+  t_node *predecessor;
+  t_node *next;
   int duplicated;
-  t_link *links; // linked list for links
+  struct s_link *links; // linked list for links
 
-  struct s_node *dup_out;
-}               t_node;
+  t_node *dup_out;
+};
 
-typedef struct s_edge
+typedef struct s_edge t_edge;
+struct s_edge
 {
     t_node *predecessor;
     t_node *successor;
@@ -194,13 +190,19 @@ typedef struct s_edge
 	int no_go;
 	struct s_edge *reversed;
 	struct s_edge *next;
-}              t_edge;
+};
 
 typedef struct s_path
 {
   t_node *node;
   struct s_path * next;
 }             t_path;
+
+typedef struct s_link
+{
+    t_node *room;
+    struct s_link *next;
+}              t_link;
 
 typedef struct  s_lemin
 {
@@ -249,6 +251,7 @@ typedef struct  s_lemin
     // t_path *head;
     t_path **path_tab;
     int nb_path;// not is use yet
+	int nb_final_path;
 
     t_path **final_path_tabs;
 
@@ -316,7 +319,7 @@ char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
 void select_path(t_lemin *lemin);
 
 /*
-**  extra_func.cs
+**  extra_func.c
 */
 char lookup(t_lemin *lemin, char* key);
 void print_tab(t_lemin *lemin);

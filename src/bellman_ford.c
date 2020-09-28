@@ -3,29 +3,28 @@
 int bellman_ford(t_lemin *lemin)//, int *changed)
 {
 	int i;
-	// int j;
 	t_edge *tmp;
 	int changed;
 
 	i = 0;
 
-	// printf("in bellman_ford \n");
+	printf("in bellman_ford \n");
 	while (i < lemin->number_of_nodes - 1)
 	{
-
-		// j = 0;
 		changed = 0;
-		// printf("#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{#{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}\n");
 		tmp = lemin->edge_tab;
-		while (tmp)
+		while (tmp != NULL)
 		{
-			// printf("tmp %s\n", tmp->predecessor->name);
+			// printf("tmp pre %s tmp suc %s\n", tmp->predecessor->name, tmp->successor->name);
 			// printf("tmp[%s][%s] visite [%d] // reversed tmp[%s][%s] visite [%d]\n", tmp->predecessor->name, tmp->successor->name, tmp->visited, tmp->reversed->predecessor->name, tmp->reversed->successor->name, tmp->reversed->visited);
 			if(tmp->visited == 0)
 				try_reduce (tmp->predecessor, tmp->successor, tmp->weight, &changed, 0);
 			if(tmp->reversed->visited == 0)
 				try_reduce (tmp->reversed->predecessor, tmp->reversed->successor, tmp->reversed->weight, &changed, 0);
 			tmp = tmp->next;
+			if (tmp == NULL)
+				break;
+				// printf("NULL\n");
 		}
 					// printf("[%d]/%d=============== changed [%d]\n", i, lemin->number_of_nodes , changed);
 					// if (changed == 0)
@@ -55,6 +54,7 @@ int bellman_ford(t_lemin *lemin)//, int *changed)
 
 void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z)
 {
+	(void)z;
 	// printf("try reduce\n");
 	// printf("in try reduce [%s](%d)[%s](%d) \n", pre->name, pre->reach_cost, sec->name, sec->reach_cost);
 	t_node *pre_node;
@@ -74,11 +74,14 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z)
 		*changed = 1;
 		sec->reach_cost = pre_node->reach_cost + w;
 		sec->infinity = 0;
+		sec->predecessor = malloc(sizeof(t_node));
+
 		sec->predecessor = pre_node;
 		if (sec->duplicated == 1)
 		{
 			sec->dup_out->reach_cost = pre_node->reach_cost + w;
 			sec->dup_out->infinity = 0;
+			sec->dup_out->predecessor = malloc(sizeof(t_node));
 			sec->dup_out->predecessor = pre_node;
 		}
 		// printf(" APRES sec node [%s] reach_cost [%d]\n", sec->name, sec->reach_cost);
@@ -95,6 +98,7 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z)
 			in = 1;
 			*changed = 1;
 			sec->reach_cost = pre_node->reach_cost + w;
+			sec->predecessor= malloc(sizeof(t_node));
 			sec->predecessor = pre_node;
 			// printf(" APRES sec node [%s] reach_cost [%d]\n", sec->name, sec->reach_cost);
 		}
@@ -106,60 +110,3 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z)
 	// }
 // printf("predecessor [%s] --> sec[%s]\n", pre_node->name, sec->name);//, sec->predecessor->name);
 }
-
-// {
-// 	int i;
-// 	int pre_index;
-// 	int sec_index;
-// 	t_node *pre_node;
-//
-// // printf("in try reduce\n");
-// 	i = 0;
-// 	if (pre->duplicated == 1)
-// 	{
-// 		// printf("DUP    ");
-// 			pre_node = pre->dup_out;
-// 		}
-// 	else
-// 		pre_node = pre;
-// 	// printf("111\n");
-// 	//but in a hashtable instead of looping through the table
-// 	while (i < lemin->number_of_nodes)
-// 	{
-// 		if (ft_strcmp(pre_node->name,lemin->node_tab[i]->name) == 0)
-// 			pre_index = i; // keeping index of predecessor
-// 		if (ft_strcmp(sec, lemin->node_tab[i]->name) == 0)
-// 			sec_index = i; // keeping index of successor
-// 		i++;
-// 	}
-// 		// printf("222\n");
-// 	printf("START node %s [%d] inf[%d]- node %s [%d] inf [%d]\n", pre_node->name, pre_node->reach_cost, pre_node->infinity,lemin->node_tab[sec_index]->name, lemin->node_tab[sec_index]->reach_cost, lemin->node_tab[sec_index]->infinity );
-// 	//changes values in reducing graph
-// 	if (pre_node->infinity == 0 && lemin->node_tab[sec_index]->infinity == 1) // if not yet passed to the second node
-// 	{
-// 		// printf("enter if infinity\n");
-// 		lemin->node_tab[sec_index]->reach_cost = pre_node->reach_cost + w;
-// 		lemin->node_tab[sec_index]->infinity = 0;
-// 		lemin->node_tab[sec_index]->predecessor = ft_strdup(pre_node->name);
-// 		if (lemin->node_tab[sec_index]->duplicated == 1)
-// 		{
-// 			lemin->node_tab[sec_index]->dup_out->reach_cost = pre_node->reach_cost + w;
-// 			lemin->node_tab[sec_index]->dup_out->infinity = 0;
-// 			lemin->node_tab[sec_index]->dup_out->predecessor = ft_strdup(pre_node->name);
-// 		}
-//
-// 	}
-// 		// printf("333\n");
-// 		// printf("%s [%d] - %s [%d]\n", pre_node->name, pre_node->infinity, lemin->node_tab[sec_index]->name, lemin->node_tab[sec_index]->infinity);
-// 	else if (pre_node->infinity  == 0 && lemin->node_tab[sec_index]->infinity == 0) // if both nodes have already been connected to a previous one
-// 	{
-// 		// printf("enter if not infinity\n");
-// 		if (lemin->node_tab[sec_index]->reach_cost > (pre_node->reach_cost + w))
-// 		{
-// 			lemin->node_tab[sec_index]->reach_cost = pre_node->reach_cost + w;
-// 			ft_strdel(&lemin->node_tab[sec_index]->predecessor);
-// 			lemin->node_tab[sec_index]->predecessor = ft_strdup(pre_node->name);
-// 		}
-// 	}
-// 	printf("END node %s [%d] inf[%d]- node %s [%d] inf [%d]\n", pre_node->name, pre_node->reach_cost, pre_node->infinity,lemin->node_tab[sec_index]->name, lemin->node_tab[sec_index]->reach_cost, lemin->node_tab[sec_index]->infinity );
-// }
