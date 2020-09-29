@@ -250,6 +250,7 @@ typedef struct  s_lemin
 
     // t_path *head;
     t_path **path_tab;
+    t_path **final_path_tab;
     int nb_path;// not is use yet
 	int nb_final_path;
 
@@ -315,8 +316,9 @@ void suurballe(t_lemin *lemin, int path_index);
 **  get_path.c
 */
 void get_path(t_lemin *lemin);
-char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
+// char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
 void select_path(t_lemin *lemin);
+int get_next_node(t_node *start, t_lemin *lemin, int i);
 
 /*
 **  extra_func.c

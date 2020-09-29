@@ -15,14 +15,14 @@ int save_path(t_lemin *lemin, int index_path)
 		return(0);
 	new->node = malloc(sizeof(t_node));
 	new->node = head->node->predecessor;
-	printf("head node pre %p\n", head->node->predecessor);
+	// printf("lemin node end %p - \t%p\n", lemin->end_node, lemin->end_node->predecessor->predecessor);
 	new->next = NULL;
 	head->next = new;
 	while (new != NULL)
 	{
 
-		printf("%p\n", new->node);
-		if (new->node->predecessor != NULL)
+		// printf("%p\n", new->node->predecessor);
+		if (new->node->predecessor == NULL)
 		{
 			printf("predecessor does not exist\n");
 			return(0);
@@ -108,7 +108,7 @@ int start_algo(t_lemin *lemin)
 		ret = save_path(lemin, lemin->nb_final_path);
 		lemin->nb_final_path += ret;
 
-		printf(" return of save path %d\n", lemin->nb_final_path);
+		// printf(" return of save path %d\n", lemin->nb_final_path);
 		if (ret != 0 || (x + 1) < lemin->nb_path)
 		{
 			suurballe(lemin, lemin->nb_final_path - 1);
@@ -135,7 +135,7 @@ int start_algo(t_lemin *lemin)
 			index = index->next;
 		}
 		i++;
-		printf("\n\n");
+		printf("\n");
 	}
   return(0);
 }

@@ -32,7 +32,7 @@ void add_new_link(t_node *room, t_node *room_to_link)
 {
 	t_link *link;
 	t_link *tmp;
-
+// printf("room [%s] - link[%s]\n", room->name, room_to_link->name);
 	if (!(link = ft_memalloc(sizeof(t_link))))
 		return ;
 	link->room = room_to_link;
@@ -53,6 +53,7 @@ void add_new_link(t_node *room, t_node *room_to_link)
 		link->next = room->links;
 		room->links = link;
 	}
+	// printf("room [%s] linked to [%s]\n", room->name, room->links->room->name);
 	return ;
 }
 
@@ -406,9 +407,24 @@ int main()
 	get_file_content(lemin);
 	t2 = clock();
 	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
+	// printf("start room [%s] linked to [%s]\n", lemin->start_node->name, lemin->start_node->links->room->name);
 	ret = start_algo(lemin);
-	printf("ret = %d\n", ret);
+	// printf("ret = %d\n", ret);
 	get_path(lemin);
+	ret = 0;
+	t_path *i;
+	while (ret < lemin->nb_final_path)
+	{
+		printf("path [%d]: ", ret);
+		i = lemin->final_path_tab[ret];
+		while (i)
+			{
+				printf("%s ", i->node->name);
+				i = i->next;
+			}
+			printf("\n");
+			ret++;
+	}
 	// printf("out\n");
 	t3 = clock();
 	temps = (float)(t3-t1)/CLOCKS_PER_SEC;
