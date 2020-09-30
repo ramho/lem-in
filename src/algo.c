@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/30 17:31:39 by rhoorntj          #+#    #+#             */
+/*   Updated: 2020/09/30 17:58:00 by rhoorntj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/lemin.h"
 
 int save_path(t_lemin *lemin, int index_path)
 {
-	printf("in save path, index path [%d]\n", index_path);
+	// printf("in save path, index path [%d]\n", index_path);
 	t_path *new;
 	t_path *head;
 	t_path *index;
@@ -13,15 +25,15 @@ int save_path(t_lemin *lemin, int index_path)
 	head->node = lemin->end_node;
 	if(!(new = ft_memalloc(sizeof(t_path))))
 		return(0);
-	new->node = malloc(sizeof(t_node));
+	if( !(new->node = ft_memalloc(sizeof(t_node))))
+		return(0);
 	new->node = head->node->predecessor;
-	// printf("lemin node end %p - \t%p\n", lemin->end_node, lemin->end_node->predecessor->predecessor);
 	new->next = NULL;
 	head->next = new;
 	while (new != NULL)
 	{
 
-		// printf("%p\n", new->node->predecessor);
+		// printf("%s\n", new->node->predecessor->);
 		if (new->node->predecessor == NULL)
 		{
 			printf("predecessor does not exist\n");
@@ -35,7 +47,7 @@ int save_path(t_lemin *lemin, int index_path)
 		while (index->next != NULL)
 			index = index->next;
 		// free(new);
-		if( !(new = ft_memalloc(sizeof(t_path))))
+		if( !(new = calloc(1,sizeof(t_path))))
 			return(0);
 		new->node = index->node->predecessor;
 		new->next = NULL;
@@ -88,7 +100,7 @@ int start_algo(t_lemin *lemin)
 	// printf("nb of edges %d\n", lemin->number_of_edges);
 
 	// printf("nb of path %d and ants %d\n", lemin->nb_path, lemin->nb_ants);
-	printf("in start algo\n");
+	// printf("in start algo\n");
 
 	if (lemin->nb_ants == 1)
 		lemin->nb_path = 1;
@@ -122,20 +134,20 @@ int start_algo(t_lemin *lemin)
 	// // //!\\ not part of code, print different path
 	// for(i = 0; i < lemin->number_of_edges; i++)
 	//   printf("edge [%s][%s] is visited %d\n", lemin->edge_tab[i]->predecessor, lemin->edge_tab[i]->successor, lemin->edge_tab[i]->visited);
-	t_path *index;
-	i = 0;
-	printf("\nnb of path possible = %d -- ants[%d]\n\n", lemin->nb_path, lemin->nb_ants);
-	while(i < lemin->nb_final_path)
-	{
-		index = lemin->path_tab[i];
-		printf("PATH %d/%d : ", i, lemin->nb_final_path);
-		while (index)
-		{
-			printf("%s ", index->node->name);
-			index = index->next;
-		}
-		i++;
-		printf("\n");
-	}
+	// t_path *index;
+	// i = 0;
+	// printf("\nnb of path possible = %d -- ants[%d]\n\n", lemin->nb_path, lemin->nb_ants);
+	// while(i < lemin->nb_final_path)
+	// {
+	// 	index = lemin->path_tab[i];
+	// 	printf("PATH %d/%d : ", i, lemin->nb_final_path);
+	// 	while (index)
+	// 	{
+	// 		printf("%s ", index->node->name);
+	// 		index = index->next;
+	// 	}
+	// 	i++;
+	// 	printf("\n");
+	// }
   return(0);
 }

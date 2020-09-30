@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/30 17:33:10 by rhoorntj          #+#    #+#             */
+/*   Updated: 2020/09/30 18:18:05 by rhoorntj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/lemin.h"
 
 int	hash(t_lemin *l, int *i, char c)
@@ -36,6 +48,7 @@ void add_new_link(t_node *room, t_node *room_to_link)
 	if (!(link = ft_memalloc(sizeof(t_link))))
 		return ;
 	link->room = room_to_link;
+	link->used = 0;
 	tmp = room->links;
 	if (!(tmp))
 		room->links = link;
@@ -399,7 +412,6 @@ int main()
 	float temps;
 	clock_t t1, t2, t3;
 	t_lemin *lemin;
-	int ret;
 
 	t1 = clock();
 	if (!(lemin = ft_memalloc(sizeof(t_lemin))))
@@ -408,26 +420,14 @@ int main()
 	t2 = clock();
 	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
 	// printf("start room [%s] linked to [%s]\n", lemin->start_node->name, lemin->start_node->links->room->name);
-	ret = start_algo(lemin);
+	start_algo(lemin);
 	// printf("ret = %d\n", ret);
 	get_path(lemin);
-	ret = 0;
-	t_path *i;
-	while (ret < lemin->nb_final_path)
-	{
-		printf("path [%d]: ", ret);
-		i = lemin->final_path_tab[ret];
-		while (i)
-			{
-				printf("%s ", i->node->name);
-				i = i->next;
-			}
-			printf("\n");
-			ret++;
-	}
+	print_path(lemin);
+
 	// printf("out\n");
 	t3 = clock();
 	temps = (float)(t3-t1)/CLOCKS_PER_SEC;
-	printf("temps = %f\n", temps);
+	// printf("temps = %f\n", temps);
 	return(0);
 }

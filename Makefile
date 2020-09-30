@@ -6,12 +6,12 @@
 #    By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/27 16:28:36 by rhoorntj          #+#    #+#              #
-#    Updated: 2020/09/28 18:31:16 by rhoorntj         ###   ########.fr        #
+#    Updated: 2020/09/30 14:56:09 by rhoorntj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
-CC = gcc #-g -fsanitize=address
+CC = gcc # -fsanitize=address
 #FLAGS += -Wall -Wextra -Werror
 LIBFT = $(LIBDIR)libft.a
 SRCDIR = ./src/
