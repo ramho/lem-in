@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   extra_func.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhoorntj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/30 17:33:50 by rhoorntj          #+#    #+#             */
+/*   Updated: 2020/09/30 17:33:54 by rhoorntj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/lemin.h"
 
 void print_tab(t_lemin *lemin)
@@ -36,5 +48,10 @@ void printf_current_reach_cost(t_lemin *lemin, int iteration)
 	int i;
 
 	for (i = 0; i < lemin->number_of_nodes; i++)
-		printf("%10s |%10s |%10d\n", lemin->node_tab[i]->name, lemin->node_tab[i]->predecessor,lemin->node_tab[i]->reach_cost);
+	{
+		if (lemin->node_tab[i])
+			printf("%10s |%10s |%10d\n", lemin->node_tab[i]->name, lemin->node_tab[i]->predecessor->name,lemin->node_tab[i]->reach_cost);
+	}
 }
+
+// void print_links()
