@@ -39,20 +39,20 @@ void get_path(t_lemin *lemin)
     i++;
 	// printf("=============\n");
   }
-	// i = 0;
-	// t_path *index;
-	// while (i < path)
-	// {
-	// 	index = lemin->final_path_tab[i];
-	// 	printf("path [%d] is --> ", i);
-	// 	while (index)
-	// 	{
-	// 		printf("%s  ", index->node->name);
-	// 		index = index->next;
-	// 	}
-	// 	i++;
-	// 	printf("\n");
-	// }
+	i = 0;
+	t_path *index;
+	while (i < path)
+	{
+		index = lemin->final_path_tab[i];
+		printf("path [%d] is --> ", i);
+		while (index)
+		{
+			printf("%s  ", index->node->name);
+			index = index->next;
+		}
+		i++;
+		printf("\n");
+	}
 }
 
 void select_path(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans le parsing voir si on peut eviter les doubles
@@ -136,6 +136,7 @@ void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i)
 
 	new = ft_memalloc(sizeof(t_path));
 	new->node = node;
+	new->visited = 0;
 	new->next = NULL;
 	if (!(lemin->final_path_tab[i]))
 		lemin->final_path_tab[i] = new;

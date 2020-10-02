@@ -32,6 +32,7 @@ struct 					s_node
   int y;
   int reach_cost;
   int infinity;
+  int ant;
   t_node *predecessor;
   t_node *next;
   int duplicated;
@@ -55,6 +56,7 @@ struct s_edge
 typedef struct s_path
 {
   t_node *node;
+  int visited;
   struct s_path * next;
 }             t_path;
 
@@ -197,5 +199,8 @@ void printf_current_reach_cost(t_lemin *lemin, int iteration);
 */
 
 void print_path(t_lemin *lemin);
+int check_for_ant(t_path *path, int *i);
+int check_for_ant_bis(t_path *path, int *i);
+void print_path_for_one(t_lemin *lemin);
 
 #endif

@@ -14,7 +14,6 @@
 //
 void create_dup_room(t_lemin *lemin, t_node *node)
 {
-
 	node->duplicated = 1;
 	node->dup_out = malloc(sizeof(t_node));
 	node->dup_out->name = node->name;

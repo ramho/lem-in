@@ -179,6 +179,7 @@ int	parse_nodes(t_lemin *l)
 	node->y *= neg;
 	// ----------------------------START
 	node->reach_cost = 0;
+	node->ant = 0;
 
 	// ------------------------------END
 	if (l->start_room == 1)
