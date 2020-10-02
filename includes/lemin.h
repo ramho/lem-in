@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:35:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/09/30 17:59:38 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/02 17:41:47 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,5 +202,7 @@ void print_path(t_lemin *lemin);
 int check_for_ant(t_path *path, int *i);
 int check_for_ant_bis(t_path *path, int *i);
 void print_path_for_one(t_lemin *lemin);
+void loop_in_path(t_path *index, int i);
+void add_ant_to_path(t_path *index , int i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:31:27 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/09/30 18:28:46 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/02 18:30:24 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,63 @@ void print_path_for_one(t_lemin *lemin)
 	int j;
 	t_path *index;
 
-	i = 0;
+	i = 1;
 	hill = 1;
 	while (hill)
 	{
-		while (i < lemin->nb_ants)
+		while (i <= lemin->nb_ants)
 		{
 			j = 0;
 			while(lemin->final_path_tab[j])
 			{
+				// printf("j [\n", j);
 				index = lemin->final_path_tab[j];
-				while(index)
-				{
-					if(index->node->ant == 0)
-					{
-						index->node->ant = i;
-						index->visited = 1;
-					}
-					index = index->next;
-				}
+				add_ant_to_path(index, i);
+				loop_in_path(index);
 				j++;
 			}
+			printf("\n");
 			i++;
 		}
 		hill = 0;
 	}
 }
+
+
+void add_ant_to_path(t_path *index , int i)
+{
+	index->node->ant = i;
+	index->visited = 1;
+	printf("000 L%d-%s ", index->node->ant, index->node->name);
+}
+
+void loop_in_path(t_path *index, int i)
+{
+	while(index)
+	{
+		// printf("node [%s] ant [%d]  ", index->node->name, index->node->ant);
+		// printf("1\n");
+
+		{
+
+			if(index->next)
+			{
+				index->next->node->ant = index->node->ant;
+			// printf("next node [%s] ant [%d]\t", index->next->node->name, index->next->node->ant);
+			}
+
+			printf("111 L%d-%s  ", index->node->ant, index->node->name);
+
+		}
+		// printf("node [%s] ant [%d]\n", index->node->name, index->node->ant);
+		// printf("node next [%s] ant [%d]\n", index->node->next->name, index->next->node->ant);
+		// printf("----------------next\n");
+		index = index->next;
+		// printf("5\n");
+	}
+}
+
+
 
 void print_path(t_lemin *lemin)
 {
