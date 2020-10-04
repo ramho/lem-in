@@ -16,11 +16,7 @@ typedef struct s_path
   struct s_path * next;
 }             t_path;
 
-typedef struct s_link
-{
-    char *room;
-    struct s_link *next;
-}              t_link;
+
 
 // coucou
 
@@ -35,9 +31,16 @@ typedef struct s_node
   int infinity;
   char *predecessor;
   struct s_node *next;
-  // t_link *links; // linked list for links
-  struct s_node *links; // nodes linked to this node
+  struct s_link *links; // linked list for links
+  // struct s_node *begin_links;
+  // struct s_node *links; // nodes linked to this node
 }               t_node;
+
+typedef struct s_link
+{
+    t_node *room;
+    struct s_link *next;
+}              t_link;
 
 typedef struct s_edge
 {
@@ -50,6 +53,7 @@ typedef struct s_edge
 
 typedef struct  s_lemin
 {
+	int error;
 	int ret;
 	char buff[LEMIN_READ_BUFF + 1];
 	int i; // index in buff
@@ -149,6 +153,7 @@ void modify_graph_for_bhandari(t_lemin *lemin, int path_index);
 */
 void get_path(t_lemin *lemin);
 char *recursive_get_path(t_lemin *lemin, char *pre_node, t_path * head);
+int	hash(t_lemin *l, int *i, char c);
 
 /*
 **  extra_func.cs
