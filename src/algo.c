@@ -12,9 +12,10 @@
 
 #include "../includes/lemin.h"
 
+
 int save_path(t_lemin *lemin, int index_path)
 {
-	// printf("in save path, index path [%d]\n", index_path);
+	printf("in save path, index path [%d]\n", index_path);
 	t_path *new;
 	t_path *head;
 	t_path *index;
@@ -32,8 +33,6 @@ int save_path(t_lemin *lemin, int index_path)
 	head->next = new;
 	while (new != NULL)
 	{
-
-		// printf("%s\n", new->node->predecessor->);
 		if (new->node->predecessor == NULL)
 		{
 			printf("predecessor does not exist\n");
@@ -65,7 +64,6 @@ int save_path(t_lemin *lemin, int index_path)
 		return(0);
 	return(1);
 }
-
 
 void init_infinity_and_reach_cost(t_lemin *lemin)
 {
@@ -116,6 +114,7 @@ int start_algo(t_lemin *lemin)
 			// printf("neg cycle\n");
 			return(0);
 		}
+		//check path ..
 		ret = 0;
 		ret = save_path(lemin, lemin->nb_final_path);
 		lemin->nb_final_path += ret;

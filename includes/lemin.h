@@ -22,7 +22,13 @@
 # define LINE_SIZE 100
 # define HASH_SIZE 1000000
 
+typedef struct s_lemin t_lemin;
 typedef struct s_node 	t_node;
+typedef struct s_edge   t_edge;
+typedef struct s_path   t_path;
+typedef struct s_link   t_link;
+typedef struct s_ant    t_ant;
+
 struct 					s_node
 {
   unsigned long key; // for hash map but name can also be the key
@@ -41,7 +47,6 @@ struct 					s_node
   t_node *dup_out;
 };
 
-typedef struct s_edge t_edge;
 struct s_edge
 {
     t_node *predecessor;
@@ -49,25 +54,34 @@ struct s_edge
     int weight;
     int visited;
 	int no_go;
-	struct s_edge *reversed;
-	struct s_edge *next;
+	t_edge *reversed;
+	t_edge *next;
 };
 
-typedef struct s_path
+struct s_path
 {
   t_node *node;
   int visited;
-  struct s_path * next;
-}             t_path;
+  t_path * next;
+};
 
-typedef struct s_link
+struct s_link
 {
     t_node *room;
-	int used;
-    struct s_link *next;
-}              t_link;
+	   int used;
+    t_link *next;
+};
 
-typedef struct  s_lemin
+struct s_ant
+{
+  int ant;
+  int end;
+  int no_print;
+  t_path *path;
+  t_node *node;
+};
+
+struct  s_lemin
 {
 	int ret;
 	char buff[LEMIN_READ_BUFF + 1];
@@ -118,10 +132,14 @@ typedef struct  s_lemin
 	int nb_final_path;
 	int **len_tab;
 
+  t_ant ** ant_tab;
+
     t_path **final_path_tabs;
 
+    int ant_in_end;
 
-}               t_lemin;
+
+};
 
 /*
 **  main.c
@@ -199,10 +217,13 @@ void printf_current_reach_cost(t_lemin *lemin, int iteration);
 */
 
 void print_path(t_lemin *lemin);
-int check_for_ant(t_path *path, int *i);
-int check_for_ant_bis(t_path *path, int *i);
-void print_path_for_one(t_lemin *lemin);
-void loop_in_path(t_path *index, int i);
-void add_ant_to_path(t_path *index , int i);
+void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
+
+/*
+**  ant_utils.c
+*/
+void init_ants(t_ant **tab, int nb_ant, t_path *path);
+void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
+void move_ant();
 
 #endif

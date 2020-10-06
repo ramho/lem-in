@@ -26,12 +26,9 @@ void get_path(t_lemin *lemin)
 	t_path *head;
   while (i < lemin->nb_final_path)
   {
-	  // printf("start of path finding [%d]\n", i);
-	  // add_node_link_to_final_path(lemin, lemin->start_node, i);
 	  ret = get_next_node(lemin->start_node, lemin, path);
     if (ret == 1)// has to be starting node
      {
-		 // printf("ret = %d\n", ret);
 		  path += 1;
 	  }
 	  else

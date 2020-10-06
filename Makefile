@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = lem-in
-CC = gcc # -fsanitize=address
+CC = gcc  #-fsanitize=address
 #FLAGS += -Wall -Wextra -Werror
 LIBFT = $(LIBDIR)libft.a
 SRCDIR = ./src/
