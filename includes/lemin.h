@@ -130,11 +130,12 @@ struct  s_lemin
     t_path **final_path_tab;
     int nb_path;// not is use yet
 	int nb_final_path;
-	int **len_tab;
+	int *len_tab;
 
   t_ant ** ant_tab;
 
     t_path **final_path_tabs;
+    // int * path_len;
 
     int ant_in_end;
 
@@ -224,6 +225,7 @@ void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
 */
 void init_ants(t_ant **tab, int nb_ant, t_path *path);
 void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
-void move_ant();
+void move_ant(t_ant *ant, t_lemin *lemin);
+void  dispatch_ant_in_path(t_lemin *lemin);
 
 #endif

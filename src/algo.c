@@ -15,7 +15,7 @@
 
 int save_path(t_lemin *lemin, int index_path)
 {
-	printf("in save path, index path [%d]\n", index_path);
+	// printf("in save path, index path [%d]\n", index_path);
 	t_path *new;
 	t_path *head;
 	t_path *index;

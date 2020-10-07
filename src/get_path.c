@@ -17,9 +17,9 @@ void get_path(t_lemin *lemin)
 	// printf("in get path\n");
   int path;
 	int i;
-
   select_path(lemin);
 	lemin->final_path_tab = ft_memalloc(sizeof(t_path) * lemin->nb_final_path);
+  lemin->len_tab = ft_memalloc(sizeof(int) * lemin->nb_final_path);
 	path = 0;
 	i = 0;
 	int ret = 0;
@@ -38,6 +38,7 @@ void get_path(t_lemin *lemin)
   }
 	i = 0;
 	t_path *index;
+  printf("path [%d] lemin path [%d]\n", path, lemin->nb_final_path);
 	while (i < path)
 	{
 		index = lemin->final_path_tab[i];
@@ -46,10 +47,18 @@ void get_path(t_lemin *lemin)
 		{
 			printf("%s  ", index->node->name);
 			index = index->next;
+      lemin->len_tab[i] += 1;
 		}
 		i++;
-		printf("\n");
-	}
+    printf("\n");
+  }
+
+  // i = 0;
+  // while (i < path)
+  // {
+  //     printf("path[%d] len [%d]\n ", path,lemin->len_tab[i]);
+  //     i++;
+  // }
 }
 
 void select_path(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans le parsing voir si on peut eviter les doubles
