@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:31:27 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/02 18:30:24 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/07 17:50:32 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void print_path(t_lemin *lemin)
 {
-  // printf("in printf path\n");
+  printf("in printf path ants [%d]\n", lemin->nb_ants);
   printf("\n");
   int i;
 
@@ -32,19 +32,30 @@ void print_path(t_lemin *lemin)
     else
       dispatch_ant_in_path(lemin);
 
+	 //NOT FOR CODE
+	 // i = 0;
+	 // while ( i < lemin->nb_ants)
+	 // {
+		//  printf("start of room is [%s]\n",lemin->ant_tab[i]->path->node->name);
+		//  i++;
+	 // } NOT FOR CODE
+
     lemin->ant_in_end = 0;
+	int count = 0;
     while (lemin->ant_in_end < lemin->nb_ants)
     {
-      i = 0;
-      while (i < lemin->nb_final_path)
-      {
+      // i = 0;
+      // while (i < lemin->nb_final_path)
+      // {
       update_ant(lemin->ant_tab, lemin->nb_ants, lemin);
       print_ant(lemin->ant_tab, lemin->nb_ants, lemin);
 
-      i++;
-    }
+    //   i++;
+    // }
       printf("\n");
+	  count++;
     }
+	printf("lines %d\n", count);
 }
 
 void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin)

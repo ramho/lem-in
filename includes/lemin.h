@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:35:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/02 17:41:47 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/07 17:53:01 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,16 +216,21 @@ void printf_current_reach_cost(t_lemin *lemin, int iteration);
 /*
 **	print.c
 */
-
 void print_path(t_lemin *lemin);
 void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
 
 /*
 **  ant_utils.c
 */
-void init_ants(t_ant **tab, int nb_ant, t_path *path);
 void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
 void move_ant(t_ant *ant, t_lemin *lemin);
+
+/*
+**  path_utils.c
+*/
 void  dispatch_ant_in_path(t_lemin *lemin);
+void choose_from_last_path(t_lemin *lemin, int i, int j);
+void choose_path_except_last(t_lemin *lemin, int i, int *j);
+void init_ants(t_ant **tab, int nb_ant, t_path *path);
 
 #endif
