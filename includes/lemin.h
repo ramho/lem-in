@@ -62,6 +62,7 @@ struct s_path
 {
   t_node *node;
   int visited;
+  int ant;
   t_path * next;
 };
 
@@ -184,25 +185,27 @@ int start_algo(t_lemin *lemin);
 **  bellman_ford.c
 */
 int bellman_ford(t_lemin *lemin);
-// void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin);
+// void try_reduce(t_node *pre, t_node *sec, int w, t_lemin *lemin);
 // void bellman_ford(t_lemin *lemin, int *changed);
-void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z);
+// void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z);
+void try_reduce(t_node *pre, t_node *sec, int w, int *changed);
 
 /*
 **  suurballe.c
 */
 // void create_dup_room(t_lemin *lemin, t_node **tab, char *node);
-void create_dup_room(t_lemin *lemin, t_node *node);
+// void create_dup_room(t_lemin *lemin, t_node *node);
+void create_dup_room( t_node *node);
 void suurballe(t_lemin *lemin, int path_index);
 
 /*
 **  get_path.c
 */
 void get_path(t_lemin *lemin);
-void select_path(t_lemin *lemin);
+void select_edge(t_lemin *lemin);
 int get_next_node(t_node *start, t_lemin *lemin, int i);
-
 void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i);
+void sort_int_tab(t_lemin *lemin, int size);
 
 
 /*
@@ -223,7 +226,8 @@ void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
 **  ant_utils.c
 */
 void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
-void move_ant(t_ant *ant, t_lemin *lemin);
+int move_ant(t_ant *ant, t_lemin *lemin);
+void init_ants(t_ant **tab, int nb_ant, t_path *path);
 
 /*
 **  path_utils.c
@@ -231,6 +235,6 @@ void move_ant(t_ant *ant, t_lemin *lemin);
 void  dispatch_ant_in_path(t_lemin *lemin);
 void choose_from_last_path(t_lemin *lemin, int i, int j);
 void choose_path_except_last(t_lemin *lemin, int i, int *j);
-void init_ants(t_ant **tab, int nb_ant, t_path *path);
+
 
 #endif

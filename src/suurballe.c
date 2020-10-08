@@ -12,7 +12,7 @@
 
 #include "../includes/lemin.h"
 //
-void create_dup_room(t_lemin *lemin, t_node *node)
+void create_dup_room( t_node *node)
 {
 	node->duplicated = 1;
 	node->dup_out = malloc(sizeof(t_node));
@@ -44,13 +44,13 @@ void suurballe(t_lemin *lemin, int path_index)
       {
         edge->weight = -1;
         if (suc_path != lemin->start_node)
-          create_dup_room(lemin, suc_path);
+          create_dup_room( suc_path);
       }
 	  if ((pre_path->name == edge->reversed->predecessor->name) && (suc_path->name == edge->reversed->successor->name))
 	  {
 		edge->reversed->weight = -1;
 		if (suc_path != lemin->start_node)
-		  create_dup_room(lemin, suc_path);
+		  create_dup_room(suc_path);
 	  }
       if ((suc_path == edge->predecessor) && (pre_path == edge->successor))
       {

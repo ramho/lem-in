@@ -17,13 +17,12 @@ void get_path(t_lemin *lemin)
 	// printf("in get path\n");
   int path;
 	int i;
-  select_path(lemin);
+  select_edge(lemin);
 	lemin->final_path_tab = ft_memalloc(sizeof(t_path) * lemin->nb_final_path);
   lemin->len_tab = ft_memalloc(sizeof(int) * lemin->nb_final_path);
 	path = 0;
 	i = 0;
 	int ret = 0;
-	t_path *head;
   while (i < lemin->nb_final_path)
   {
 	  ret = get_next_node(lemin->start_node, lemin, path);
@@ -38,30 +37,28 @@ void get_path(t_lemin *lemin)
   }
 	i = 0;
 	t_path *index;
-  printf("path [%d] lemin path [%d]\n", path, lemin->nb_final_path);
+  // printf("path [%d] lemin path [%d]\n", path, lemin->nb_final_path);
 	while (i < path)
 	{
 		index = lemin->final_path_tab[i];
-		printf("path [%d] is --> ", i);
+		// printf("path [%d] is --> ", i);
 		while (index)
 		{
-			printf("%s  ", index->node->name);
-			index = index->next;
       lemin->len_tab[i] += 1;
-		}
-		i++;
-    printf("\n");
-  }
+			// printf("%s  ", index->node->name);
+			index = index->next;
 
-  // i = 0;
-  // while (i < path)
-  // {
-  //     printf("path[%d] len [%d]\n ", path,lemin->len_tab[i]);
-  //     i++;
-  // }
+		}
+    // printf("len [%d]\n", lemin->len_tab[i]);
+    // printf("\n");
+		i++;
+
+  }
+  if (lemin->nb_final_path > 1)
+    sort_int_tab(lemin, lemin->nb_final_path);
 }
 
-void select_path(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans le parsing voir si on peut eviter les doubles
+void select_edge(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans le parsing voir si on peut eviter les doubles
 {
   t_edge *edge;
   // printf("enter select path\n");
@@ -89,7 +86,7 @@ void select_path(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans
 }
 
 
-int get_next_node(t_node *start, t_lemin *lemin, int i)
+int get_next_node(t_node *start, t_lemin *lemin, int i) //recursive
 {
 	// printf("in get next node [%d]\n", i);
 	t_link *link;
@@ -101,9 +98,6 @@ int get_next_node(t_node *start, t_lemin *lemin, int i)
 
 	while (link)
 	{
-		// if (link->used == 1)
-		// 	return(0);
-		// printf("link [%s]\n", link->room->name);
 		edge = lemin->edge_tab;
 		while (edge)
 		{
@@ -121,7 +115,6 @@ int get_next_node(t_node *start, t_lemin *lemin, int i)
 
 				if (get_next_node(link->room, lemin, i) == 1)
 					{
-						// printf("get next room returned 1\n");
 						return (1);
 					}
 			}
@@ -143,6 +136,7 @@ void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i)
 	new = ft_memalloc(sizeof(t_path));
 	new->node = node;
 	new->visited = 0;
+  new->ant = 0;
 	new->next = NULL;
 	if (!(lemin->final_path_tab[i]))
 		lemin->final_path_tab[i] = new;
@@ -159,4 +153,32 @@ void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i)
 
 		index->next = new;
 	}
+}
+
+void sort_int_tab(t_lemin *lemin, int size)
+{
+  int i;
+  int j;
+  int tmp;
+  t_path *buf;
+
+  i = 0;
+  while (i < size)
+  {
+    j = 0;
+    while (j < (size - 1))
+    {
+      if (lemin->len_tab[j] > lemin->len_tab[j + 1])
+      {
+        tmp = lemin->len_tab[j];
+        buf = lemin->final_path_tab[j];
+        lemin->len_tab[j] = lemin->len_tab[j + 1];
+        lemin->final_path_tab[j] = lemin->final_path_tab[j + 1];
+        lemin->len_tab[j + 1] = tmp;
+        lemin->final_path_tab[j + 1] = buf;
+      }
+      j++;
+    }
+    i++;
+  }
 }

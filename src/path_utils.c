@@ -14,11 +14,8 @@
 
 void	dispatch_ant_in_path(t_lemin *lemin)
 {
-	printf("in dispatch\n");
 	int	i;
 	int	j;
-	int	p1;
-	int	p2;
 
 	if (!(lemin->ant_tab = ft_memalloc(sizeof(t_ant) * lemin->nb_ants)))
 		return ;
@@ -68,19 +65,4 @@ void	choose_path_except_last(t_lemin *lemin, int i, int *j)
 		init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j]);
 		lemin->len_tab[*j] += 1;
 	}
-}
-
-void	init_ants(t_ant **tab, int ant, t_path *path)
-{
-	// printf("in init ants\n");
-	t_ant	*new;
-
-	if (!(new = ft_memalloc(sizeof(t_ant))))
-		return ;
-	new->ant = ant+1;
-	new->end = 0;
-	new->no_print = 0;
-	new->path = path;
-	new->node = NULL;
-	tab[ant] = new;
 }

@@ -429,6 +429,6 @@ int main()
 	// printf("out\n");
 	t3 = clock();
 	temps = (float)(t3-t1)/CLOCKS_PER_SEC;
-	// printf("temps = %f\n", temps);
+	printf("temps = %f\n", temps);
 	return(0);
 }

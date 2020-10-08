@@ -14,23 +14,20 @@
 
 void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
 {
-  // printf("in update ant\n");
   int i;
-  int flag;
+  static int flag;
 
   i = 0;
-  flag = lemin->nb_final_path;
+  flag = 0;
   while (i < nb_ant)
   {
       if(tab[i]->node == NULL)
       {
-            move_ant(tab[i], lemin);
-            // flag--;
-            // if (flag != 1)
-            // {
-              // printf("i [%d] final path [%d]\n", i, lemin->nb_final_path);
+            flag += move_ant(tab[i], lemin);;
+            if (flag % lemin->nb_final_path == 0)
+            {
               return;
-            // }
+            }
         }
       else
         move_ant(tab[i], lemin);
@@ -39,25 +36,43 @@ void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
 
 }
 
-void move_ant(t_ant *ant, t_lemin *lemin)
+int move_ant(t_ant *ant, t_lemin *lemin)
 {
-  // printf("in move ant\n");
   if (ant->end == 0)
   {
     if( ant->node == NULL)
     {
+      if( ant->path->ant == 1)
+        return (0);
       ant->node = ant->path->node;
-      // printf("node is %s\n", ant->path->node->name);
+      ant->path->ant = 1;
     }
     else
     {
+      ant->path->ant = 0;
       ant->path = ant->path->next;
+      ant->path->ant = 1;
       ant->node = ant->path->node;
     }
-  if (ant->node == lemin->end_node)
-  {
-    lemin->ant_in_end += 1;
-    ant->end = 1;
+    if (ant->node == lemin->end_node)
+    {
+      lemin->ant_in_end += 1;
+      ant->end = 1;
+    }
   }
+  return(1);
 }
+
+void	init_ants(t_ant **tab, int ant, t_path *path)
+{
+	t_ant	*new;
+
+	if (!(new = ft_memalloc(sizeof(t_ant))))
+		return ;
+	new->ant = ant+1;
+	new->end = 0;
+	new->no_print = 0;
+	new->path = path;
+	new->node = NULL;
+	tab[ant] = new;
 }
