@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:35:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/07 17:53:01 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 17:11:46 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ struct s_ant
 
 struct  s_lemin
 {
+	int error;
+
+
+
 	int ret;
 	char buff[LEMIN_READ_BUFF + 1];
 	int i; // index in buff
@@ -147,8 +151,49 @@ struct  s_lemin
 **  main.c
 */
 int main();
-void get_file_content(t_lemin *lemin);
+void	get_file_content(t_lemin *lemin);
 
+/*
+**  parse_tool.c.c
+*/
+int		hash(t_lemin *l, int *i, char c);
+
+/*
+**  parse_edge.c
+*/
+void	reverse_edge(t_edge *ed);
+t_node	*get_edge_room(t_lemin *l, int i, int key, int place);
+void	add_new_link(t_node *room, t_node *room_to_link);
+int		free_edge(t_edge *ed);
+int		parse_edges(t_lemin *l, int i, int key, int middle);
+void 	store_new_edge(t_lemin *l, t_edge *ed);
+void 	check_exit_entry(t_lemin *l, t_edge *ed);
+
+/*
+** parse_node.c
+*/
+int		get_coord(t_lemin *l, int *i, t_node *node);
+void	store_start_end_node(t_lemin *l, t_node *node);
+int		store_node(t_lemin *l, t_node *node);
+int		free_node(t_node *node);
+int		parse_nodes(t_lemin *l);
+
+/*
+** parse_buff.c
+*/
+int		parse_buff(t_lemin *l);
+void	write_buff_op(t_lemin *l);
+int		do_end_line_op(t_lemin *l);
+int		is_valid_char(t_lemin *l);
+void	do_valid_char_op(t_lemin *l);
+
+/*
+** parse_line.c
+*/
+void	parse_ant(t_lemin *l);
+int		parse_command(t_lemin *l);
+int		parse_flag_one(t_lemin *l);
+int		parse_line(t_lemin *l);
 /*
 **  algo.c
 */

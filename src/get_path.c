@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:32:03 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/09/30 18:22:46 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 16:56:47 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 void get_path(t_lemin *lemin)
 {
-	// printf("in get path\n");
   int path;
 	int i;
+	int ret;
+		t_path *index;
+
   select_edge(lemin);
 	lemin->final_path_tab = ft_memalloc(sizeof(t_path) * lemin->nb_bellmanf_path);
   lemin->len_tab = ft_memalloc(sizeof(int) * lemin->nb_bellmanf_path);
 	path = 0;
 	i = 0;
-	int ret = 0;
+	ret = 0;
   while (i < lemin->nb_bellmanf_path)
   {
 	  ret = get_next_node(lemin->start_node, lemin, path);
@@ -33,51 +35,32 @@ void get_path(t_lemin *lemin)
 	  else
 	 	free(lemin->final_path_tab[path]);
     i++;
-	// printf("=============\n");
   }
-  // printf("path [%d] lemin path [%d]\n", path, lemin->nb_bellmanf_path);
   lemin->nb_bellmanf_path = path;
 	i = 0;
-	t_path *index;
-  // printf("path [%d] lemin path [%d]\n", path, lemin->nb_bellmanf_path);
+
 	while (i < path)
 	{
 		index = lemin->final_path_tab[i];
-		// printf("path [%d] is --> ", i);
 		while (index)
 		{
       lemin->len_tab[i] += 1;
-			// printf("%s  ", index->node->name);
 			index = index->next;
-
 		}
-    // printf("len [%d]\n", lemin->len_tab[i]);
-    // printf("\n");
 		i++;
 
   }
   if (lemin->nb_bellmanf_path > 1)
     sort_int_tab(lemin, lemin->nb_bellmanf_path);
-
-
-    printf("\n");
-    i = 0;
-    while (i < path)
-  	{
-      printf("len [%d]\n", lemin->len_tab[i]);
-      // printf("\n");
-  		i++;
-    }
 }
 
 void select_edge(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans le parsing voir si on peut eviter les doubles
 {
   t_edge *edge;
-  // printf("enter select path\n");
-	edge = malloc(sizeof(t_edge));
-	// printf("11 edge tab[%s]\n", lemin->edge_tab->predecessor->name);
+
+	if(!(edge = malloc(sizeof(t_edge))))
+		return; // FREE
 	edge = lemin->edge_tab;
-	// printf("here\n");
   while (edge)
   {
 	if (edge->visited == 0)
@@ -94,26 +77,23 @@ void select_edge(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans
     }
     edge = edge->next;
   }
-
 }
 
 
 int get_next_node(t_node *start, t_lemin *lemin, int i) //recursive
 {
-	// printf("in get next node [%d]\n", i);
 	t_link *link;
 	t_edge *edge;
 
-	link = ft_memalloc(sizeof(t_link));
+	if(!(link = ft_memalloc(sizeof(t_link))))
+		return(0); // FREE
 	link = start->links;
-	edge = malloc(sizeof(t_edge)); // not necessary
-
+	// edge = malloc(sizeof(t_edge)); // not necessary
 	while (link)
 	{
 		edge = lemin->edge_tab;
 		while (edge)
 		{
-			// printf("edge [%s][%s] - no-go [%d]\n", edge->predecessor->name, edge->successor->name, edge->no_go);
 			if ((edge->predecessor == start && edge->successor == link->room && edge->no_go == 0 && link->used == 0)
 			|| (edge->reversed->predecessor == start && edge->reversed->successor == link->room && edge->reversed->no_go == 0 && link->used == 0)) // si edge est bon
 			{
@@ -136,7 +116,7 @@ int get_next_node(t_node *start, t_lemin *lemin, int i) //recursive
 		link = link->next;
 	}
 	// printf("path not possible\n");
-	return(0);
+	return(0); // FREE, path not possiblr, add a check before
 }
 
 

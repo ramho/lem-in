@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:31:27 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/07 17:50:32 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 16:46:42 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void print_path(t_lemin *lemin)
 {
-  // printf("in print path nb final path[%d]\n", lemin->nb_bellmanf_path);
+  printf("in print path nb final path[%d]\n", lemin->nb_bellmanf_path);
   int i;
 
     if(!(lemin->ant_tab = ft_memalloc(sizeof(t_ant) * lemin->nb_ants)))
       return;
-      i = 0;
+     i = 0;
     if (lemin->nb_bellmanf_path == 1)
     {
       while( i < lemin->nb_ants )

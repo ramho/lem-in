@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:31:39 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/09/30 17:58:00 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 16:48:48 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int save_path(t_lemin *lemin, t_path *head, t_path *new)
 
 while (new != NULL)
 {
-	printf("new [%p][%p] pre [%p][%p]\n", new->node->name,new->node, new->node->predecessor->name, new->node->predecessor);
+	// printf("new [%p][%p] pre [%p][%p]\n", new->node->name,new->node, new->node->predecessor->name, new->node->predecessor);
 	if (new->node->predecessor == NULL)
 		return(0);
 	if (new->node == new->node->predecessor->predecessor)
@@ -88,7 +88,7 @@ void init_infinity_and_reach_cost(t_lemin *lemin)
 
 int start_algo(t_lemin *lemin)
 {
-
+	// printf("in start algo\n");
 	int i;
 	int ret;
 
