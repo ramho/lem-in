@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parse_nodes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 17:09:29 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 17:09:49 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 18:32:20 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-// -----parse_node.c--------
 int		get_coord(t_lemin *l, int *i, t_node *node)
 {
-	char is_int;
-	char neg;
+	char	is_int;
+	char	neg;
 
 	is_int = 0;
 	neg = 1;
@@ -62,7 +61,7 @@ void	store_start_end_node(t_lemin *l, t_node *node)
 
 int		store_node(t_lemin *l, t_node *node)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	if (!(&l->node_tab[node->key]))
 		l->node_tab[node->key] = node;
@@ -92,8 +91,8 @@ int		free_node(t_node *node)
 
 int		parse_nodes(t_lemin *l)
 {
-	int i;
-	t_node *node;
+	int		i;
+	t_node	*node;
 
 	if (!(node = (t_node*)ft_memalloc(sizeof(t_node))))
 		return (0);
@@ -118,4 +117,3 @@ int		parse_nodes(t_lemin *l)
 	l->number_of_nodes++;
 	return (1);
 }
-// -----parse_node.c END----

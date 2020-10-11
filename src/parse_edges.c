@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parse_edges.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 17:08:45 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 17:09:10 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 18:30:56 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-// -----parse_edges.c--------
 void	reverse_edge(t_edge *ed)
 {
 	t_edge *reverse;
 
 	if (!(reverse = (t_edge*)malloc(sizeof(t_edge))))
-		return;
+		return ;
 	reverse->predecessor = ed->successor;
 	reverse->successor = ed->predecessor;
 	reverse->weight = 1;
@@ -87,7 +86,7 @@ void store_new_edge(t_lemin *l, t_edge *ed)
 void 	check_exit_entry(t_lemin *l, t_edge *ed)
 {
 	if ((ed->predecessor->key == l->start_node->key) || (ed->successor->key == l->start_node->key))
-			l->nb_start_out += 1;
+		l->nb_start_out += 1;
 	if ((ed->predecessor->key == l->end_node->key) || (ed->successor->key == l->end_node->key))
 		l->nb_end_in += 1;
 }
@@ -106,7 +105,7 @@ int		parse_edges(t_lemin *l, int i, int key, int middle)
 	if (!(ed->successor = get_edge_room(l, i, key, middle + 1)))
 		return (free_edge(ed)); // "linked room b doesn't exit\n"
 	if (((ed->predecessor == l->start_node) && (ed->successor == l->end_node))
-	|| ((ed->successor == l->start_node) && (ed->predecessor == l->end_node)))
+			|| ((ed->successor == l->start_node) && (ed->predecessor == l->end_node)))
 		return (0); // end and start are connected
 	ed->weight = 1;
 	ed->next = NULL;
@@ -118,4 +117,3 @@ int		parse_edges(t_lemin *l, int i, int key, int middle)
 	add_new_link(ed->predecessor, ed->successor);
 	return (1);
 }
-// -----parse_edges.c END----

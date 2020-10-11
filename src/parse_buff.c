@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parse_buff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 17:10:48 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 17:11:01 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 18:28:31 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-// -----parse_buff.c--------
 int		is_valid_char(t_lemin *l)
 {
-	if ((l->buff[l->i] >= 'a' && l->buff[l->i] <= 'z') || \
-	(l->buff[l->i] >= 'A' && l->buff[l->i] <= 'Z') || \
-	(l->buff[l->i] >= '0' && l->buff[l->i] <= '9') || \
-	(l->buff[l->i] == '#') || (l->buff[l->i] == ' ') || \
-	(l->buff[l->i] == '-') || (l->buff[l->i] == '_') || \
-	(l->buff[l->i] == ':'))
+	if ((l->buff[l->i] >= 'a' && l->buff[l->i] <= 'z') ||
+			(l->buff[l->i] >= 'A' && l->buff[l->i] <= 'Z') ||
+			(l->buff[l->i] >= '0' && l->buff[l->i] <= '9') ||
+			(l->buff[l->i] == '#') || (l->buff[l->i] == ' ') ||
+			(l->buff[l->i] == '-') || (l->buff[l->i] == '_') ||
+			(l->buff[l->i] == ':'))
 		return (1);
 	return (0);
 }
@@ -100,4 +99,3 @@ int		parse_buff(t_lemin *l)
 	}
 	return (1);
 }
-// -----parse_buff.c END-----

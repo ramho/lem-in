@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:35:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 17:11:46 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 18:52:19 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,10 +216,9 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed);
 /*
 **  suurballe.c
 */
-// void create_dup_room(t_lemin *lemin, t_node **tab, char *node);
-// void create_dup_room(t_lemin *lemin, t_node *node);
 void create_dup_room( t_node *node);
 void suurballe(t_lemin *lemin, int path_index);
+void	check_edge(t_node *pre, t_node *suc, t_edge *edge, t_lemin *lemin);
 
 /*
 **  get_path.c
@@ -250,7 +249,7 @@ void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
 */
 void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
 int move_ant(t_ant *ant, t_lemin *lemin);
-void init_ants(t_ant **tab, int nb_ant, t_path *path);
+int init_ants(t_ant **tab, int nb_ant, t_path *path);
 
 /*
 **  path_utils.c

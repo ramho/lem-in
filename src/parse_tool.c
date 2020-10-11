@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tool.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 17:07:32 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 17:08:21 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 18:30:19 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-// -----parse_tool.c--------
 int		hash(t_lemin *l, int *i, char c)
 {
-	int odd;
-	int key;
-	int oups;
+	int		odd;
+	int		key;
+	int		oups;
 
 	key = 0;
 	oups = *i + 1;
@@ -28,4 +27,3 @@ int		hash(t_lemin *l, int *i, char c)
 	}
 	return (key % HASH_SIZE);
 }
-// -----parse_tool.c END----"

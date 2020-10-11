@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 17:10:23 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 17:10:30 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 18:30:40 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-// -----parse_line.c--------
 void	parse_ant(t_lemin *l)
 {
 	int i;
@@ -26,9 +25,9 @@ void	parse_ant(t_lemin *l)
 			l->nb_ants += (l->line[i] - '0');
 		}
 		else
-			return; // "ERROR : wrong nb_ant format\n"
+			return ; // "ERROR : wrong nb_ant format\n"
 		if (l->nb_ants < 0 || l->nb_ants > INT_MAX)
-			return; // "ERROR : not positive int\n"
+			return ; // "ERROR : not positive int\n"
 	}
 	l->parse_flag = 1;
 }
@@ -94,4 +93,3 @@ int		parse_line(t_lemin *l)
 	l->tiret = 0;
 	return (1);
 }
-// -----parse_line.c END----
