@@ -14,6 +14,7 @@
 
 void	dispatch_ant_in_path(t_lemin *lemin)
 {
+	// printf("in dispatch_ant_in_path \n");
 	int	i;
 	int	j;
 
@@ -21,9 +22,10 @@ void	dispatch_ant_in_path(t_lemin *lemin)
 		return ;
 	i = 0;
 	j = 0;
-	while (j < lemin->nb_final_path)
+	while (j < lemin->nb_bellmanf_path)
 	{
-		if (j == (lemin->nb_final_path - 2)) // avant dernier
+	
+		if (j == (lemin->nb_bellmanf_path - 2)) // avant dernier
 		{
 			choose_from_last_path(lemin,i, j);
 			j = 0;

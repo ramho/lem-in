@@ -18,12 +18,12 @@ void get_path(t_lemin *lemin)
   int path;
 	int i;
   select_edge(lemin);
-	lemin->final_path_tab = ft_memalloc(sizeof(t_path) * lemin->nb_final_path);
-  lemin->len_tab = ft_memalloc(sizeof(int) * lemin->nb_final_path);
+	lemin->final_path_tab = ft_memalloc(sizeof(t_path) * lemin->nb_bellmanf_path);
+  lemin->len_tab = ft_memalloc(sizeof(int) * lemin->nb_bellmanf_path);
 	path = 0;
 	i = 0;
 	int ret = 0;
-  while (i < lemin->nb_final_path)
+  while (i < lemin->nb_bellmanf_path)
   {
 	  ret = get_next_node(lemin->start_node, lemin, path);
     if (ret == 1)// has to be starting node
@@ -35,9 +35,11 @@ void get_path(t_lemin *lemin)
     i++;
 	// printf("=============\n");
   }
+  // printf("path [%d] lemin path [%d]\n", path, lemin->nb_bellmanf_path);
+  lemin->nb_bellmanf_path = path;
 	i = 0;
 	t_path *index;
-  // printf("path [%d] lemin path [%d]\n", path, lemin->nb_final_path);
+  // printf("path [%d] lemin path [%d]\n", path, lemin->nb_bellmanf_path);
 	while (i < path)
 	{
 		index = lemin->final_path_tab[i];
@@ -54,8 +56,18 @@ void get_path(t_lemin *lemin)
 		i++;
 
   }
-  if (lemin->nb_final_path > 1)
-    sort_int_tab(lemin, lemin->nb_final_path);
+  if (lemin->nb_bellmanf_path > 1)
+    sort_int_tab(lemin, lemin->nb_bellmanf_path);
+
+
+    printf("\n");
+    i = 0;
+    while (i < path)
+  	{
+      printf("len [%d]\n", lemin->len_tab[i]);
+      // printf("\n");
+  		i++;
+    }
 }
 
 void select_edge(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans le parsing voir si on peut eviter les doubles

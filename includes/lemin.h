@@ -130,7 +130,7 @@ struct  s_lemin
     t_path **path_tab;
     t_path **final_path_tab;
     int nb_path;// not is use yet
-	int nb_final_path;
+	int nb_bellmanf_path;
 	int *len_tab;
 
   t_ant ** ant_tab;
@@ -149,35 +149,13 @@ struct  s_lemin
 int main();
 void get_file_content(t_lemin *lemin);
 
-
-/*
-**  parse_file.c
-*/
-int parse_file(t_lemin *lemin);
-int  seperate_nodes_edges(t_lemin *lemin);
-void get_start_or_end_piece(int *i, t_lemin *lemin);
-void get_edges( t_lemin *lemin);
-
-/*
-** parse_file2.c
-*/
-void get_nodes(char **tab, t_lemin *lemin);
-void fill_node_tab(int i, t_lemin *lemin, t_node *temp);
-t_link	*ft_create_link(char *room);
-void	ft_push_link_front(t_link **begin_list, char *room);
-
-
-/*
-**  hash_map.c
-*/
-void create_table(t_lemin *lemin);
-int hash_code(t_lemin *lemin, char* key);
-void insert_node_in_table(t_lemin *lemin, t_node *node);
-
 /*
 **  algo.c
 */
-int save_path(t_lemin *lemin, int index_path);
+int init_save_path(t_lemin *lemin, int index_path);
+int save_path(t_lemin *lemin, t_path *head, t_path *new);
+// int save_path(t_lemin *lemin, int index_path);
+// int init_save_path(t_lemin *lemin, t_path *head, t_path *new, int index_path);
 void init_infinity(t_lemin *lemin);
 int start_algo(t_lemin *lemin);
 

@@ -81,7 +81,7 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed)//, int z)
 			sec->dup_out->predecessor = pre_node;
 		}
 	}
-	 if (pre_node->infinity  == 0 && sec->infinity == 0) // if both nodes have already been connected to a previous one
+	 else if (pre_node->infinity  == 0 && sec->infinity == 0) // if both nodes have already been connected to a previous one
 	{
 		if (sec->reach_cost > (pre_node->reach_cost + w))
 		{

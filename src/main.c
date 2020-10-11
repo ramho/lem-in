@@ -180,6 +180,9 @@ int	parse_nodes(t_lemin *l)
 	// ----------------------------START
 	node->reach_cost = 0;
 	node->ant = 0;
+	//add 10/20
+	node->predecessor = ft_memalloc(sizeof(t_node));
+	//end add 10/20
 
 	// ------------------------------END
 	if (l->start_room == 1)
@@ -202,6 +205,7 @@ int	parse_nodes(t_lemin *l)
 	else
 		node->infinity = 1;
 	// ------------------------------END
+
 	l->number_of_nodes++;
 
 	t_node *tmp;
@@ -399,6 +403,11 @@ void	get_file_content(t_lemin *lemin)
 		if (!(parse_buff(lemin)))
 			break;
 	}
+	// add 10/20
+	// printf("start [%s] end [%s]\n", lemin->start_node->name, lemin->end_node->name);
+	if (lemin->nb_start_out == 0 || lemin->nb_end_in == 0)
+		exit(1);
+	//end add 10/20
 	if (lemin->nb_start_out == lemin->nb_end_in)
 		lemin->nb_path = lemin->nb_start_out;
 	else if (lemin->nb_start_out > lemin->nb_end_in)
@@ -419,10 +428,13 @@ int main()
         return (-1);
 	get_file_content(lemin);
 	t2 = clock();
+	printf("start [%s] end [%s] path [%d] \n", lemin->start_node->name, lemin->end_node->name, lemin->nb_path);
 	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
 	// printf("start room [%s] linked to [%s]\n", lemin->start_node->name, lemin->start_node->links->room->name);
 	start_algo(lemin);
 	// printf("ret = %d\n", ret);
+	if (lemin->nb_bellmanf_path < 1)
+		return(0);
 	get_path(lemin);
 	print_path(lemin);
 

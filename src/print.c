@@ -14,12 +14,13 @@
 
 void print_path(t_lemin *lemin)
 {
+  // printf("in print path nb final path[%d]\n", lemin->nb_bellmanf_path);
   int i;
 
     if(!(lemin->ant_tab = ft_memalloc(sizeof(t_ant) * lemin->nb_ants)))
       return;
       i = 0;
-    if (lemin->nb_final_path == 1)
+    if (lemin->nb_bellmanf_path == 1)
     {
       while( i < lemin->nb_ants )
       {
@@ -48,7 +49,7 @@ void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
   i = 0;
   while ( i < nb_ant)
   {
-    if (tab[i]->node != NULL && tab[i]->no_print == 0)
+    if (tab[i]->node->name != NULL && tab[i]->no_print == 0)
         ft_printf("L%d-%s ", tab[i]->ant, tab[i]->node->name);
     if (tab[i]->node == lemin->end_node)
       tab[i]->no_print = 1;
