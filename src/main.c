@@ -15,13 +15,13 @@
 void	get_file_content(t_lemin *lemin)
 {
 	if (LEMIN_READ_BUFF < 1 || read(0, lemin->buff, 0) < 0)
-		return ;
+		free_struct(lemin);
 	ft_bzero(lemin->buff, LEMIN_READ_BUFF);
 	while ((lemin->ret = read(0, lemin->buff, LEMIN_READ_BUFF)) > 0)
 	{
 		lemin->buff[lemin->ret] = 0;
-		if (!(parse_buff(lemin)))
-			break ;
+		if (!(parse_buff(lemin))) // ?
+			free_struct(lemin); // ? break meme si code est bon ?
 	}
 	if (lemin->nb_start_out == 0 || lemin->nb_end_in == 0)
 		exit(1);
@@ -41,11 +41,11 @@ int main()
 		return (-1);
 	get_file_content(lemin);
 	//connexion start+end
-	start_algo(lemin);
-	if (lemin->nb_bellmanf_path < 1)
-		return (0);
-	get_path(lemin);
-	print_path(lemin);
+	// start_algo(lemin);
+	// if (lemin->nb_bellmanf_path < 1)
+		// return (0);
+	// get_path(lemin);
+	// print_path(lemin);
 	// free_ants();
 	return (0);
 }

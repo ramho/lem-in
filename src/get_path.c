@@ -38,7 +38,6 @@ void get_path(t_lemin *lemin)
 	}
 	lemin->nb_bellmanf_path = path;
 	i = 0;
-
 	while (i < path)
 	{
 		index = lemin->final_path_tab[i];
@@ -50,8 +49,24 @@ void get_path(t_lemin *lemin)
 		i++;
 
 	}
-	if (lemin->nb_bellmanf_path > 1)
-		sort_int_tab(lemin, lemin->nb_bellmanf_path);
+  if (lemin->nb_bellmanf_path > 1)
+  sort_int_tab(lemin, lemin->nb_bellmanf_path);
+
+
+  i = 0;
+  printf("THE PATH ARE: \n");
+  while (i < path)
+  {
+    index = lemin->final_path_tab[i];
+    while (index)
+    {
+      printf("[%s] ", index->node->name);
+      index = index->next;
+    }
+    printf("[%d]\n\n", lemin->len_tab[i]);
+    i++;
+  }
+  printf("\n\n");
 }
 
 void select_edge(t_lemin *lemin) // savoir si les edge sont doubles ou pas, dans le parsing voir si on peut eviter les doubles

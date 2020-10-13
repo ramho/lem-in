@@ -85,6 +85,7 @@ void	init_infinity_and_reach_cost(t_lemin *lemin)
 
 int		start_algo(t_lemin *lemin)
 {
+	printf("start algo\n");
 	int	i;
 	int	ret;
 

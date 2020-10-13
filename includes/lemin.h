@@ -100,12 +100,11 @@ struct  s_lemin
 	int	hash_tag;
 	int	space;
 	char get_out;
-	// int first_space;
+
 	int	tiret;
 	char start_room;
 	char end_room;
-	// int count_buff;
-	// int hash_map[HASH_SIZE];
+
 	int x;
 	int y;
 
@@ -113,8 +112,6 @@ struct  s_lemin
     char **file;
     int table_size;
 
-    // char *start_node;
-    // char *end_node;
 	int	nb_start_out;
 	int	nb_end_in;
 
@@ -140,7 +137,6 @@ struct  s_lemin
   t_ant ** ant_tab;
 
     t_path **final_path_tabs;
-    // int * path_len;
 
     int ant_in_end;
 
@@ -199,8 +195,6 @@ int		parse_line(t_lemin *l);
 */
 int init_save_path(t_lemin *lemin, int index_path);
 int save_path(t_lemin *lemin, t_path *head, t_path *new);
-// int save_path(t_lemin *lemin, int index_path);
-// int init_save_path(t_lemin *lemin, t_path *head, t_path *new, int index_path);
 void init_infinity(t_lemin *lemin);
 int start_algo(t_lemin *lemin);
 
@@ -208,9 +202,6 @@ int start_algo(t_lemin *lemin);
 **  bellman_ford.c
 */
 int bellman_ford(t_lemin *lemin);
-// void try_reduce(t_node *pre, t_node *sec, int w, t_lemin *lemin);
-// void bellman_ford(t_lemin *lemin, int *changed);
-// void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z);
 void try_reduce(t_node *pre, t_node *sec, int w, int *changed);
 
 /*
@@ -228,15 +219,6 @@ void select_edge(t_lemin *lemin);
 int get_next_node(t_node *start, t_lemin *lemin, int i);
 void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i);
 void sort_int_tab(t_lemin *lemin, int size);
-
-
-/*
-**  extra_func.c
-*/
-char lookup(t_lemin *lemin, char* key);
-void print_tab(t_lemin *lemin);
-void shortest_path(t_lemin *lemin);
-void printf_current_reach_cost(t_lemin *lemin, int iteration);
 
 /*
 **	print.c
@@ -258,5 +240,9 @@ void  dispatch_ant_in_path(t_lemin *lemin);
 void choose_from_last_path(t_lemin *lemin, int i, int j);
 void choose_path_except_last(t_lemin *lemin, int i, int *j);
 
+/*
+**  free.c
+*/
+void free_struct(t_lemin *lemin);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 17:54:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 17:21:52 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/07 17:58:01 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ void	dispatch_ant_in_path(t_lemin *lemin)
 			j = 0;
 		}
 		else
+		{
 			choose_path_except_last(lemin, i, &j);
+		}
 		i++;
 		if (i == lemin->nb_ants)
 			return ;
@@ -41,14 +43,12 @@ void	choose_from_last_path(t_lemin *lemin, int i, int j)
 {
 	if (lemin->len_tab[j] > lemin->len_tab[j + 1])
 	{
-		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[j + 1])))
-			return ; //FREE
+		init_ants(lemin->ant_tab, i, lemin->final_path_tab[j + 1]);
 		lemin->len_tab[j + 1] += 1;
 	}
 	else
 	{
-		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[0])))
-			return ;
+		init_ants(lemin->ant_tab, i, lemin->final_path_tab[0]);
 		lemin->len_tab[j] += 1;
 	}
 }
@@ -57,15 +57,13 @@ void	choose_path_except_last(t_lemin *lemin, int i, int *j)
 {
 	if (lemin->len_tab[*j] > lemin->len_tab[*j + 1])
 	{
-		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j + 1])))
-			return ;
+		init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j + 1]);
 		lemin->len_tab[*j + 1] += 1;
 		*j += 1;
 	}
 	else
 	{
-		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j])))
-			return ;
+		init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j]);
 		lemin->len_tab[*j] += 1;
 	}
 }

@@ -25,9 +25,9 @@ void	parse_ant(t_lemin *l)
 			l->nb_ants += (l->line[i] - '0');
 		}
 		else
-			return ; // "ERROR : wrong nb_ant format\n"
+			free_struct(l) ; // "ERROR : wrong nb_ant format\n"
 		if (l->nb_ants < 0 || l->nb_ants > INT_MAX)
-			return ; // "ERROR : not positive int\n"
+			free_struct(l) ; // "ERROR : not positive int\n"
 	}
 	l->parse_flag = 1;
 }
