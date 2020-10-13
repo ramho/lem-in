@@ -39,11 +39,8 @@ void	do_valid_char_op(t_lemin *l)
 
 int		do_end_line_op(t_lemin *l)
 {
-	if (!l->i_line)
-	{
-		printf("ERROR : empty line\n");
+	if (!l->i_line) // empty line
 		return (0);
-	}
 	l->line[l->i_line] = l->buff[l->i];
 	l->line[l->i_line + 1] = 0;
 	if (!(parse_line(l)))
