@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_buff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 17:10:48 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 18:28:31 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/13 15:28:53 by jcarere          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		is_valid_char(t_lemin *l)
 {
+	if (!l->i_line && l->buff[l->i] == 'L') // si c'est le 1er caractere de la ligne && que c'est un 'L'
+		return (0);
 	if ((l->buff[l->i] >= 'a' && l->buff[l->i] <= 'z') ||
 			(l->buff[l->i] >= 'A' && l->buff[l->i] <= 'Z') ||
 			(l->buff[l->i] >= '0' && l->buff[l->i] <= '9') ||

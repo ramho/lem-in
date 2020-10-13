@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 17:10:23 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 18:30:40 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/13 15:44:41 by jcarere          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int		parse_flag_one(t_lemin *l)
 	}
 	else
 	{
+		if (l->start_room + l->end_room != 4)
+			return (0); // "ERROR : no start or end room."
 		l->parse_flag++;
 		if (!(parse_edges(l, -1, 0, 0)))
 			return (0);
