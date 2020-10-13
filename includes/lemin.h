@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:35:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/09/30 17:59:38 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/11 18:52:19 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,13 @@
 # define LINE_SIZE 100
 # define HASH_SIZE 1000000
 
+typedef struct s_lemin t_lemin;
 typedef struct s_node 	t_node;
+typedef struct s_edge   t_edge;
+typedef struct s_path   t_path;
+typedef struct s_link   t_link;
+typedef struct s_ant    t_ant;
+
 struct 					s_node
 {
   unsigned long key; // for hash map but name can also be the key
@@ -41,7 +47,6 @@ struct 					s_node
   t_node *dup_out;
 };
 
-typedef struct s_edge t_edge;
 struct s_edge
 {
     t_node *predecessor;
@@ -49,26 +54,40 @@ struct s_edge
     int weight;
     int visited;
 	int no_go;
-	struct s_edge *reversed;
-	struct s_edge *next;
+	t_edge *reversed;
+	t_edge *next;
 };
 
-typedef struct s_path
+struct s_path
 {
   t_node *node;
   int visited;
-  struct s_path * next;
-}             t_path;
+  int ant;
+  t_path * next;
+};
 
-typedef struct s_link
+struct s_link
 {
     t_node *room;
-	int used;
-    struct s_link *next;
-}              t_link;
+	   int used;
+    t_link *next;
+};
 
-typedef struct  s_lemin
+struct s_ant
 {
+  int ant;
+  int end;
+  int no_print;
+  t_path *path;
+  t_node *node;
+};
+
+struct  s_lemin
+{
+	int error;
+
+
+
 	int ret;
 	char buff[LEMIN_READ_BUFF + 1];
 	int i; // index in buff
@@ -115,49 +134,73 @@ typedef struct  s_lemin
     t_path **path_tab;
     t_path **final_path_tab;
     int nb_path;// not is use yet
-	int nb_final_path;
-	int **len_tab;
+	int nb_bellmanf_path;
+	int *len_tab;
+
+  t_ant ** ant_tab;
 
     t_path **final_path_tabs;
+    // int * path_len;
+
+    int ant_in_end;
 
 
-}               t_lemin;
+};
 
 /*
 **  main.c
 */
 int main();
-void get_file_content(t_lemin *lemin);
-
-
-/*
-**  parse_file.c
-*/
-int parse_file(t_lemin *lemin);
-int  seperate_nodes_edges(t_lemin *lemin);
-void get_start_or_end_piece(int *i, t_lemin *lemin);
-void get_edges( t_lemin *lemin);
+void	get_file_content(t_lemin *lemin);
 
 /*
-** parse_file2.c
+**  parse_tool.c.c
 */
-void get_nodes(char **tab, t_lemin *lemin);
-void fill_node_tab(int i, t_lemin *lemin, t_node *temp);
-t_link	*ft_create_link(char *room);
-void	ft_push_link_front(t_link **begin_list, char *room);
-
+int		hash(t_lemin *l, int *i, char c);
 
 /*
-**  hash_map.c
+**  parse_edge.c
 */
-void create_table(t_lemin *lemin);
-int hash_code(t_lemin *lemin, char* key);
-void insert_node_in_table(t_lemin *lemin, t_node *node);
+void	reverse_edge(t_edge *ed);
+t_node	*get_edge_room(t_lemin *l, int i, int key, int place);
+void	add_new_link(t_node *room, t_node *room_to_link);
+int		free_edge(t_edge *ed);
+int		parse_edges(t_lemin *l, int i, int key, int middle);
+void 	store_new_edge(t_lemin *l, t_edge *ed);
+void 	check_exit_entry(t_lemin *l, t_edge *ed);
 
+/*
+** parse_node.c
+*/
+int		get_coord(t_lemin *l, int *i, t_node *node);
+void	store_start_end_node(t_lemin *l, t_node *node);
+int		store_node(t_lemin *l, t_node *node);
+int		free_node(t_node *node);
+int		parse_nodes(t_lemin *l);
+
+/*
+** parse_buff.c
+*/
+int		parse_buff(t_lemin *l);
+void	write_buff_op(t_lemin *l);
+int		do_end_line_op(t_lemin *l);
+int		is_valid_char(t_lemin *l);
+void	do_valid_char_op(t_lemin *l);
+
+/*
+** parse_line.c
+*/
+void	parse_ant(t_lemin *l);
+int		parse_command(t_lemin *l);
+int		parse_flag_one(t_lemin *l);
+int		parse_line(t_lemin *l);
 /*
 **  algo.c
 */
-int save_path(t_lemin *lemin, int index_path);
+int init_save_path(t_lemin *lemin, int index_path);
+int save_path(t_lemin *lemin, t_path *head, t_path *new);
+// int save_path(t_lemin *lemin, int index_path);
+// int init_save_path(t_lemin *lemin, t_path *head, t_path *new, int index_path);
 void init_infinity(t_lemin *lemin);
 int start_algo(t_lemin *lemin);
 
@@ -165,25 +208,26 @@ int start_algo(t_lemin *lemin);
 **  bellman_ford.c
 */
 int bellman_ford(t_lemin *lemin);
-// void try_reduce(t_node *pre, char *sec, int w, t_lemin *lemin);
+// void try_reduce(t_node *pre, t_node *sec, int w, t_lemin *lemin);
 // void bellman_ford(t_lemin *lemin, int *changed);
-void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z);
+// void try_reduce(t_node *pre, t_node *sec, int w, int *changed, int z);
+void try_reduce(t_node *pre, t_node *sec, int w, int *changed);
 
 /*
 **  suurballe.c
 */
-// void create_dup_room(t_lemin *lemin, t_node **tab, char *node);
-void create_dup_room(t_lemin *lemin, t_node *node);
+void create_dup_room( t_node *node);
 void suurballe(t_lemin *lemin, int path_index);
+void	check_edge(t_node *pre, t_node *suc, t_edge *edge, t_lemin *lemin);
 
 /*
 **  get_path.c
 */
 void get_path(t_lemin *lemin);
-void select_path(t_lemin *lemin);
+void select_edge(t_lemin *lemin);
 int get_next_node(t_node *start, t_lemin *lemin, int i);
-
 void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i);
+void sort_int_tab(t_lemin *lemin, int size);
 
 
 /*
@@ -197,10 +241,22 @@ void printf_current_reach_cost(t_lemin *lemin, int iteration);
 /*
 **	print.c
 */
-
 void print_path(t_lemin *lemin);
-int check_for_ant(t_path *path, int *i);
-int check_for_ant_bis(t_path *path, int *i);
-void print_path_for_one(t_lemin *lemin);
+void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
+
+/*
+**  ant_utils.c
+*/
+void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
+int move_ant(t_ant *ant, t_lemin *lemin);
+int init_ants(t_ant **tab, int nb_ant, t_path *path);
+
+/*
+**  path_utils.c
+*/
+void  dispatch_ant_in_path(t_lemin *lemin);
+void choose_from_last_path(t_lemin *lemin, int i, int j);
+void choose_path_except_last(t_lemin *lemin, int i, int *j);
+
 
 #endif
