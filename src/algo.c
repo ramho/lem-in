@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:31:39 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 18:26:34 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:54:56 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		save_path(t_lemin *lemin, t_path *head, t_path *new)
 		while (index->next != NULL)
 			index = index->next;
 		if (!(new = ft_memalloc(sizeof(t_path))))
-			return (0); // FREE
+			free_error(lemin, 2);
 		new->node = index->node->predecessor;
 		new->next = NULL;
 		index->next = new;
@@ -48,13 +48,13 @@ int		init_save_path(t_lemin *lemin, int index_path)
 	if (lemin->end_node->predecessor->name == NULL)
 		return (0);
 	if (!(head = ft_memalloc(sizeof(t_path))))
-		return (0); // FREE
+		free_error(lemin, 2);
 	lemin->path_tab[index_path] = head;
 	head->node = lemin->end_node;
 	if (!(new = ft_memalloc(sizeof(t_path))))
-		return (0);//FREE
+		free_error(lemin, 2);
 	if (!(new->node = ft_memalloc(sizeof(t_node))))
-		return (0); //FREE
+		free_error(lemin, 2);
 	new->node = head->node->predecessor;
 	new->next = NULL;
 	head->next = new;
@@ -72,12 +72,16 @@ void	init_infinity_and_reach_cost(t_lemin *lemin)
 	{
 		index->predecessor->infinity = 1;
 		index->predecessor->reach_cost = 0;
+		if (!(index->predecessor->predecessor))
+			free(index->predecessor->predecessor);
 		if (!(index->predecessor->predecessor = ft_memalloc(sizeof(t_node))))
-			return ; //FREE
+			free_error(lemin, 2);
 		index->successor->infinity = 1;
 		index->successor->reach_cost = 0;
+		if (!(index->successor->predecessor))
+			free(index->successor->predecessor);
 		if (!(index->successor->predecessor = ft_memalloc(sizeof(t_node))))
-			return ; //FREE
+			free_error(lemin, 2);
 		index = index->next;
 	}
 	lemin->start_node->infinity = 0;
@@ -85,7 +89,6 @@ void	init_infinity_and_reach_cost(t_lemin *lemin)
 
 int		start_algo(t_lemin *lemin)
 {
-	printf("start algo\n");
 	int	i;
 	int	ret;
 
@@ -102,8 +105,8 @@ int		start_algo(t_lemin *lemin)
 		//check path before saving it
 		ret = 0;
 		ret = init_save_path(lemin, lemin->nb_bellmanf_path);
-		if (ret == 0)
-			return (0);
+		// if (ret == 0)
+		// 	return (0);
 		lemin->nb_bellmanf_path += ret;
 		if (ret != 0 || (i + 1) < lemin->nb_path)
 		{

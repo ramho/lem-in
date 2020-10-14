@@ -59,6 +59,7 @@ void free_path(t_path *path)
     bis = tmp->next;
     free(tmp->node);
     tmp->node = NULL;
+	free(tmp);
     tmp = bis;
   }
 }
@@ -93,10 +94,24 @@ void free_ant(t_ant **tab, int ants)
 
 void free_error(t_lemin *l, int error)
 {
+	int i;
+
   if (error == 1)
   {
     free_nodes(l);
     free_edges(l);
+  }
+  if (error == 2)
+  {
+	  i = l->nb_bellmanf_path;
+	  while (i <= 0)
+	  {
+		  if(l->path_tab[i])
+		  	free_path(l->path_tab[i]);
+		  i--;
+	  }
+	  free_nodes(l);
+	  free_edges(l);
   }
   free_lemin(l);
 }

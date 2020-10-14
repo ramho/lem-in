@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:35:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/13 15:49:06 by jcarere          ###   ########.fr       */
+/*   Updated: 2020/10/14 16:58:53 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed);
 /*
 **  suurballe.c
 */
-void create_dup_room( t_node *node);
+void create_dup_room( t_lemin * lemin, t_node *node);
 void suurballe(t_lemin *lemin, int path_index);
 void	check_edge(t_node *pre, t_node *suc, t_edge *edge, t_lemin *lemin);
 
