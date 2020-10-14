@@ -86,7 +86,7 @@ struct  s_lemin
 {
 	int error;
 
-
+  int direct;
 
 	int ret;
 	char buff[LEMIN_READ_BUFF + 1];
@@ -225,6 +225,7 @@ void sort_int_tab(t_lemin *lemin, int size);
 */
 void print_path(t_lemin *lemin);
 void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin);
+void print_direct(t_lemin *l);
 
 /*
 **  ant_utils.c
@@ -243,6 +244,6 @@ void choose_path_except_last(t_lemin *lemin, int i, int *j);
 /*
 **  free.c
 */
-void free_struct(t_lemin *lemin);
+void free_lemin(t_lemin *lemin);
 
 #endif

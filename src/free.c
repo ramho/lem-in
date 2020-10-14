@@ -1,6 +1,6 @@
 #include "../includes/lemin.h"
 
-void free_struct(t_lemin *lemin)
+void free_lemin(t_lemin *lemin)
 {
   free(lemin);
   lemin = NULL;

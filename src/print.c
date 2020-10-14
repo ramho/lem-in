@@ -57,3 +57,16 @@ void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
 		i++;
 	}
 }
+
+void print_direct(t_lemin *l)
+{
+	int i;
+
+	i = 1;
+	while (i <= l->nb_ants)
+	{
+		ft_printf("L%d_%s\n",i, l->end_node->name);
+		i++;
+	}
+	exit(1);
+}

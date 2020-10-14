@@ -106,7 +106,8 @@ int		parse_edges(t_lemin *l, int i, int key, int middle)
 		return (free_edge(ed)); // "linked room b doesn't exit\n"
 	if (((ed->predecessor == l->start_node) && (ed->successor == l->end_node))
 			|| ((ed->successor == l->start_node) && (ed->predecessor == l->end_node)))
-		return (0); // end and start are connected
+			l->direct = 1;
+		// return (0); // end and start are connected
 	ed->weight = 1;
 	ed->next = NULL;
 	reverse_edge(ed);
