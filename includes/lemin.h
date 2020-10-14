@@ -40,7 +40,7 @@ struct 					s_node
   int infinity;
   int ant;
   t_node *predecessor;
-  t_node *next;
+  t_node *next; // ?
   int duplicated;
   struct s_link *links; // linked list for links
 
@@ -115,8 +115,8 @@ struct  s_lemin
 	int	nb_start_out;
 	int	nb_end_in;
 
-    char **file_edges; //save only links
-    char **file_nodes; // save only nodes
+    // char **file_edges; //save only links
+    // char **file_nodes; // save only nodes
     int number_of_nodes; // count of nodes
     int number_of_edges;
 
@@ -245,5 +245,12 @@ void choose_path_except_last(t_lemin *lemin, int i, int *j);
 **  free.c
 */
 void free_lemin(t_lemin *lemin);
+void free_nodes(t_lemin *l);
+void free_full_node(t_node *node);
+void free_edges(t_lemin *l);
+void free_path(t_path *path);
+void free_links(t_link *head);
+void free_ant(t_ant **tab, int ants);
+void free_error(t_lemin *l, int error);
 
 #endif

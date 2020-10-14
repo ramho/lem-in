@@ -7,7 +7,20 @@ void free_lemin(t_lemin *lemin)
   exit(-1);
 }
 
-void free_node(t_node *node)
+void free_nodes(t_lemin *l)
+{
+  int i;
+
+  i = 0;
+  while (i < HASH_SIZE)
+  {
+    if (l->node_tab[i] != NULL)
+      free_full_node(l->node_tab[i]);
+    i++;
+    }
+}
+
+void free_full_node(t_node *node)
 {
   ft_strdel(&node->name);
   if (node->predecessor)
@@ -15,11 +28,12 @@ void free_node(t_node *node)
   node->predecessor = NULL;
   free_links(node->links);
   if (node->duplicated == 1)
-    free_node(node->dup_out);
+  free_node(node->dup_out);
+  free(node);
   node = NULL;
 }
 
-void free_edge(t_lemin *l)
+void free_edges(t_lemin *l)
 {
   t_edge *tmp;
   t_edge *tmp_bis;
@@ -79,5 +93,10 @@ void free_ant(t_ant **tab, int ants)
 
 void free_error(t_lemin *l, int error)
 {
+  if (error == 1)
+  {
+    free_nodes(l);
+    free_edges(l);
+  }
   free_lemin(l);
 }
