@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:31:27 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 18:30:56 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/14 18:25:51 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void print_path(t_lemin *lemin)
 {
-	printf("in print path nb final path[%d]\n", lemin->nb_bellmanf_path);
+	// printf("in print path nb final path[%d]\n", lemin->nb_bellmanf_path);
 	int i;
 	int count;
 
@@ -40,7 +40,7 @@ void print_path(t_lemin *lemin)
 		ft_printf("\n");
 		count++;
 	}
-	ft_printf("lines %d\n", count);
+	// ft_printf("lines %d\n", count);
 }
 
 void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin)

@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:35:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/14 16:58:53 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/14 17:43:22 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ void select_edge(t_lemin *lemin);
 int get_next_node(t_node *start, t_lemin *lemin, int i);
 void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i);
 void sort_int_tab(t_lemin *lemin, int size);
+int check(t_edge *ed, t_node *start, t_link *link, int i, t_lemin *l);
 
 /*
 **	print.c
