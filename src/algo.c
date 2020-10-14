@@ -64,28 +64,6 @@ int		init_save_path(t_lemin *lemin, int index_path)
 }
 
 void	init_infinity_and_reach_cost(t_lemin *lemin)
-// {
-// 	int i;
-//
-// 	i = 0;
-// 	while (i < HASH_SIZE)
-// 	{
-// 		if (lemin->node_tab[i] != NULL)
-// 		{
-// 			lemin->node_tab[i]->infinity = 1;
-// 			lemin->node_tab[i]->reach_cost = 0;
-// 			lemin->node_tab[i]->predecessor = ft_memalloc(sizeof(t_node));
-// 			if (lemin->node_tab[i]->duplicated == 1)
-// 			{
-// 				lemin->node_tab[i]->dup_out->infinity = 1;
-// 				lemin->node_tab[i]->dup_out->reach_cost = 0;
-// 				lemin->node_tab[i]->dup_out->predecessor = ft_memalloc(sizeof(t_node));
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	lemin->start_node->infinity = 0;
-// }
 {
 	t_edge	*index;
 
