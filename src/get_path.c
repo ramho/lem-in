@@ -13,64 +13,35 @@
 #include "../includes/lemin.h"
 
 
-void get_path(t_lemin *lemin)
+void get_path(t_lemin *l)
 {
 	int path;
 	int i;
-	t_path *index;
 
-	select_edge(lemin);
-	lemin->final_path_tab = ft_memalloc(sizeof(t_path) * lemin->nb_bellmanf_path);
-	lemin->len_tab = ft_memalloc(sizeof(int) * lemin->nb_bellmanf_path);
-	path = 0;
+	select_edge(l);
+	if (!(l->final_path_tab = ft_memalloc(sizeof(t_path) * l->nb_bellmanf_path))
+	|| !(l->len_tab = ft_memalloc(sizeof(int) * l->nb_bellmanf_path)))
+		free_error(l, 3, 0);
 	i = 0;
-	while (i < lemin->nb_bellmanf_path)
+	path = 0;
+	while (i < l->nb_bellmanf_path)
 	{
-		if (get_next_node(lemin->start_node, lemin, path) == 1)
+		if (get_next_node(l->start_node, l, path) == 1)
 			path += 1;
 		else
-			free(lemin->final_path_tab[path]);
+			free(l->final_path_tab[path]);
 		i++;
 	}
-	lemin->nb_bellmanf_path = path;
-	i = 0;
-	while (i < path)
-	{
-		index = lemin->final_path_tab[i];
-		while (index)
-		{
-			lemin->len_tab[i] += 1;
-			index = index->next;
-		}
-		i++;
-
-	}
-	if (lemin->nb_bellmanf_path > 1)
-		sort_int_tab(lemin, lemin->nb_bellmanf_path);
-	//
-	//
-	// i = 0;
-	// printf("THE PATH ARE: \n");
-	// while (i < path)
-	// {
-	//   index = lemin->final_path_tab[i];
-	//   while (index)
-	//   {
-	//     printf("[%s] ", index->node->name);
-	//     index = index->next;
-	//   }
-	//   printf("[%d]\n\n", lemin->len_tab[i]);
-	//   i++;
-	// }
-	// printf("\n\n");
+	l->nb_bellmanf_path = path;
+	count_length(l, path);
+	if (l->nb_bellmanf_path > 1)
+		sort_int_tab(l, l->nb_bellmanf_path);
 }
 
 void select_edge(t_lemin *lemin)
 {
 	t_edge *edge;
 
-	if (!(edge = malloc(sizeof(t_edge))))
-		return ; // FREE
 	edge = lemin->edge_tab;
 	while (edge)
 	{
@@ -96,20 +67,18 @@ int get_next_node(t_node *start, t_lemin *lemin, int i) //recursive
 	t_link *link;
 	t_edge *edge;
 
-	if (!(link = ft_memalloc(sizeof(t_link))))
-		return (0); // FREE
 	link = start->links;
 	while (link)
 	{
 		edge = lemin->edge_tab;
-		if ((check(edge, start, link, i, lemin)) == 1)
+		if ((check_edge(edge, start, link, i, lemin)) == 1)
 			return(1);
 		link = link->next;
 	}
-	return (0); // FREE, path not possiblr, add a check before
+	return (0);
 }
 
-int check(t_edge *ed, t_node *start, t_link *link, int i, t_lemin *l)
+int check_edge(t_edge *ed, t_node *start, t_link *link, int i, t_lemin *l)
 {
 	while (ed)
 	{
@@ -137,8 +106,8 @@ void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i)
 	t_path *new;
 	t_path *index;
 
-	if(!(new = ft_memalloc(sizeof(t_path))))
-		return ; // FREE
+	if (!(new = ft_memalloc(sizeof(t_path))))
+		free_error(lemin, 4, i);
 	new->node = node;
 	new->visited = 0;
 	new->ant = 0;
@@ -151,33 +120,5 @@ void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i)
 		while (index->next != NULL)
 			index = index->next;
 		index->next = new;
-	}
-}
-
-void sort_int_tab(t_lemin *lemin, int size)
-{
-	int i;
-	int j;
-	int tmp;
-	t_path *buf;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < (size - 1))
-		{
-			if (lemin->len_tab[j] > lemin->len_tab[j + 1])
-			{
-				tmp = lemin->len_tab[j];
-				buf = lemin->final_path_tab[j];
-				lemin->len_tab[j] = lemin->len_tab[j + 1];
-				lemin->final_path_tab[j] = lemin->final_path_tab[j + 1];
-				lemin->len_tab[j + 1] = tmp;
-				lemin->final_path_tab[j + 1] = buf;
-			}
-			j++;
-		}
-		i++;
 	}
 }

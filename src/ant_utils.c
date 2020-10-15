@@ -14,7 +14,6 @@
 
 void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
 {
-	// printf("in update ant\n");
 	int i;
 	static int flag;
 
@@ -69,13 +68,13 @@ int	init_ants(t_ant **tab, int ant, t_path *path)
 	t_ant	*new;
 	//
 	if (!(new = ft_memalloc(sizeof(t_ant))))
-		return (0); // FREE
+		return (0);
 	new->ant = ant+1;
 	new->end = 0;
 	new->no_print = 0;
 	new->path = path;
 	if (!(new->node = ft_memalloc(sizeof(t_node))))
-		return (0); //FREE
+		return (0);
 	tab[ant] = new;
 	return (1);
 }

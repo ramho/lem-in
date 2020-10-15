@@ -16,13 +16,13 @@ void	create_dup_room(t_lemin * lemin, t_node *node)
 {
 	node->duplicated = 1;
 	if (!(node->dup_out = malloc(sizeof(t_node))))
-		free_error(lemin, 2);
+		free_error(lemin, 2, 0);
 	node->dup_out->name = node->name;
 	node->dup_out->reach_cost = 0;
 	node->dup_out->infinity = 1;
 }
 
-void	check_edge(t_node *pre, t_node *suc, t_edge *edge, t_lemin *lemin)
+void	check_if_valid(t_node *pre, t_node *suc, t_edge *edge, t_lemin *lemin)
 {
 	if ((pre == edge->predecessor) && (suc == edge->successor))
 	{
@@ -59,7 +59,7 @@ void	suurballe(t_lemin *lemin, int path_index)
 		edge = lemin->edge_tab;
 		while (edge)
 		{
-			check_edge(pre_path, suc_path, edge, lemin);
+			check_if_valid(pre_path, suc_path, edge, lemin);
 			edge = edge->next;
 		}
 		index = index->next;

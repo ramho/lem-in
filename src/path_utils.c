@@ -18,8 +18,6 @@ void	dispatch_ant_in_path(t_lemin *lemin)
 	int	i;
 	int	j;
 
-	if (!(lemin->ant_tab = ft_memalloc(sizeof(t_ant) * lemin->nb_ants)))
-		return ;
 	i = 0;
 	j = 0;
 	while (j < lemin->nb_bellmanf_path)
@@ -43,12 +41,14 @@ void	choose_from_last_path(t_lemin *lemin, int i, int j)
 {
 	if (lemin->len_tab[j] > lemin->len_tab[j + 1])
 	{
-		init_ants(lemin->ant_tab, i, lemin->final_path_tab[j + 1]);
+		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[j + 1])))
+			free_error(lemin, 5, i);
 		lemin->len_tab[j + 1] += 1;
 	}
 	else
 	{
-		init_ants(lemin->ant_tab, i, lemin->final_path_tab[0]);
+		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[0])))
+			free_error(lemin, 5, i);
 		lemin->len_tab[j] += 1;
 	}
 }
@@ -57,13 +57,15 @@ void	choose_path_except_last(t_lemin *lemin, int i, int *j)
 {
 	if (lemin->len_tab[*j] > lemin->len_tab[*j + 1])
 	{
-		init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j + 1]);
+		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j + 1])))
+			free_error(lemin, 5, i);
 		lemin->len_tab[*j + 1] += 1;
 		*j += 1;
 	}
 	else
 	{
-		init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j]);
+		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j])))
+			free_error(lemin, 5, i);
 		lemin->len_tab[*j] += 1;
 	}
 }

@@ -209,18 +209,23 @@ void try_reduce(t_node *pre, t_node *sec, int w, int *changed);
 */
 void create_dup_room( t_lemin * lemin, t_node *node);
 void suurballe(t_lemin *lemin, int path_index);
-void	check_edge(t_node *pre, t_node *suc, t_edge *edge, t_lemin *lemin);
+void	check_if_valid(t_node *pre, t_node *suc, t_edge *edge, t_lemin *lemin);
 
 /*
 **  get_path.c
 */
-void get_path(t_lemin *lemin);
+void get_path(t_lemin *l);
 void select_edge(t_lemin *lemin);
 int get_next_node(t_node *start, t_lemin *lemin, int i);
 void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i);
-void sort_int_tab(t_lemin *lemin, int size);
-int check(t_edge *ed, t_node *start, t_link *link, int i, t_lemin *l);
+int check_edge(t_edge *ed, t_node *start, t_link *link, int i, t_lemin *l);
 
+
+/*
+**  get_path_utils.c
+*/
+void count_length(t_lemin *l, int path);
+void sort_int_tab(t_lemin *lemin, int size);
 /*
 **	print.c
 */
@@ -252,6 +257,6 @@ void free_edges(t_lemin *l);
 void free_path(t_path *path);
 void free_links(t_link *head);
 void free_ant(t_ant **tab, int ants);
-void free_error(t_lemin *l, int error);
+void free_error(t_lemin *l, int error, int size);
 
 #endif

@@ -14,19 +14,18 @@
 
 void print_path(t_lemin *lemin)
 {
-	// printf("in print path nb final path[%d]\n", lemin->nb_bellmanf_path);
 	int i;
 	int count;
 
 	if (!(lemin->ant_tab = ft_memalloc(sizeof(t_ant) * lemin->nb_ants)))
-		return ; // FREE
+		free_error(lemin, 4, lemin->nb_bellmanf_path);
 	i = 0;
 	if (lemin->nb_bellmanf_path == 1)
 	{
 		while ( i < lemin->nb_ants )
 		{
 			if (!(init_ants(lemin->ant_tab, i,lemin->final_path_tab[0])))
-				return ;
+				free_error(lemin, 5, i);
 			i++;
 		}
 	}
@@ -40,7 +39,7 @@ void print_path(t_lemin *lemin)
 		ft_printf("\n");
 		count++;
 	}
-	// ft_printf("lines %d\n", count);
+	printf("Lines %d\n", count);
 }
 
 void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin)

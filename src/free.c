@@ -81,37 +81,67 @@ void free_ant(t_ant **tab, int ants)
 {
 	int i;
 
-	i = 0;
-	while (i < ants)
+	i = ants;
+	while (i >= 0)
 	{
-		free(tab[i]->node);
-		tab[i]->node = NULL;
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
+		if (tab[i])
+		{
+			free(tab[i]->node);
+			tab[i]->node = NULL;
+			free(tab[i]);
+			tab[i] = NULL;
+		}
+		i--;
 	}
 }
 
-void free_error(t_lemin *l, int error)
+void free_error(t_lemin *l, int error, int size)
 {
 	int i;
 
 	if (error == 1)
 	{
-		free_nodes(l);
-		free_edges(l);
+		// free_nodes(l);
+		// free_edges(l);
+	}
+	if (error == 5)
+	{
+		free_ant(l->ant_tab, size);
+    free(l->ant_tab);
+    error = 4;
+	}
+	if (error == 3)
+	{
+		if (l->final_path_tab)
+			free(l->final_path_tab);
+		if (l->len_tab)
+			free(l->len_tab);
+		error = 2;
+	}
+	if (error == 4)
+	{
+		i = size;
+		while( i >= 0)
+		{
+			free_path(l->path_tab[i]);
+			i--;
+		}
+		free(l->final_path_tab);
+		free(l->len_tab);
+		error = 2;
 	}
 	if (error == 2)
 	{
 		i = l->nb_bellmanf_path;
-		while (i <= 0)
+		while (i >= 0)
 		{
-			if(l->path_tab[i])
+			if (l->path_tab[i])
 				free_path(l->path_tab[i]);
 			i--;
 		}
-		free_nodes(l);
-		free_edges(l);
+		free(l->path_tab);
 	}
+	free_nodes(l);
+	free_edges(l);
 	free_lemin(l);
 }

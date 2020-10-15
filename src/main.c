@@ -17,7 +17,7 @@ void	get_file_content(t_lemin *lemin)
 	if (LEMIN_READ_BUFF < 1 || read(0, lemin->buff, 0) < 0)
 		free_lemin(lemin);
 	ft_bzero(lemin->buff, LEMIN_READ_BUFF);
-	// lemin->direct = 0;
+	lemin->direct = 0;
 	while ((lemin->ret = read(0, lemin->buff, LEMIN_READ_BUFF)) > 0)
 	{
 		lemin->buff[lemin->ret] = 0;
@@ -41,7 +41,7 @@ int main()
 	if (!(lemin = ft_memalloc(sizeof(t_lemin))))
 		return (-1);
 	get_file_content(lemin);
-	if(lemin->direct == 1)
+	if (lemin->direct == 1)
 		print_direct(lemin);
 	start_algo(lemin);
 	if (lemin->nb_bellmanf_path < 1)
