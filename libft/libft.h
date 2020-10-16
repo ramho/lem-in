@@ -3,12 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:18:51 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/03/06 18:43:20 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/16 17:25:57 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// #ifdef __unix__
+// # define OPEN_MAX FOPEN_MAX
+// #endif
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -19,6 +23,10 @@
 # include <math.h>
 # include <stdarg.h>
 # include <limits.h>
+
+# ifdef __unix__
+#  define OPEN_MAX FOPEN_MAX
+# endif
 
 # define BUFF_SIZE 100
 
