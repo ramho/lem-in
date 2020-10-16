@@ -27,3 +27,20 @@ int		hash(t_lemin *l, int *i, char c)
 	}
 	return (key % HASH_SIZE);
 }
+
+int		free_edge(t_edge *ed)
+{
+	free(ed);
+	ed = NULL;
+	return (0);
+}
+
+void	check_exit_entry(t_lemin *l, t_edge *ed)
+{
+	if ((ed->predecessor->key == l->start_node->key)
+	|| (ed->successor->key == l->start_node->key))
+		l->nb_start_out += 1;
+	if ((ed->predecessor->key == l->end_node->key)
+	|| (ed->successor->key == l->end_node->key))
+		l->nb_end_in += 1;
+}

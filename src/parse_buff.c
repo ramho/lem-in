@@ -14,7 +14,7 @@
 
 int		is_valid_char(t_lemin *l)
 {
-	if (!l->i_line && l->buff[l->i] == 'L') // si c'est le 1er caractere de la ligne && que c'est un 'L'
+	if (!l->i_line && l->buff[l->i] == 'L')
 		return (0);
 	if ((l->buff[l->i] >= 'a' && l->buff[l->i] <= 'z') ||
 			(l->buff[l->i] >= 'A' && l->buff[l->i] <= 'Z') ||
@@ -41,7 +41,7 @@ void	do_valid_char_op(t_lemin *l)
 
 int		do_end_line_op(t_lemin *l)
 {
-	if (!l->i_line) // empty line
+	if (!l->i_line)
 		return (0);
 	l->line[l->i_line] = l->buff[l->i];
 	l->line[l->i_line + 1] = 0;

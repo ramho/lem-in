@@ -14,7 +14,6 @@
 
 void	dispatch_ant_in_path(t_lemin *lemin)
 {
-	// printf("in dispatch_ant_in_path \n");
 	int	i;
 	int	j;
 
@@ -22,9 +21,9 @@ void	dispatch_ant_in_path(t_lemin *lemin)
 	j = 0;
 	while (j < lemin->nb_bellmanf_path)
 	{
-		if (j == (lemin->nb_bellmanf_path - 2)) // avant dernier
+		if (j == (lemin->nb_bellmanf_path - 2))
 		{
-			choose_from_last_path(lemin,i, j);
+			choose_from_last_path(lemin, i, j);
 			j = 0;
 		}
 		else
@@ -42,13 +41,13 @@ void	choose_from_last_path(t_lemin *lemin, int i, int j)
 	if (lemin->len_tab[j] > lemin->len_tab[j + 1])
 	{
 		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[j + 1])))
-			free_error(lemin, 5, i);
+			free_error(lemin, 1, i);
 		lemin->len_tab[j + 1] += 1;
 	}
 	else
 	{
 		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[0])))
-			free_error(lemin, 5, i);
+			free_error(lemin, 1, i);
 		lemin->len_tab[j] += 1;
 	}
 }
@@ -58,14 +57,14 @@ void	choose_path_except_last(t_lemin *lemin, int i, int *j)
 	if (lemin->len_tab[*j] > lemin->len_tab[*j + 1])
 	{
 		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j + 1])))
-			free_error(lemin, 5, i);
+			free_error(lemin, 1, i);
 		lemin->len_tab[*j + 1] += 1;
 		*j += 1;
 	}
 	else
 	{
 		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j])))
-			free_error(lemin, 5, i);
+			free_error(lemin, 1, i);
 		lemin->len_tab[*j] += 1;
 	}
 }

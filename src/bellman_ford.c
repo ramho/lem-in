@@ -26,18 +26,23 @@ int		bellman_ford(t_lemin *lemin)
 		while (tmp)
 		{
 			if (tmp->visited == 0)
-				try_reduce (tmp->predecessor, tmp->successor,
-					tmp->weight, &changed);
+				try_reduce(tmp->predecessor, tmp->successor,
+				tmp->weight, &changed);
 			if (tmp->reversed->visited == 0)
-				try_reduce (tmp->reversed->predecessor,
-					tmp->reversed->successor, tmp->reversed->weight, &changed);
+				try_reduce(tmp->reversed->predecessor,
+				tmp->reversed->successor, tmp->reversed->weight, &changed);
 			tmp = tmp->next;
 		}
 		i++;
 	}
-
 	return (0);
 }
+
+/*
+** Goes into 'if' if reach cost with sec node hasn't been calculated
+** otherwise goes into 'else' to check if reach cost of sec is higher than
+** pre+weight. If so, the reachcost valu of sec is changed.
+*/
 
 void	try_reduce(t_node *pre, t_node *sec, int w, int *changed)
 {
@@ -47,20 +52,16 @@ void	try_reduce(t_node *pre, t_node *sec, int w, int *changed)
 		pre_node = pre->dup_out;
 	else
 		pre_node = pre;
-	if (pre_node->infinity == 0 && sec->infinity == 1) // if not yet passed to the second node
+	if (pre_node->infinity == 0 && sec->infinity == 1)
 	{
 		*changed = 1;
 		sec->reach_cost = pre_node->reach_cost + w;
 		sec->infinity = 0;
 		sec->predecessor = pre_node;
 		if (sec->duplicated == 1)
-		{
-			sec->dup_out->reach_cost = pre_node->reach_cost + w;
-			sec->dup_out->infinity = 0;
-			sec->dup_out->predecessor = pre_node;
-		}
+			node_duplicated(pre_node, sec, w);
 	}
-	else if (pre_node->infinity == 0 && sec->infinity == 0) // if both nodes have already been connected to a previous one
+	else if (pre_node->infinity == 0 && sec->infinity == 0)
 	{
 		if (sec->reach_cost > (pre_node->reach_cost + w))
 		{
@@ -69,4 +70,11 @@ void	try_reduce(t_node *pre, t_node *sec, int w, int *changed)
 			sec->predecessor = pre_node;
 		}
 	}
+}
+
+void	node_duplicated(t_node *pre_node, t_node *sec, int w)
+{
+	sec->dup_out->reach_cost = pre_node->reach_cost + w;
+	sec->dup_out->infinity = 0;
+	sec->dup_out->predecessor = pre_node;
 }

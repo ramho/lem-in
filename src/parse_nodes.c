@@ -71,7 +71,7 @@ int		store_node(t_lemin *l, t_node *node)
 		while (tmp)
 		{
 			if (ft_strequ(tmp->name, node->name))
-				return (0); // "duplicate room"
+				return (0);
 			tmp = tmp->next;
 		}
 		node->next = l->node_tab[node->key];
@@ -101,8 +101,8 @@ int		parse_nodes(t_lemin *l)
 	node->key = hash(l, &i, ' ');
 	node->reach_cost = 0;
 	node->ant = 0;
-	node->predecessor = ft_memalloc(sizeof(t_node));
-	if (!(node->name = (char*)ft_memalloc(sizeof(char) * (i + 1))))
+	if (!(node->predecessor = ft_memalloc(sizeof(t_node))) ||
+		!(node->name = (char*)ft_memalloc(sizeof(char) * (i + 1))))
 		return (0);
 	ft_strncpy(node->name, l->line, i);
 	node->name[i] = 0;

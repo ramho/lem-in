@@ -12,42 +12,38 @@
 
 #include "../includes/lemin.h"
 
-void print_path(t_lemin *lemin)
+void	print_path(t_lemin *lemin)
 {
-	int i;
-	int count;
+	int		i;
 
 	if (!(lemin->ant_tab = ft_memalloc(sizeof(t_ant) * lemin->nb_ants)))
-		free_error(lemin, 4, lemin->nb_bellmanf_path);
+		free_error(lemin, 3, lemin->nb_bellmanf_path);
 	i = 0;
 	if (lemin->nb_bellmanf_path == 1)
 	{
-		while ( i < lemin->nb_ants )
+		while (i < lemin->nb_ants)
 		{
-			if (!(init_ants(lemin->ant_tab, i,lemin->final_path_tab[0])))
-				free_error(lemin, 5, i);
+			if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[0])))
+				free_error(lemin, 1, i);
 			i++;
 		}
 	}
 	else
 		dispatch_ant_in_path(lemin);
-	count = 0;
 	while (lemin->ant_in_end < lemin->nb_ants)
 	{
 		update_ant(lemin->ant_tab, lemin->nb_ants, lemin);
 		print_ant(lemin->ant_tab, lemin->nb_ants, lemin);
 		ft_printf("\n");
-		count++;
 	}
-	printf("Lines %d\n", count);
 }
 
-void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
+void	print_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
 {
-	int i;
+	int		i;
 
 	i = 0;
-	while ( i < nb_ant)
+	while (i < nb_ant)
 	{
 		if (tab[i]->node->name != NULL && tab[i]->no_print == 0)
 			ft_printf("L%d-%s ", tab[i]->ant, tab[i]->node->name);
@@ -57,14 +53,14 @@ void print_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
 	}
 }
 
-void print_direct(t_lemin *l)
+void	print_direct(t_lemin *l)
 {
-	int i;
+	int		i;
 
 	i = 1;
 	while (i <= l->nb_ants)
 	{
-		ft_printf("L%d_%s\n",i, l->end_node->name);
+		ft_printf("L%d_%s\n", i, l->end_node->name);
 		i++;
 	}
 	exit(1);

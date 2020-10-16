@@ -21,9 +21,11 @@ void	get_file_content(t_lemin *lemin)
 	while ((lemin->ret = read(0, lemin->buff, LEMIN_READ_BUFF)) > 0)
 	{
 		lemin->buff[lemin->ret] = 0;
-		if (!(parse_buff(lemin))) // ?
-			free_lemin(lemin); // ? break meme si code est bon ?
+		if (!(parse_buff(lemin)))
+			free_lemin(lemin);
 	}
+	if (lemin->nb_ants == 1)
+		lemin->nb_path = 1;
 	if (lemin->nb_start_out == 0 || lemin->nb_end_in == 0)
 		exit(1);
 	if (lemin->nb_start_out == lemin->nb_end_in)
@@ -34,9 +36,9 @@ void	get_file_content(t_lemin *lemin)
 		lemin->nb_path = lemin->nb_start_out;
 }
 
-int main()
+int		main(int ac, char **av)
 {
-	t_lemin *lemin;
+	t_lemin	*lemin;
 
 	if (!(lemin = ft_memalloc(sizeof(t_lemin))))
 		return (-1);
@@ -48,6 +50,6 @@ int main()
 		return (0);
 	get_path(lemin);
 	print_path(lemin);
-	// free_ants();
+	free_everything(lemin);
 	return (0);
 }

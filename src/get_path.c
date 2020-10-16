@@ -12,16 +12,15 @@
 
 #include "../includes/lemin.h"
 
-
-void get_path(t_lemin *l)
+void	get_path(t_lemin *l)
 {
-	int path;
-	int i;
+	int	path;
+	int	i;
 
 	select_edge(l);
 	if (!(l->final_path_tab = ft_memalloc(sizeof(t_path) * l->nb_bellmanf_path))
-	|| !(l->len_tab = ft_memalloc(sizeof(int) * l->nb_bellmanf_path)))
-		free_error(l, 3, 0);
+		|| !(l->len_tab = ft_memalloc(sizeof(int) * l->nb_bellmanf_path)))
+		free_error(l, 2, 0);
 	i = 0;
 	path = 0;
 	while (i < l->nb_bellmanf_path)
@@ -32,15 +31,16 @@ void get_path(t_lemin *l)
 			free(l->final_path_tab[path]);
 		i++;
 	}
+	free_path(l->path_tab, l->nb_bellmanf_path);
 	l->nb_bellmanf_path = path;
 	count_length(l, path);
 	if (l->nb_bellmanf_path > 1)
 		sort_int_tab(l, l->nb_bellmanf_path);
 }
 
-void select_edge(t_lemin *lemin)
+void	select_edge(t_lemin *lemin)
 {
-	t_edge *edge;
+	t_edge	*edge;
 
 	edge = lemin->edge_tab;
 	while (edge)
@@ -61,32 +61,34 @@ void select_edge(t_lemin *lemin)
 	}
 }
 
-
-int get_next_node(t_node *start, t_lemin *lemin, int i) //recursive
+int		get_next_node(t_node *start, t_lemin *lemin, int i)
 {
-	t_link *link;
-	t_edge *edge;
+	t_link	*link;
+	t_edge	*edge;
 
 	link = start->links;
 	while (link)
 	{
 		edge = lemin->edge_tab;
-		if ((check_edge(edge, start, link, i, lemin)) == 1)
-			return(1);
+		if ((check_edge(start, link, i, lemin)) == 1)
+			return (1);
 		link = link->next;
 	}
 	return (0);
 }
 
-int check_edge(t_edge *ed, t_node *start, t_link *link, int i, t_lemin *l)
+int		check_edge(t_node *start, t_link *link, int i, t_lemin *l)
 {
+	t_edge *ed;
+
+	ed = l->edge_tab;
 	while (ed)
 	{
 		if ((ed->predecessor == start && ed->successor == link->room
-					&& ed->no_go == 0 && link->used == 0)
-				|| (ed->reversed->predecessor == start
-					&& ed->reversed->successor == link->room
-					&& ed->reversed->no_go == 0 && link->used == 0))
+			&& ed->no_go == 0 && link->used == 0)
+			|| (ed->reversed->predecessor == start
+			&& ed->reversed->successor == link->room
+			&& ed->reversed->no_go == 0 && link->used == 0))
 		{
 			link->used = 1;
 			add_node_link_to_final_path(l, link->room, i);
@@ -98,16 +100,16 @@ int check_edge(t_edge *ed, t_node *start, t_link *link, int i, t_lemin *l)
 		else
 			ed = ed->next;
 	}
-	return(0);
+	return (0);
 }
 
-void add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i)
+void	add_node_link_to_final_path(t_lemin *lemin, t_node *node, int i)
 {
-	t_path *new;
-	t_path *index;
+	t_path	*new;
+	t_path	*index;
 
 	if (!(new = ft_memalloc(sizeof(t_path))))
-		free_error(lemin, 4, i);
+		free_error(lemin, 3, i);
 	new->node = node;
 	new->visited = 0;
 	new->ant = 0;

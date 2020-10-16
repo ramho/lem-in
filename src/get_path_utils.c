@@ -1,11 +1,11 @@
 #include "../includes/lemin.h"
 
-void sort_int_tab(t_lemin *lemin, int size)
+void	sort_int_tab(t_lemin *lemin, int size)
 {
-	int i;
-	int j;
-	int tmp;
-	t_path *buf;
+	int		i;
+	int		j;
+	int		tmp;
+	t_path	*buf;
 
 	i = 0;
 	while (i < size)
@@ -28,10 +28,10 @@ void sort_int_tab(t_lemin *lemin, int size)
 	}
 }
 
-void count_length(t_lemin *l, int path)
+void	count_length(t_lemin *l, int path)
 {
-	int i;
-	t_path *index;
+	int		i;
+	t_path	*index;
 
 	i = 0;
 	while (i < path)

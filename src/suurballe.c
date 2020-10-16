@@ -12,11 +12,11 @@
 
 #include "../includes/lemin.h"
 
-void	create_dup_room(t_lemin * lemin, t_node *node)
+void	create_dup_room(t_lemin *lemin, t_node *node)
 {
 	node->duplicated = 1;
 	if (!(node->dup_out = malloc(sizeof(t_node))))
-		free_error(lemin, 2, 0);
+		free_first_path(lemin);
 	node->dup_out->name = node->name;
 	node->dup_out->reach_cost = 0;
 	node->dup_out->infinity = 1;

@@ -1,6 +1,7 @@
-int ft_numlen(long long n)
+#include "libft.h"
+int		ft_numlen(long long n)
 {
-	int		i;
+int		i;
 
 	i = 0;
 	if (n == 0)

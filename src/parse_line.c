@@ -14,7 +14,7 @@
 
 void	parse_ant(t_lemin *l)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (l->line[++i] != '\n')
@@ -25,9 +25,9 @@ void	parse_ant(t_lemin *l)
 			l->nb_ants += (l->line[i] - '0');
 		}
 		else
-			free_lemin(l) ; // "ERROR : wrong nb_ant format\n"
+			free_lemin(l);
 		if (l->nb_ants < 0 || l->nb_ants > INT_MAX)
-			free_lemin(l) ; // "ERROR : not positive int\n"
+			free_lemin(l);
 	}
 	l->parse_flag = 1;
 }
@@ -59,7 +59,7 @@ int		parse_flag_one(t_lemin *l)
 	else
 	{
 		if (l->start_room + l->end_room != 4)
-			return (0); // "ERROR : no start or end room."
+			return (0);
 		l->parse_flag++;
 		if (!(parse_edges(l, -1, 0, 0)))
 			return (0);
@@ -89,7 +89,7 @@ int		parse_line(t_lemin *l)
 	else if (!l->parse_flag)
 		parse_ant(l);
 	else
-		return (0); // "ERROR : wrong line format\n"
+		return (0);
 	l->hash_tag = 0;
 	l->space = 0;
 	l->tiret = 0;

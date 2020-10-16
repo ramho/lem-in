@@ -12,10 +12,10 @@
 
 #include "../includes/lemin.h"
 
-void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
+void	update_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
 {
-	int i;
-	static int flag;
+	int			i;
+	static int	flag;
 
 	i = 0;
 	flag = 0;
@@ -33,16 +33,15 @@ void update_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
 			move_ant(tab[i], lemin);
 		i++;
 	}
-
 }
 
-int move_ant(t_ant *ant, t_lemin *lemin)
+int		move_ant(t_ant *ant, t_lemin *lemin)
 {
 	if (ant->end == 0)
 	{
-		if ( ant->node->name == NULL)
+		if (ant->node->name == NULL)
 		{
-			if ( ant->path->ant == 1)
+			if (ant->path->ant == 1)
 				return (0);
 			ant->node = ant->path->node;
 			ant->path->ant = 1;
@@ -63,13 +62,13 @@ int move_ant(t_ant *ant, t_lemin *lemin)
 	return (1);
 }
 
-int	init_ants(t_ant **tab, int ant, t_path *path)
+int		init_ants(t_ant **tab, int ant, t_path *path)
 {
 	t_ant	*new;
-	//
+
 	if (!(new = ft_memalloc(sizeof(t_ant))))
 		return (0);
-	new->ant = ant+1;
+	new->ant = ant + 1;
 	new->end = 0;
 	new->no_print = 0;
 	new->path = path;
