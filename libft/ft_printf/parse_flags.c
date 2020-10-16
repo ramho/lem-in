@@ -63,14 +63,13 @@ int			light_flags_bis(int *i, char *str, t_base *all)
 int			light_flags(t_base *all, char *str)
 {
 	int		i;
-	int		ret;
 
 	i = 0;
 	all->malloc = 0;
 	if (!((is_type(str[ft_strlen(str) - 1])) || str[ft_strlen(str) - 1] == '%'))
 		return (no_conversion_char(str, all));
 	all->flag = init_flag(all->flag);
-	ret = light_flags_bis(&i, str, all);
+	light_flags_bis(&i, str, all);
 	all->type = str[i];
 	all->flag.minus == 1 ? all->flag.zero = 0 : 0;
 	all->flag.plus == 1 ? all->flag.space = 0 : 0;

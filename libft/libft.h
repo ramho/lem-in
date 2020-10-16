@@ -13,6 +13,7 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <stdio.h>
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
@@ -21,8 +22,8 @@
 # include <limits.h>
 # include <stdint.h>
 
-# ifdef __APPLE__
-#  define FOPEN_MAX OPEN_MAX
+# ifdef __linux
+#  define OPEN_MAX FOPEN_MAX
 # endif
 
 # define BUFF_SIZE 100
@@ -37,7 +38,7 @@ typedef	struct		s_list
 typedef struct		s_gnl
 {
 	char			buff[BUFF_SIZE + 1];
-	char			*rest[FOPEN_MAX];
+	char			*rest[OPEN_MAX];
 	int				ret;
 	char			*ptr;
 }					t_gnl;
