@@ -6,13 +6,9 @@
 /*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/12 15:18:51 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/16 17:25:57 by Ramata           ###   ########.fr       */
+/*   Updated: 2020/10/16 17:43:16 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// #ifdef __unix__
-// # define OPEN_MAX FOPEN_MAX
-// #endif
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -23,9 +19,10 @@
 # include <math.h>
 # include <stdarg.h>
 # include <limits.h>
+# include <stdint.h>
 
-# ifdef __unix__
-#  define OPEN_MAX FOPEN_MAX
+# ifdef __APPLE__
+#  define FOPEN_MAX OPEN_MAX
 # endif
 
 # define BUFF_SIZE 100
@@ -40,7 +37,7 @@ typedef	struct		s_list
 typedef struct		s_gnl
 {
 	char			buff[BUFF_SIZE + 1];
-	char			*rest[OPEN_MAX];
+	char			*rest[FOPEN_MAX];
 	int				ret;
 	char			*ptr;
 }					t_gnl;
