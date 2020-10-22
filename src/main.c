@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:33:10 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/13 15:48:58 by jcarere          ###   ########.fr       */
+/*   Updated: 2020/10/22 17:28:37 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	get_file_content(t_lemin *lemin)
 		lemin->nb_path = lemin->nb_start_out;
 }
 
-int		main(int ac, char **av)
+int		main(void)
 {
 	t_lemin	*lemin;
 
@@ -50,6 +50,6 @@ int		main(int ac, char **av)
 		return (0);
 	get_path(lemin);
 	print_path(lemin);
-	free_everything(lemin);
+	// free_everything(lemin);
 	return (0);
 }

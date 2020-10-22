@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:31:27 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/14 18:25:51 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:28:10 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	print_path(t_lemin *lemin)
 {
 	int		i;
+	int		count;
 
+	count = 0;
 	if (!(lemin->ant_tab = ft_memalloc(sizeof(t_ant) * lemin->nb_ants)))
 		free_error(lemin, 3, lemin->nb_bellmanf_path);
 	i = 0;
@@ -32,10 +34,14 @@ void	print_path(t_lemin *lemin)
 		dispatch_ant_in_path(lemin);
 	while (lemin->ant_in_end < lemin->nb_ants)
 	{
+		// printf("11\n");
 		update_ant(lemin->ant_tab, lemin->nb_ants, lemin);
+		// printf("22\n");
 		print_ant(lemin->ant_tab, lemin->nb_ants, lemin);
 		ft_printf("\n");
+		count++;
 	}
+	ft_printf("%d lines\n", count);
 }
 
 void	print_ant(t_ant **tab, int nb_ant, t_lemin *lemin)

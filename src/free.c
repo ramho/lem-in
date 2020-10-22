@@ -6,7 +6,7 @@
 /*   By: Ramata <Ramata@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 16:38:15 by Ramata            #+#    #+#             */
-/*   Updated: 2020/10/16 16:38:20 by Ramata           ###   ########.fr       */
+/*   Updated: 2020/10/22 14:45:29 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_lemin(t_lemin *lemin)
 
 void	free_error(t_lemin *l, int error, int size)
 {
+	
 	if (error == 1)
 	{
 		free_ant(l->ant_tab, size);

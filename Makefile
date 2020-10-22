@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+         #
+#    By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/27 16:28:36 by rhoorntj          #+#    #+#              #
-#    Updated: 2020/09/30 14:56:09 by rhoorntj         ###   ########.fr        #
+#    Updated: 2020/10/20 17:53:05 by Ramata           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
-CC = gcc  #-fsanitize=address
-#FLAGS += -Wall -Wextra -Werror
+CC = gcc
+FLAGS = -Wall -Wextra -Werror
 LIBFT = $(LIBDIR)libft.a
 SRCDIR = ./src/
 OBJDIR = ./obj/
@@ -55,13 +55,13 @@ $(NAME): $(OBJSUBDIR) $(OBJ)
 
 clean:
 	@rm -rf $(OBJDIR)
-	@echo "$(C_CYAN)Deleting filler OBJ         [$(C_GREEN)✔$(C_CYAN)]"
+	@echo "$(C_CYAN)Deleting lem-in OBJ         [$(C_GREEN)✔$(C_CYAN)]"
 	@make -C $(LIBDIR) clean
 	@echo "$(C_CYAN)Deleting Libft OBJ          [$(C_GREEN)✔$(C_CYAN)]$(C_RESET)"
 
 fclean: clean
 	@rm -rf $(NAME)
-	@echo "$(C_CYAN)Deleting filler             [$(C_GREEN)✔$(C_CYAN)]"
+	@echo "$(C_CYAN)Deleting lem-in             [$(C_GREEN)✔$(C_CYAN)]"
 	@rm -rf $(LIBFT)
 	@echo "$(C_CYAN)Deleting libft.a            [$(C_GREEN)✔$(C_CYAN)]$(C_RESET)"
 

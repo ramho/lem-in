@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ant_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 17:54:32 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/11 18:30:56 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:27:52 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	update_ant(t_ant **tab, int nb_ant, t_lemin *lemin)
 {
 	int			i;
 	static int	flag;
-
+// printf("in update ant\n");
 	i = 0;
 	flag = 0;
 	while (i < nb_ant)

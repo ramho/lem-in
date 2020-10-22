@@ -6,7 +6,7 @@
 /*   By: Ramata <Ramata@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 16:38:30 by Ramata            #+#    #+#             */
-/*   Updated: 2020/10/16 16:38:39 by Ramata           ###   ########.fr       */
+/*   Updated: 2020/10/22 16:41:16 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	count_length(t_lemin *l, int path)
 		index = l->final_path_tab[i];
 		while (index)
 		{
+			index->used = 0;
 			l->len_tab[i] += 1;
 			index = index->next;
 		}

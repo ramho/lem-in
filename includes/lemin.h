@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:35:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/14 17:43:22 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:18:13 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ struct					s_path
 	t_node			*node;
 	int				visited;
 	int				ant;
+	int used;
 	t_path			*next;
 }						;
 
@@ -123,7 +124,7 @@ struct					s_lemin
 /*
 **  main.c
 */
-int						main(int ac, char **av);
+int						main(void);
 void					get_file_content(t_lemin *lemin);
 
 /*

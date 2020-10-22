@@ -3,68 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   path_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 17:54:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/07 17:58:01 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/22 18:17:24 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
+int find_smallest_value(int *tab, int tab_len)
+{
+	int i;
+	int smallest;
+
+// printf("in smallest tab len [%d]\n", tab_len);
+	i = 1;
+	smallest = 0;
+	while (i < tab_len)
+	{
+		// printf("[%d]/[%d]\n", smallest, tab_len);
+		if(tab[i] < tab[smallest])
+			smallest = i;
+		i++;
+	}
+	return (smallest);
+
+}
+
 void	dispatch_ant_in_path(t_lemin *lemin)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
-	i = 0;
-	j = 0;
-	while (j < lemin->nb_bellmanf_path)
-	{
-		if (j == (lemin->nb_bellmanf_path - 2))
+		i = 0;
+		j = 0;
+		// printf("in dispatch\n");
+		while (j < lemin->nb_bellmanf_path)
 		{
-			choose_from_last_path(lemin, i, j);
-			j = 0;
+			j = find_smallest_value(lemin->len_tab, lemin->nb_bellmanf_path);
+			// printf("j = %d \n", j);
+			if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[j])))
+					free_error(lemin, 1, i);
+			if (lemin->final_path_tab[j]->used == 0)
+				lemin->final_path_tab[j]->used = 1;
+			else
+				lemin->len_tab[j] += 1;
+			i++;
+			if (i == lemin->nb_ants)
+				return ;
 		}
-		else
-		{
-			choose_path_except_last(lemin, i, &j);
-		}
-		i++;
-		if (i == lemin->nb_ants)
-			return ;
-	}
-}
-
-void	choose_from_last_path(t_lemin *lemin, int i, int j)
-{
-	if (lemin->len_tab[j] > lemin->len_tab[j + 1])
-	{
-		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[j + 1])))
-			free_error(lemin, 1, i);
-		lemin->len_tab[j + 1] += 1;
-	}
-	else
-	{
-		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[0])))
-			free_error(lemin, 1, i);
-		lemin->len_tab[j] += 1;
-	}
-}
-
-void	choose_path_except_last(t_lemin *lemin, int i, int *j)
-{
-	if (lemin->len_tab[*j] > lemin->len_tab[*j + 1])
-	{
-		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j + 1])))
-			free_error(lemin, 1, i);
-		lemin->len_tab[*j + 1] += 1;
-		*j += 1;
-	}
-	else
-	{
-		if (!(init_ants(lemin->ant_tab, i, lemin->final_path_tab[*j])))
-			free_error(lemin, 1, i);
-		lemin->len_tab[*j] += 1;
-	}
 }
