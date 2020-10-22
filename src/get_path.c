@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:32:03 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/22 18:25:26 by Ramata           ###   ########.fr       */
+/*   Updated: 2020/10/22 19:22:28 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	get_path(t_lemin *l)
 	int	path;
 	int	i;
 
-	// printf("fourmis [%d] final path [%d]\n", l->nb_ants, l->nb_bellmanf_path);
+	printf("fourmis [%d] path [%d]\n", l->nb_ants, l->nb_bellmanf_path);
 	select_edge(l);
 	if (!(l->final_path_tab = ft_memalloc(sizeof(t_path) * l->nb_bellmanf_path))
 		|| !(l->len_tab = ft_memalloc(sizeof(int) * l->nb_bellmanf_path)))
@@ -38,20 +38,23 @@ void	get_path(t_lemin *l)
 	if (l->nb_bellmanf_path > 1)
 		sort_int_tab(l, l->nb_bellmanf_path);
 
-// 	i = 0;
-// t_path * index;
-// 	while (i < l->nb_bellmanf_path)
-// 	{
-// 		index = l->final_path_tab[i];
-// 		while (index)
-// 		{
-// 			printf("%s ", index->node->name);
-// 			index = index->next;
-// 		}
-// 		printf("	[%d]\n", l->len_tab[i]);
-// 		i++;
-// 	}
-// 	printf("\n\n");
+printf("path [%d]	\n", l->nb_bellmanf_path);
+	i = 0;
+t_path * index;
+	while (i < l->nb_bellmanf_path)
+	{
+		printf("[%d] ", i);
+		index = l->final_path_tab[i];
+		while (index)
+		{
+			printf("%s ", index->node->name);
+			index = index->next;
+		}
+		printf("\n");
+		// printf("	[%d]\n", l->len_tab[i]);
+		i++;
+	}
+	printf("\n\n");
 }
 
 void	select_edge(t_lemin *lemin)

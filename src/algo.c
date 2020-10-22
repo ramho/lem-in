@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:31:39 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/22 18:26:03 by Ramata           ###   ########.fr       */
+/*   Updated: 2020/10/22 19:24:50 by Ramata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,17 @@ int		start_algo(t_lemin *lemin)
 		free_error(lemin, 1, 0);
 	i = 0;
 	lemin->nb_bellmanf_path = 0;
+	printf("path possible [%d]\n", lemin->nb_path);
 	while (i < lemin->nb_path)
 	{
-		// if (bellman_ford(lemin) == 1)
-		// 	return (0);
-		bellman_ford(lemin);
+		if (bellman_ford(lemin) == 1)
+			return (0);
+		// bellman_ford(lemin);
 		ret = 0;
 		ret = init_save_path(lemin, lemin->nb_bellmanf_path);
-		if (ret == 0)
-			return (0);
+		// if (ret == 0)
+		// 	return (0);
+		printf("out of init [%d]\n", i);
 		lemin->nb_bellmanf_path += ret;
 		if (ret != 0 || (i + 1) < lemin->nb_path)
 		{
@@ -113,5 +115,6 @@ int		start_algo(t_lemin *lemin)
 		}
 		i++;
 	}
+	printf("\n\npath algo [%d] \n\n", lemin->nb_bellmanf_path);
 	return (0);
 }
