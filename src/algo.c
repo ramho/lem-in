@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:31:39 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/22 19:24:50 by Ramata           ###   ########.fr       */
+/*   Updated: 2020/10/24 17:38:50 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@ int		init_save_path(t_lemin *lemin, int index_path)
 	head->next = new;
 	if (!(save_path(lemin, head, new)))
 		return (0);
+
+
+	// t_path *index;
+	//
+	// index = lemin->path_tab[index_path];
+	//
+	// while (index)
+	// {
+	// 	printf("%s ", index->node->name);
+	// 	index=index->next;
+	// }
+	// printf("\n");
 	return (1);
 }
 
@@ -106,9 +118,9 @@ int		start_algo(t_lemin *lemin)
 		ret = init_save_path(lemin, lemin->nb_bellmanf_path);
 		// if (ret == 0)
 		// 	return (0);
-		printf("out of init [%d]\n", i);
+		// printf("[%d] out of init [%d]\n", i, ret);
 		lemin->nb_bellmanf_path += ret;
-		if (ret != 0 || (i + 1) < lemin->nb_path)
+		if (ret == 1 || (i + 1) < lemin->nb_path)
 		{
 			suurballe(lemin, lemin->nb_bellmanf_path - 1);
 			init_infinity_and_reach_cost(lemin);

@@ -6,7 +6,7 @@
 /*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:33:40 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/14 16:58:36 by rhoorntj         ###   ########.fr       */
+/*   Updated: 2020/10/24 17:35:35 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	create_dup_room(t_lemin *lemin, t_node *node)
 
 void	check_if_valid(t_node *pre, t_node *suc, t_edge *edge, t_lemin *lemin)
 {
+	// printf("suurballe pre [%s] suc [%s]  edge[%s][%s]\n", pre->name, suc->name, edge->predecessor->name, edge->successor->name);
 	if ((pre == edge->predecessor) && (suc == edge->successor))
 	{
+		// printf("1\n");
 		edge->weight = -1;
 		if (suc != lemin->start_node)
 			create_dup_room(lemin, suc);
@@ -33,19 +35,27 @@ void	check_if_valid(t_node *pre, t_node *suc, t_edge *edge, t_lemin *lemin)
 	if ((pre->name == edge->reversed->predecessor->name)
 		&& (suc->name == edge->reversed->successor->name))
 	{
+		// printf("2\n");
 		edge->reversed->weight = -1;
 		if (suc != lemin->start_node)
 			create_dup_room(lemin, suc);
 	}
-	if ((suc == edge->predecessor) && (pre == edge->successor))
+
+	if ((suc->name == edge->predecessor->name) && (pre->name == edge->successor->name))
+	{
+		// printf("2\n");
 		edge->visited = 1;
+	}
 	if ((suc->name == edge->reversed->predecessor->name)
 		&& (pre->name == edge->reversed->successor->name))
-		edge->reversed->visited = 1;
+{		
+		// printf("1\n");
+		edge->reversed->visited = 1;}
 }
 
 void	suurballe(t_lemin *lemin, int path_index)
 {
+	// printf("in suurballe\n");
 	t_path	*index;
 	t_edge	*edge;
 	t_node	*pre_path;

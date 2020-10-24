@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rhoorntj <rhoorntj@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rhoorntj <rhoorntj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 17:35:55 by rhoorntj          #+#    #+#             */
-/*   Updated: 2020/10/22 17:18:13 by Ramata           ###   ########.fr       */
+/*   Updated: 2020/10/24 14:34:55 by rhoorntj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,7 @@ void					check_if_valid(t_node *pre, t_node *suc, t_edge *edge,
 void					get_path(t_lemin *l);
 void					select_edge(t_lemin *lemin);
 int						get_next_node(t_node *start, t_lemin *lemin, int i);
-void					add_node_link_to_final_path(t_lemin *lemin,
+void					add_node_link_to_path(t_lemin *lemin,
 						t_node *node, int i);
 int						check_edge(t_node *start, t_link *link, int i,
 						t_lemin *l);
